@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/09 15:15:17 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/11 14:36:34 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,20 @@
 						// getcwd, chdir, unlink, execve, dup
 						// dup2, pipe, isatty, ttyname, ttyslot
 
+# include <stdbool.h>	// Booleans
+
 # include <readline/readline.h>	// readline, rl_clear_history, rl_on_new_line
 								// rl_replace_line, rl_redisplay
 # include <readline/history.h>	// add_history
+
+# define ENV	__environ
+# define STDIN	0
+
+typedef struct s_lexer
+{
+	unsigned char	buffer[64];
+	unsigned int	length;
+}	t_lexer;
 
 typedef enum e_tokens
 {
@@ -41,6 +52,14 @@ typedef enum e_tokens
 	OUTPUT_REDIRECT,	// >
 	HEREDOC,			// <<
 	APPEND_REDIRECT,	// >>
+	DOLLAR,				// $
 }	t_tokens;
+
+//===============================//
+//             Utils             //
+//===============================//
+unsigned char	*ft_realloc(unsigned char *old_str, unsigned int old_length,
+					unsigned int new_length);
+void			ft_perror(const unsigned int error);
 
 #endif

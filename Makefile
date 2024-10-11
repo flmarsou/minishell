@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/10/09 13:15:39 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/10/11 15:02:23 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,10 @@ EXE			:=	minishell
 # Files
 VPATH		:=	src
 
-SRC			:=	
+SRC			:=	main.c \
+
+SRC_UTILS	:=	ft_perror.c \
+				ft_realloc.c \
 
 SOURCES		:=	${SRC}
 OBJ_DIR		:=	obj
@@ -24,7 +27,7 @@ OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 
 # Variables
 CC			:=	cc
-CFLAGS		:=  -Iincludes -Wall -Wextra -Werror -fsanitize=address,leak
+CFLAGS		:=  -Iincludes -Wall -Wextra -fsanitize=address,leak
 
 # Makefile
 all:		${EXE}

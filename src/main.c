@@ -20,40 +20,41 @@ unsigned int	fill_buffer(t_lexer *lexer)
 	i = read(STDIN, lexer->buffer, 62);
 	lexer->length += i;
 	end = i;
-	while (i < 62)
-	{
-		lexer->buffer[i - 1] = '\0';
-		i++;
-	}
+	if (i < 62)
+		lexer->buffer[i] = '\0';
 	return (end);
 }
 
-void	fill_string(t_lexer *lexer)
+unsigned char	*fill_string(t_lexer *lexer)
 {
 	unsigned char	*str;
-	unsigned int	end;
+	unsigned int	bytes_read;
 
-	str = (unsigned char *)malloc(sizeof(unsigned char) * (lexer->length + 1));
-	if (!str)
-		exit(1);
-	// TODO: Copy lexer.buffer into str.
+	str = NULL;
+	bytes_read = 0;
+	lexer->length = 0;
 	while (true)
 	{
-		// TODO: Realloc and concatenates str + lexer.buffer.
-		end = fill_buffer(lexer);
-		if (end != 62)
+		bytes_read = fill_buffer(lexer);
+		str = ft_realloc(str, lexer->length - bytes_read, lexer->length);
+		ft_strcpy(str + (lexer->length - bytes_read), lexer->buffer, bytes_read);
+		if (bytes_read != 62)
 			break ;
 	}
+	str[lexer->length] = '\0';
+	return (str);
 }
 
 int	main(void)
 {
 	t_lexer	lexer;
 
-	lexer.length = 0;
-	while (1)
+	unsigned char	*string;
+	while (true)
 	{
-		fill_string(&lexer);
+		string = fill_string(&lexer);
+		printf("\nString:\n%s\n\n", string);
+		free(string);
 	}
 	return (0);
 }

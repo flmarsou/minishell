@@ -58,8 +58,9 @@ typedef enum e_tokens
 //===============================//
 //             Utils             //
 //===============================//
-unsigned char	*ft_realloc(unsigned char *old_str, unsigned int old_length,
-					unsigned int new_length);
+
 void			ft_perror(const unsigned int error);
+unsigned char	*ft_realloc(unsigned char *old_str, unsigned int old_size, unsigned int new_size);
+unsigned char	*ft_strcpy(unsigned char *dest, unsigned char *src, unsigned int size);
 
 #endif

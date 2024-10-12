@@ -14,14 +14,15 @@
 EXE			:=	minishell
 
 # Files
-VPATH		:=	src
+VPATH		:=	src:src/utils
 
 SRC			:=	main.c \
 
 SRC_UTILS	:=	ft_perror.c \
 				ft_realloc.c \
+				ft_strcpy.c \
 
-SOURCES		:=	${SRC}
+SOURCES		:=	${SRC} ${SRC_UTILS}
 OBJ_DIR		:=	obj
 OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 

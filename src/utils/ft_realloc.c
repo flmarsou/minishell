@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 09:07:01 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/11 14:48:34 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:14:09 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ unsigned char	*ft_realloc(unsigned char *old_str, unsigned int old_size, unsigne
 	i = 0;
 	while (i < old_size)
 	{
-		new_str[i] = old_str[i];	
+		new_str[i] = old_str[i];
 		i++;
 	}
 	free(old_str);

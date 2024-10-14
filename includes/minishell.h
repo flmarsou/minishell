@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/11 14:36:34 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/14 09:34:38 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,15 @@
 
 # define ENV	__environ
 # define STDIN	0
+# define STDOUT	1
+
+# define CTRL_C	3
+# define CTRL_D	4
+# define ENTER	10
 
 typedef struct s_lexer
 {
-	unsigned char	buffer[64];
+	unsigned char	*buffer;
 	unsigned int	length;
 }	t_lexer;
 

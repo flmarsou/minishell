@@ -6,55 +6,61 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/11 15:01:37 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/14 09:34:34 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-unsigned int	fill_buffer(t_lexer *lexer)
+void	enable_raw_mode(struct termios *orig_termios)
 {
-	unsigned int	i;
-	unsigned int	end;
+	struct termios	raw;
 
-	i = read(STDIN, lexer->buffer, 62);
-	lexer->length += i;
-	end = i;
-	if (i < 62)
-		lexer->buffer[i] = '\0';
-	return (end);
+	tcgetattr(STDIN, &raw);
+	*orig_termios = raw;
+	raw.c_lflag &= ~(ECHO | ICANON | ISIG);
+	tcsetattr(STDIN, TCSAFLUSH, &raw);
 }
 
-unsigned char	*fill_string(t_lexer *lexer)
+void	disable_raw_mode(struct termios *orig_termios)
 {
-	unsigned char	*str;
-	unsigned int	bytes_read;
-
-	str = NULL;
-	bytes_read = 0;
-	lexer->length = 0;
-	while (true)
-	{
-		bytes_read = fill_buffer(lexer);
-		str = ft_realloc(str, lexer->length - bytes_read, lexer->length);
-		ft_strcpy(str + (lexer->length - bytes_read), lexer->buffer, bytes_read);
-		if (bytes_read != 62)
-			break ;
-	}
-	str[lexer->length] = '\0';
-	return (str);
+	tcsetattr(STDIN, TCSAFLUSH, orig_termios);
 }
 
 int	main(void)
 {
-	t_lexer	lexer;
+	struct termios	orig_termios;
+	t_lexer			lexer;
+	unsigned char	character;
+	char			byte;
 
-	unsigned char	*string;
+	enable_raw_mode(&orig_termios);
 	while (true)
 	{
-		string = fill_string(&lexer);
-		printf("\nString:\n%s\n\n", string);
-		free(string);
+		lexer.length = 0;
+		lexer.buffer = NULL;
+		write(STDOUT, "-> ", 3);
+		while (true)
+		{
+			byte = read(STDIN, &character, 1);
+			if (!byte || character == CTRL_D)
+			{
+				write(STDOUT, "\n", 1);
+				disable_raw_mode(&orig_termios);
+				exit(0);
+			}
+			if (character == ENTER)
+				break ;
+			write(STDOUT, &character, 1);
+			lexer.buffer = ft_realloc(lexer.buffer, lexer.length, lexer.length + 2);
+			lexer.buffer[lexer.length] = character;
+			lexer.length += byte;
+			lexer.buffer[lexer.length] = '\0';
+		}
+		write(STDOUT, "\n", 1);
+		if (lexer.buffer)
+			free(lexer.buffer);
 	}
+	disable_raw_mode(&orig_termios);
 	return (0);
 }

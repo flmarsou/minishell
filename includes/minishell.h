@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/14 09:34:38 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/15 10:37:28 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,12 @@ typedef enum e_tokens
 void			ft_perror(const unsigned int error);
 unsigned char	*ft_realloc(unsigned char *old_str, unsigned int old_size, unsigned int new_size);
 unsigned char	*ft_strcpy(unsigned char *dest, unsigned char *src, unsigned int size);
+void			ft_putstr(unsigned char *str);
+
+//===============================//
+//           Builtins            //
+//===============================//
+
+void			echo(unsigned char **args);
 
 #endif

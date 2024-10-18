@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/15 10:37:28 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/10/18 13:53:59 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,12 @@ unsigned char	*ft_realloc(unsigned char *old_str, unsigned int old_size, unsigne
 unsigned char	*ft_strcpy(unsigned char *dest, unsigned char *src, unsigned int size);
 void			ft_putstr(unsigned char *str);
 
+void			rl_input(t_lexer *lexer);
+
 //===============================//
 //           Builtins            //
 //===============================//
 
-void			echo(unsigned char **args);
+void			ft_echo(unsigned char **args);
 
 #endif

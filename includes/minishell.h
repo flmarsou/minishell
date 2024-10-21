@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/18 13:53:59 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/21 09:26:51 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@
 # define CTRL_D	4
 # define ENTER	10
 
+# define ORANGE			"\e[34m"
+# define RESET_COLOR	"\e[0m"
+
 typedef struct s_lexer
 {
 	unsigned char	*buffer;
@@ -61,7 +64,7 @@ typedef enum e_tokens
 }	t_tokens;
 
 //===============================//
-//             Utils             //
+//     Utils                     //
 //===============================//
 
 void			ft_perror(const unsigned int error);
@@ -69,10 +72,17 @@ unsigned char	*ft_realloc(unsigned char *old_str, unsigned int old_size, unsigne
 unsigned char	*ft_strcpy(unsigned char *dest, unsigned char *src, unsigned int size);
 void			ft_putstr(unsigned char *str);
 
-void			rl_input(t_lexer *lexer);
+//===============================//
+//     Input                     //
+//===============================//
+
+void			enable_raw_mode(struct termios *orig_termios);
+void			disable_raw_mode(struct termios *orig_termios);
+
+void			read_user_input(t_lexer *lexer);
 
 //===============================//
-//           Builtins            //
+//     Builtins                  //
 //===============================//
 
 void			ft_echo(unsigned char **args);

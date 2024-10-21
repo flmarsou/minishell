@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/10/18 14:01:25 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/10/21 09:20:28 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 EXE			:=	minishell
 
 # Files
-VPATH		:=	src:src/utils:src/readline
+VPATH		:=	src:src/utils:src/input
 
 SRC			:=	main.c \
 
@@ -22,9 +22,10 @@ SRC_UTILS	:=	ft_perror.c \
 				ft_realloc.c \
 				ft_strcpy.c \
 
-SRC_RL		:=	rl_input.c \
+SRC_INPUT	:=	raw_mode.c \
+				read_user_input.c \
 
-SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_RL}
+SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_INPUT}
 OBJ_DIR		:=	obj
 OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 

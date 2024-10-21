@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/18 13:59:31 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/21 08:58:35 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ int	main(void)
 {
 	t_lexer	lexer;
 
-	rl_input(&lexer);
+	read_user_input(&lexer);
 	return (0);
 }

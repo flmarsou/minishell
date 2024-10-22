@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/10/21 09:20:28 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/10/22 09:43:43 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,18 +14,21 @@
 EXE			:=	minishell
 
 # Files
-VPATH		:=	src:src/utils:src/input
+VPATH		:=	src:src/utils:src/input:src/lexer
 
 SRC			:=	main.c \
 
 SRC_UTILS	:=	ft_perror.c \
 				ft_realloc.c \
 				ft_strcpy.c \
+				ft_isprint.c \
 
 SRC_INPUT	:=	raw_mode.c \
 				read_user_input.c \
 
-SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_INPUT}
+SRC_LEXER	:=	tokenizer.c \
+
+SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_INPUT} ${SRC_LEXER}
 OBJ_DIR		:=	obj
 OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 

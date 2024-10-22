@@ -6,18 +6,18 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 13:49:16 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/21 09:27:16 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/22 09:21:33 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	process_control_characters(t_lexer *lexer, unsigned char character)
+static bool	process_control_characters(t_input *input, unsigned char character)
 {
-	if (lexer->buffer)
-		free(lexer->buffer);
-	lexer->length = 0;
-	lexer->buffer = NULL;
+	if (input->buffer)
+		free(input->buffer);
+	input->length = 0;
+	input->buffer = NULL;
 	if (character == CTRL_C)
 		return (true);
 	else if (character == CTRL_D)
@@ -51,7 +51,7 @@ static bool	process_escape_sequence(void)
 	return (false);
 }
 
-static bool	handle_input(t_lexer *lexer)
+static bool	handle_input(t_input *input)
 {
 	unsigned char	character;
 	signed int		byte;
@@ -67,33 +67,35 @@ static bool	handle_input(t_lexer *lexer)
 		if (character == '\e')
 			return (process_escape_sequence());
 		if (character == CTRL_C || character == CTRL_D)
-			return (process_control_characters(lexer, character));
-		else
+			return (process_control_characters(input, character));
+		if (ft_isprint(character))
 		{
 			write(STDOUT, &character, 1);
-			lexer->buffer = ft_realloc(lexer->buffer, lexer->length, lexer->length + 2);
-			lexer->buffer[lexer->length] = character;
-			lexer->buffer[++lexer->length] = '\0';
+			input->buffer = ft_realloc(input->buffer, input->length, input->length + 2);
+			input->buffer[input->length] = character;
+			input->buffer[++input->length] = '\0';
 		}
 	}
 	return (true);
 }
 
-void	read_user_input(t_lexer *lexer)
+void	read_user_input(void)
 {
+	t_input	input;
 	struct termios	orig_termios;
 
 	enable_raw_mode(&orig_termios);
 	while (true)
 	{
-		lexer->length = 0;
-		lexer->buffer = NULL;
-		if (handle_input(lexer) == false)
+		input.length = 0;
+		input.buffer = NULL;
+		if (handle_input(&input) == false)
 			break ;
 		write(STDOUT, "\n", 1);
-		printf("%s | %u\n\n", lexer->buffer, lexer->length);
-		if (lexer->buffer)
-			free(lexer->buffer);
+		printf("%s | %u\n\n", input.buffer, input.length); // Debug
+		// tokenizer(input.buffer);
+		if (input.buffer)
+			free(input.buffer);
 	}
 	disable_raw_mode(&orig_termios);
 }

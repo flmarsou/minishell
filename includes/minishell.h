@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/21 09:26:51 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:11:57 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,17 @@
 # define ORANGE			"\e[34m"
 # define RESET_COLOR	"\e[0m"
 
-typedef struct s_lexer
+typedef struct s_input
 {
 	unsigned char	*buffer;
 	unsigned int	length;
+}	t_input;
+
+typedef struct s_lexer
+{
+	unsigned char	*str;
+	unsigned int	token;
+	struct s_lexer	*next;
 }	t_lexer;
 
 typedef enum e_tokens
@@ -71,6 +78,7 @@ void			ft_perror(const unsigned int error);
 unsigned char	*ft_realloc(unsigned char *old_str, unsigned int old_size, unsigned int new_size);
 unsigned char	*ft_strcpy(unsigned char *dest, unsigned char *src, unsigned int size);
 void			ft_putstr(unsigned char *str);
+bool			ft_isprint(unsigned char c);
 
 //===============================//
 //     Input                     //
@@ -79,7 +87,13 @@ void			ft_putstr(unsigned char *str);
 void			enable_raw_mode(struct termios *orig_termios);
 void			disable_raw_mode(struct termios *orig_termios);
 
-void			read_user_input(t_lexer *lexer);
+void			read_user_input();
+
+//===============================//
+//     Lexer                     //
+//===============================//
+
+void			tokenizer(unsigned char *input);
 
 //===============================//
 //     Builtins                  //

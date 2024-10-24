@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/10/22 09:43:43 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/10/24 12:45:00 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,16 +25,17 @@ SRC_UTILS	:=	ft_perror.c \
 
 SRC_INPUT	:=	raw_mode.c \
 				read_user_input.c \
+				edit_user_input.c \
 
 SRC_LEXER	:=	tokenizer.c \
 
-SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_INPUT} ${SRC_LEXER}
+SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_INPUT}
 OBJ_DIR		:=	obj
 OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 
 # Variables
 CC			:=	cc
-CFLAGS		:=  -Iincludes -Wall -Wextra -fsanitize=address,leak
+CFLAGS		:=  -Iincludes -Wall -Wextra
 
 # Makefile
 all:		${EXE}

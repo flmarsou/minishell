@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/21 15:11:57 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:12:13 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@
 # define STDIN	0
 # define STDOUT	1
 
-# define CTRL_C	3
-# define CTRL_D	4
-# define ENTER	10
+# define CTRL_C		3
+# define CTRL_D		4
+# define ENTER		10
+# define BACKSPACE	127
 
 # define ORANGE			"\e[34m"
 # define RESET_COLOR	"\e[0m"
@@ -49,6 +50,7 @@ typedef struct s_input
 {
 	unsigned char	*buffer;
 	unsigned int	length;
+	unsigned int	cursor_pos;
 }	t_input;
 
 typedef struct s_lexer
@@ -87,7 +89,11 @@ bool			ft_isprint(unsigned char c);
 void			enable_raw_mode(struct termios *orig_termios);
 void			disable_raw_mode(struct termios *orig_termios);
 
-void			read_user_input();
+void			read_user_input(t_input *input);
+
+void			handle_input(t_input *input, unsigned char character);
+void			handle_backspace(t_input *input);
+void			handle_delete(t_input *input);
 
 //===============================//
 //     Lexer                     //

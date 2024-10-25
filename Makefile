@@ -6,7 +6,7 @@
 #    By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/10/24 14:34:39 by anvacca          ###   ########.fr        #
+#    Updated: 2024/10/25 12:16:36 by anvacca          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,23 +21,25 @@ SRC			:=	main.c \
 SRC_UTILS	:=	ft_perror.c \
 				ft_realloc.c \
 				ft_strcpy.c \
+				ft_strmove.c \
 				ft_isprint.c \
 				ft_isspace.c \
 				ft_ismeta.c \
 
 SRC_INPUT	:=	raw_mode.c \
 				read_user_input.c \
+				edit_user_input.c \
 
 SRC_LEXER	:=	tokenizer.c \
 				count_tokens.c \
 
-SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_INPUT} ${SRC_LEXER}
+SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_INPUT}
 OBJ_DIR		:=	obj
 OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 
 # Variables
 CC			:=	cc
-CFLAGS		:=  -Iincludes -Wall -Wextra -fsanitize=address,leak
+CFLAGS		:=  -Iincludes -Wall -Wextra
 
 # Makefile
 all:		${EXE}

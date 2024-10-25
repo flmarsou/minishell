@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:20:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/22 08:33:30 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/24 10:32:24 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,22 @@
 
 void	tokenizer(unsigned char *input)
 {
-	t_lexer	*lexer;
+	unsigned int	i;
+	unsigned int	j;
+	t_lexer			**lexer;
+	unsigned char	*buffer;
 
-	lexer = get_token(input);
+	i = 0;
+	j = 0;
+	lexer = malloc(sizeof(t_lexer *) * count_tokens(input));
+	while (input[i])
+	{
+		while (ft_isspace(input[i]))
+			i++;
+		if (input[i] == '\"' || input[i] == '\'')
+			while (input[i + j] != '\"' || input[i + j] != '\'')
+				j++;
+		while (!ft_isspace(input[i + j]))
+			j++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/24 15:12:13 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/25 09:02:47 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef enum e_tokens
 void			ft_perror(const unsigned int error);
 unsigned char	*ft_realloc(unsigned char *old_str, unsigned int old_size, unsigned int new_size);
 unsigned char	*ft_strcpy(unsigned char *dest, unsigned char *src, unsigned int size);
+unsigned char	*ft_strmove(unsigned char *dest, unsigned char *src, unsigned int size);
 void			ft_putstr(unsigned char *str);
 bool			ft_isprint(unsigned char c);
 

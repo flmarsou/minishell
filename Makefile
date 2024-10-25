@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/10/24 12:45:00 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/10/25 09:03:15 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC			:=	main.c \
 SRC_UTILS	:=	ft_perror.c \
 				ft_realloc.c \
 				ft_strcpy.c \
+				ft_strmove.c \
 				ft_isprint.c \
 
 SRC_INPUT	:=	raw_mode.c \

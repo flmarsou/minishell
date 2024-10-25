@@ -6,12 +6,13 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 13:49:16 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/24 15:30:08 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:01:06 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// Handle Ctrl C and Ctrl D
 static bool	process_control_characters(t_input *input, unsigned char character)
 {
 	if (input->buffer)
@@ -28,6 +29,7 @@ static bool	process_control_characters(t_input *input, unsigned char character)
 	return (false);
 }
 
+// Handle Arrow Keys and Delete
 static void	process_escape_sequence(t_input *input)
 {
 	unsigned char	sequence[16];
@@ -53,6 +55,7 @@ static void	process_escape_sequence(t_input *input)
 	}
 }
 
+// Checks what hey has been pressed in the STDIN.
 static bool	process_input(t_input *input)
 {
 	unsigned char	character;
@@ -77,6 +80,7 @@ static bool	process_input(t_input *input)
 	return (true);
 }
 
+// Reads and stores STDIN into a dynamically allocated buffer.
 void	read_user_input(t_input *input)
 {
 	input->buffer = NULL;

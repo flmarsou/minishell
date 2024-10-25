@@ -6,51 +6,77 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:33:07 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/24 15:45:57 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/25 09:48:06 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// Shifts the buffer one position to the right starting at cursor_pos.
+// Redraws the modified buffer in STDOUT and moves the cursor back.
 void	handle_delete(t_input *input)
 {
 	unsigned int	move_cursor;
 
 	if (input->cursor_pos >= input->length)
 		return ;
-	memmove(&input->buffer[input->cursor_pos], &input->buffer[input->cursor_pos + 1], input->length - input->cursor_pos - 1);
-	input->length--;
+	ft_strmove(&input->buffer[input->cursor_pos], &input->buffer[input->cursor_pos + 1], input->length - input->cursor_pos - 1);
+	input->buffer = ft_realloc(input->buffer, input->length, input->length - 1);
+	input->buffer[--input->length] = '\0';
+
 	write(STDOUT, &input->buffer[input->cursor_pos], input->length - input->cursor_pos);
 	write(STDOUT, " ", 1);
-	move_cursor = input->cursor_pos - 1;
-	while (move_cursor++ < input->length)
+	move_cursor = input->cursor_pos;
+	while (move_cursor++ <= input->length)
 		write(STDOUT, "\b", 1);
-	input->buffer[input->length] = '\0';
 }
 
+// Shifts the buffer one position to the left starting at cursor_pos.
+// Redraws the modified buffer in STDOUT and moves the cursor back.
 void	handle_backspace(t_input *input)
 {
 	unsigned int	move_cursor;
 
 	if (input->cursor_pos <= 0)
 		return ;
-	write(STDOUT, "\b", 3);
-	memmove(&input->buffer[input->cursor_pos - 1], &input->buffer[input->cursor_pos], input->length - input->cursor_pos);
-	input->length--;
+	ft_strmove(&input->buffer[input->cursor_pos - 1], &input->buffer[input->cursor_pos], input->length - input->cursor_pos);
+	input->buffer = ft_realloc(input->buffer, input->length, input->length - 1);
+	input->buffer[--input->length] = '\0';
 	input->cursor_pos--;
-	move_cursor = input->cursor_pos;
+
+	write(STDOUT, "\b", 3);
 	write(STDOUT, &input->buffer[input->cursor_pos], input->length - input->cursor_pos);
 	write(STDOUT, " \b", 4);
+	move_cursor = input->cursor_pos;
 	while (move_cursor++ < input->length)
 		write(STDOUT, "\b", 1);
-	input->buffer[input->length] = '\0';
 }
 
+// Writes STDIN into STDOUT and dynamically stores it into a buffer.
+// If cursor_pos is smaller:
+// - Shifts the buffer one position to the left starting at cursor_pos.
+// - Redraws the modified buffer in STDOUT and moves the cursor back.
 void	handle_input(t_input *input, unsigned char character)
 {
-	input->cursor_pos++;
-	write(STDOUT, &character, 1);
-	input->buffer = ft_realloc(input->buffer, input->length, input->length + 1);
-	input->buffer[input->length] = character;
-	input->buffer[++input->length] = '\0';
+	unsigned int	move_cursor;
+
+	if (input->cursor_pos >= input->length)
+	{
+		input->buffer = ft_realloc(input->buffer, input->length, input->length + 1);
+		input->buffer[input->length] = character;
+		input->buffer[++input->length] = '\0';
+		write(STDOUT, &character, 1);
+		input->cursor_pos++;
+	}
+	else
+	{
+		input->buffer = ft_realloc(input->buffer, input->length, input->length + 1);
+		ft_strmove(&input->buffer[input->cursor_pos + 1], &input->buffer[input->cursor_pos], input->length - input->cursor_pos);
+		input->buffer[input->cursor_pos++] = character;
+		input->buffer[++input->length] = '\0';
+		write(STDOUT, &input->buffer[input->cursor_pos - 1], input->length - input->cursor_pos + 1);
+		move_cursor = input->length - input->cursor_pos;
+		while (move_cursor-- > 0)
+			write(STDOUT, "\b", 1);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/24 14:19:08 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/25 13:27:34 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(void)
 	while (true)
 	{
 		read_user_input(&input);
-		printf("%s | %u | %u\n\n", input.buffer, input.length, input.cursor_pos); // Debug
+		printf("%s | %u | %u\n\n", input.buffer, input.len, input.cursor_pos); // Debug
 		if (input.buffer)
 			free(input.buffer);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_user_input.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 13:49:16 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/25 12:27:45 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/10/25 14:21:17 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool	process_control_characters(t_input *input, unsigned char character)
 		return (true);
 	else if (character == CTRL_D)
 	{
-		write(1, "Exiting...\n", 11);
+		write(1, "\nExiting...\n", 11);
 		return (false);
 	}
 	return (false);

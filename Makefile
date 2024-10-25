@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+         #
+#    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/10/25 12:16:36 by anvacca          ###   ########.fr        #
+#    Updated: 2024/10/25 12:51:38 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 EXE			:=	minishell
 
 # Files
-VPATH		:=	src:src/utils:src/input:src/lexer
+VPATH		:=	src:src/utils:src/terminal:src/lexer
 
 SRC			:=	main.c \
 
@@ -26,14 +26,14 @@ SRC_UTILS	:=	ft_perror.c \
 				ft_isspace.c \
 				ft_ismeta.c \
 
-SRC_INPUT	:=	raw_mode.c \
+SRC_TERM	:=	raw_mode.c \
 				read_user_input.c \
 				edit_user_input.c \
 
 SRC_LEXER	:=	tokenizer.c \
 				count_tokens.c \
 
-SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_INPUT}
+SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_TERM}
 OBJ_DIR		:=	obj
 OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 

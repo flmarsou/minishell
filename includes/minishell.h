@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/25 12:26:48 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/10/25 12:54:46 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_input
 	unsigned char	*buffer;
 	unsigned int	len;
 	unsigned int	cursor_pos;
+	unsigned int	term_width;
 }					t_input;
 
 typedef struct s_lexer
@@ -80,6 +81,8 @@ void				ft_perror(const unsigned int error);
 unsigned char		*ft_realloc(unsigned char *old_str, unsigned int old_size,
 						unsigned int new_size);
 unsigned char		*ft_strcpy(unsigned char *dest, unsigned char *src,
+						unsigned int size);
+unsigned char		*ft_strmove(unsigned char *dest, unsigned char *src,
 						unsigned int size);
 void				ft_putstr(unsigned char *str);
 bool				ft_isprint(unsigned char c);

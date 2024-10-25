@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
+#    By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/10/22 09:43:43 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/10/24 14:34:39 by anvacca          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,14 @@ SRC_UTILS	:=	ft_perror.c \
 				ft_realloc.c \
 				ft_strcpy.c \
 				ft_isprint.c \
+				ft_isspace.c \
+				ft_ismeta.c \
 
 SRC_INPUT	:=	raw_mode.c \
 				read_user_input.c \
 
 SRC_LEXER	:=	tokenizer.c \
+				count_tokens.c \
 
 SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_INPUT} ${SRC_LEXER}
 OBJ_DIR		:=	obj

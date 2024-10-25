@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_user_input.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 13:49:16 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/25 12:01:06 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:27:45 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static bool	process_control_characters(t_input *input, unsigned char character)
 {
 	if (input->buffer)
 		free(input->buffer);
-	input->length = 0;
+	input->len = 0;
 	input->buffer = NULL;
 	if (character == CTRL_C)
 		return (true);
@@ -40,7 +40,7 @@ static void	process_escape_sequence(t_input *input)
 		return ;
 	if (sequence[0] == '[')
 	{
-		if (sequence[1] == 'C' && input->cursor_pos < input->length)
+		if (sequence[1] == 'C' && input->cursor_pos < input->len)
 		{
 			write(STDOUT, "\e[C", 3);
 			input->cursor_pos++;
@@ -84,16 +84,16 @@ static bool	process_input(t_input *input)
 void	read_user_input(t_input *input)
 {
 	input->buffer = NULL;
-	input->length = 0;
+	input->len = 0;
 	input->cursor_pos = 0;
-	write(STDOUT, ORANGE"➜  "RESET_COLOR, 14);
+	write(STDOUT, ORANGE "➜  " RESET_COLOR, 14);
 	if (process_input(input) == false)
 	{
 		if (input->buffer)
 			free(input->buffer);
 		exit(1);
 	}
-	if (input->length == 0)
+	if (input->len == 0)
 	{
 		free(input->buffer);
 		input->buffer = NULL;

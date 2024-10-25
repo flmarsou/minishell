@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 08:57:23 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/25 09:02:32 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:18:51 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-unsigned char	*ft_strmove(unsigned char *dest, unsigned char *src, unsigned int size)
+unsigned char	*ft_strmove(unsigned char *dest, unsigned char *src,
+		unsigned int size)
 {
 	unsigned int	i;
 

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 09:07:01 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/14 16:14:09 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:18:54 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-unsigned char	*ft_realloc(unsigned char *old_str, unsigned int old_size, unsigned int new_size)
+unsigned char	*ft_realloc(unsigned char *old_str, unsigned int old_size,
+		unsigned int new_size)
 {
 	unsigned int	i;
 	unsigned char	*new_str;

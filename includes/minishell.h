@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/25 12:15:51 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/10/25 12:26:48 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@
 # define STDIN 0
 # define STDOUT 1
 
-# define CTRL_C		3
-# define CTRL_D		4
-# define ENTER		10
-# define BACKSPACE	127
+# define CTRL_C 3
+# define CTRL_D 4
+# define ENTER 10
+# define BACKSPACE 127
 
 # define ORANGE "\e[34m"
 # define RESET_COLOR "\e[0m"
@@ -48,9 +48,9 @@
 typedef struct s_input
 {
 	unsigned char	*buffer;
-	unsigned int	length;
+	unsigned int	len;
 	unsigned int	cursor_pos;
-}	t_input;
+}					t_input;
 
 typedef struct s_lexer
 {
@@ -60,16 +60,16 @@ typedef struct s_lexer
 
 typedef enum e_tokens
 {
-	SEPARATOR,       // Whitespace
-	COMMAND,         // Others
-	SINGLE_QUOTE,    // '
-	DOUBLE_QUOTE,    // "
-	PIPE,            // |
-	INPUT_REDIRECT,  // <
+	SEPARATOR, // Whitespace
+	COMMAND, // Others
+	SINGLE_QUOTE, // '
+	DOUBLE_QUOTE, // "
+	PIPE, // |
+	INPUT_REDIRECT, // <
 	OUTPUT_REDIRECT, // >
-	HEREDOC,         // <<
+	HEREDOC, // <<
 	APPEND_REDIRECT, // >>
-	DOLLAR,          // $
+	DOLLAR, // $
 }					t_tokens;
 
 //===============================//
@@ -90,14 +90,14 @@ bool				ft_ismeta(unsigned char c);
 //     Input                     //
 //===============================//
 
-void			enable_raw_mode(struct termios *orig_termios);
-void			disable_raw_mode(struct termios *orig_termios);
+void				enable_raw_mode(struct termios *orig_termios);
+void				disable_raw_mode(struct termios *orig_termios);
 
-void			read_user_input(t_input *input);
+void				read_user_input(t_input *input);
 
-void			handle_input(t_input *input, unsigned char character);
-void			handle_backspace(t_input *input);
-void			handle_delete(t_input *input);
+void				handle_input(t_input *input, unsigned char character);
+void				handle_backspace(t_input *input);
+void				handle_delete(t_input *input);
 
 //===============================//
 //     Lexer                     //

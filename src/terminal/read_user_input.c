@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 13:49:16 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/25 14:21:17 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:02:18 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ static void	process_escape_sequence(t_input *input)
 		return ;
 	if (sequence[0] == '[')
 	{
-		if (sequence[1] == 'C' && input->cursor_pos < input->len)
+		if (sequence[1] == 'C' && input->cursor_x < input->len)
 		{
 			write(STDOUT, "\e[C", 3);
-			input->cursor_pos++;
+			input->cursor_x++;
 		}
-		else if (sequence[1] == 'D' && input->cursor_pos > 0)
+		else if (sequence[1] == 'D' && input->cursor_x > 0)
 		{
 			write(STDOUT, "\e[D", 3);
-			input->cursor_pos--;
+			input->cursor_x--;
 		}
 		else if (sequence[1] == '3' && sequence[2] && sequence[2] == '~')
 			handle_delete(input);
@@ -85,7 +85,7 @@ void	read_user_input(t_input *input)
 {
 	input->buffer = NULL;
 	input->len = 0;
-	input->cursor_pos = 0;
+	input->cursor_x = 0;
 	write(STDOUT, ORANGE "➜  " RESET_COLOR, 14);
 	if (process_input(input) == false)
 	{

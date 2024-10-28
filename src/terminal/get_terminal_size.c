@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:53:21 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/28 13:53:42 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:26:49 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	handle_winsize(void)
 	input = get_input_instance(NULL);
 	if (ioctl(STDOUT, TIOCGWINSZ, &ws) == -1)
 		ft_perror(2);
-	input->term_x = ws.ws_row;
-	input->term_y = ws.ws_col;
+	input->term_x = ws.ws_col;
+	input->term_y = ws.ws_row;
 }
 
 static void	handle_sigwinch(int sig, siginfo_t *info, void *context)

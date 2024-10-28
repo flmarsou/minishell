@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/28 10:35:35 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:52:00 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ typedef struct s_input
 {
 	unsigned char	*buffer;
 	unsigned int	len;
-	unsigned int	cursor_pos;
+	unsigned int	cursor_x;
+	unsigned int	cursor_y;
+	unsigned int	term_x;
+	unsigned int	term_y;
 	unsigned int	term_width;
 }					t_input;
 
@@ -95,6 +98,7 @@ unsigned int		ft_strlen(unsigned char *str);
 //     Input                     //
 //===============================//
 
+void				get_terminal_size(t_input *input);
 void				enable_raw_mode(struct termios *orig_termios);
 void				disable_raw_mode(struct termios *orig_termios);
 

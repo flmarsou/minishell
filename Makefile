@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/10/25 12:51:38 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/10/28 13:15:30 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC_UTILS	:=	ft_perror.c \
 				ft_ismeta.c \
 
 SRC_TERM	:=	raw_mode.c \
+				get_terminal_size.c \
 				read_user_input.c \
 				edit_user_input.c \
 

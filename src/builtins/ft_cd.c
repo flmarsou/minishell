@@ -3,31 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andi <andi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:26:28 by andi              #+#    #+#             */
-/*   Updated: 2024/10/27 18:12:32 by andi             ###   ########.fr       */
+/*   Updated: 2024/10/28 10:37:34 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <limits.h>
 
-bool ft_cd(char *next_path)
+bool	ft_cd(char *next_path)
 {
-	char current_path[PATH_MAX];
-	unsigned int i;
-	unsigned int j;
+	unsigned char	current_path[PATH_MAX];
+	unsigned int	i;
+	unsigned int	j;
 
 	j = 0;
 	if (!getcwd(current_path, sizeof(current_path)))
-		return(false);
+		return (false);
 	i = ft_strlen(current_path);
 	if (i + ft_strlen(next_path) > PATH_MAX)
-		return(false);
+		return (false);
 	i++;
 	current_path[i++] = '/';
-	while(next_path[j])
+	while (next_path[j])
 	{
 		current_path[i] = next_path[j];
 		i++;
@@ -36,5 +35,5 @@ bool ft_cd(char *next_path)
 	current_path[i] = "\0";
 	if (chdir(current_path) != 0)
 		return (false);
-	return(true);
+	return (true);
 }

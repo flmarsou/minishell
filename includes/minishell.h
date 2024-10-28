@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/25 12:54:46 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/28 10:35:35 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include <readline/history.h>  // add_history
 
 # define ENV __environ
+# define PATH_MAX 4096
 # define STDIN 0
 # define STDOUT 1
 
@@ -78,16 +79,17 @@ typedef enum e_tokens
 //===============================//
 
 void				ft_perror(const unsigned int error);
+void				ft_putstr(unsigned char *str);
 unsigned char		*ft_realloc(unsigned char *old_str, unsigned int old_size,
 						unsigned int new_size);
 unsigned char		*ft_strcpy(unsigned char *dest, unsigned char *src,
 						unsigned int size);
 unsigned char		*ft_strmove(unsigned char *dest, unsigned char *src,
 						unsigned int size);
-void				ft_putstr(unsigned char *str);
 bool				ft_isprint(unsigned char c);
 bool				ft_isspace(unsigned char c);
 bool				ft_ismeta(unsigned char c);
+unsigned int		ft_strlen(unsigned char *str);
 
 //===============================//
 //     Input                     //

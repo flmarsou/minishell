@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
+#    By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/10/28 13:15:30 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/10/29 15:04:51 by anvacca          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC_TERM	:=	raw_mode.c \
 SRC_LEXER	:=	tokenizer.c \
 				count_tokens.c \
 
-SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_TERM}
+SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_TERM} ${SRC_LEXER}
 OBJ_DIR		:=	obj
 OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 

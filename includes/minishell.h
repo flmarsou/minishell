@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/28 13:52:00 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/29 15:01:17 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,22 @@ typedef struct s_input
 
 typedef struct s_lexer
 {
-	unsigned char	*str;
-	unsigned int	token;
+	unsigned char	**str;
+	unsigned int	*token;
 }					t_lexer;
 
 typedef enum e_tokens
 {
-	SEPARATOR, // Whitespace
-	COMMAND, // Others
-	SINGLE_QUOTE, // '
-	DOUBLE_QUOTE, // "
-	PIPE, // |
-	INPUT_REDIRECT, // <
+	SEPARATOR,       // Whitespace
+	COMMAND,         // Others
+	SINGLE_QUOTE,    // '
+	DOUBLE_QUOTE,    // "
+	PIPE,            // |
+	INPUT_REDIRECT,  // <
 	OUTPUT_REDIRECT, // >
-	HEREDOC, // <<
+	HEREDOC,         // <<
 	APPEND_REDIRECT, // >>
-	DOLLAR, // $
+	DOLLAR,          // $
 }					t_tokens;
 
 //===============================//
@@ -112,7 +112,7 @@ void				handle_delete(t_input *input);
 //     Lexer                     //
 //===============================//
 
-void				tokenizer(unsigned char *input);
+void				tokenizer(unsigned char *input, t_lexer *lexer);
 unsigned int		count_tokens(unsigned char *str);
 
 //===============================//

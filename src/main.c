@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/30 14:51:20 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:52:17 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(void)
 {
 	struct termios	orig_termios;
 	t_input			input;
+	t_lexer			lexer;
 
 	enable_raw_mode(&orig_termios);
 	get_terminal_size(&input);

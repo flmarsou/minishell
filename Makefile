@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/10/31 12:31:31 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/10/31 13:52:22 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC_TERM	:=	raw_mode.c \
 SRC_LEXER	:=	tokenizer.c \
 				count_tokens.c \
 
-SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_TERM}
+SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_TERM} ${SRC_LEXER}
 OBJ_DIR		:=	obj
 OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 

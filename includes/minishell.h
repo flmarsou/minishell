@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/31 13:48:35 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:51:49 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void				rewrite(t_input *input);
 //     Lexer                     //
 //===============================//
 
-void				tokenizer(unsigned char *input);
+void				tokenizer(unsigned char *input, t_lexer *lexer);
 unsigned int		count_tokens(unsigned char *str);
 
 //===============================//

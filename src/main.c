@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/28 13:27:10 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/30 14:51:20 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	main(void)
 	while (true)
 	{
 		read_user_input(&input);
-		printf("%s | Lenght: %u | Cursor X: %u Y: %u\n", input.buffer, input.len, input.cursor_x, input.cursor_y); // Debug
-		printf("Win X: %u Y: %u\n\n", input.term_x, input.term_y); // Debug
+		printf("%s | Lenght: %u\nCursor X: %u\nNbr of Lines: %u\n", input.buffer, input.len, input.cursor_x, input.term_lines); // Debug
+		printf("Window Width: %u\n", input.term_x); // Debug
 		if (input.buffer)
 			free(input.buffer);
 	}

@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/28 13:52:00 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:48:35 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,49 +33,59 @@
 								// rl_replace_line, rl_redisplay
 # include <readline/history.h>  // add_history
 
-# define ENV __environ
-# define PATH_MAX 4096
-# define STDIN 0
-# define STDOUT 1
+// Shortcuts
+# define STDIN			0
+# define STDOUT			1
+# define CHUNK			16
+# define ENV			__environ
+# define PATH_MAX		4096
 
-# define CTRL_C 3
-# define CTRL_D 4
-# define ENTER 10
-# define BACKSPACE 127
+// Keys
+# define CTRL_C			3
+# define CTRL_D			4
+# define ENTER			10
+# define BACKSPACE		127
 
-# define ORANGE "\e[34m"
-# define RESET_COLOR "\e[0m"
+// Escape Characters
+# define CURSOR_UP		"\e[A"
+# define CURSOR_DOWN	"\e[B"
+# define CURSOR_RIGHT	"\e[C"
+# define CURSOR_LEFT	"\e[D"
+# define CLEAR_LINE		"\e[K"
+
+// Colors
+# define RESET_COLOR	"\e[0m"
+# define ORANGE			"\e[34m"
 
 typedef struct s_input
 {
 	unsigned char	*buffer;
 	unsigned int	len;
+	unsigned int	alloc_len;
 	unsigned int	cursor_x;
-	unsigned int	cursor_y;
+	unsigned int	term_lines;
 	unsigned int	term_x;
-	unsigned int	term_y;
-	unsigned int	term_width;
 }					t_input;
-
-typedef struct s_lexer
-{
-	unsigned char	*str;
-	unsigned int	token;
-}					t_lexer;
 
 typedef enum e_tokens
 {
-	SEPARATOR, // Whitespace
-	COMMAND, // Others
-	SINGLE_QUOTE, // '
-	DOUBLE_QUOTE, // "
-	PIPE, // |
-	INPUT_REDIRECT, // <
-	OUTPUT_REDIRECT, // >
-	HEREDOC, // <<
-	APPEND_REDIRECT, // >>
-	DOLLAR, // $
-}					t_tokens;
+	SEPARATOR,			// Whitespace
+	COMMAND,			// Others
+	SINGLE_QUOTE,		// '
+	DOUBLE_QUOTE,		// "
+	PIPE,				// |
+	INPUT_REDIRECT,		// <
+	OUTPUT_REDIRECT,	// >
+	HEREDOC,			// <<
+	APPEND_REDIRECT,	// >>
+	DOLLAR,				// $
+}	t_tokens;
+
+typedef struct s_lexer
+{
+	unsigned char	**str;
+	unsigned int	*token;
+}	t_lexer;
 
 //===============================//
 //     Utils                     //
@@ -83,19 +93,22 @@ typedef enum e_tokens
 
 void				ft_perror(const unsigned int error);
 void				ft_putstr(unsigned char *str);
+
 unsigned char		*ft_realloc(unsigned char *old_str, unsigned int old_size,
 						unsigned int new_size);
 unsigned char		*ft_strcpy(unsigned char *dest, unsigned char *src,
 						unsigned int size);
 unsigned char		*ft_strmove(unsigned char *dest, unsigned char *src,
 						unsigned int size);
+
 bool				ft_isprint(unsigned char c);
 bool				ft_isspace(unsigned char c);
 bool				ft_ismeta(unsigned char c);
+
 unsigned int		ft_strlen(unsigned char *str);
 
 //===============================//
-//     Input                     //
+//     Terminal                  //
 //===============================//
 
 void				get_terminal_size(t_input *input);
@@ -104,9 +117,13 @@ void				disable_raw_mode(struct termios *orig_termios);
 
 void				read_user_input(t_input *input);
 
+void				arrow_key_left(t_input *input);
+void				arrow_key_right(t_input *input);
 void				handle_input(t_input *input, unsigned char character);
 void				handle_backspace(t_input *input);
 void				handle_delete(t_input *input);
+
+void				rewrite(t_input *input);
 
 //===============================//
 //     Lexer                     //

@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 13:49:16 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/28 14:02:18 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/10/31 12:56:33 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,30 @@ static bool	process_control_characters(t_input *input, unsigned char character)
 	return (false);
 }
 
+// && input->cursor_x < input->len
 // Handle Arrow Keys and Delete
 static void	process_escape_sequence(t_input *input)
 {
-	unsigned char	sequence[16];
+	unsigned char	sequence[4];
 	signed int		bytes;
+	unsigned int	i;
 
-	bytes = read(STDIN, &sequence, 16);
-	if (!bytes)
+	i = 0;
+	bytes = read(STDIN, &sequence, 4);
+	if (bytes <= 0)
 		return ;
 	if (sequence[0] == '[')
-	{
-		if (sequence[1] == 'C' && input->cursor_x < input->len)
+	{	
+		if (sequence[1] == 'D' && input->cursor_x > 0)
 		{
-			write(STDOUT, "\e[C", 3);
-			input->cursor_x++;
-		}
-		else if (sequence[1] == 'D' && input->cursor_x > 0)
-		{
-			write(STDOUT, "\e[D", 3);
+			arrow_key_left(input);
 			input->cursor_x--;
 		}
-		else if (sequence[1] == '3' && sequence[2] && sequence[2] == '~')
-			handle_delete(input);
+		else if (sequence[1] == 'C' && input->cursor_x < input->len)
+		{
+			arrow_key_right(input);
+			input->cursor_x++;
+		}
 	}
 }
 
@@ -72,8 +73,6 @@ static bool	process_input(t_input *input)
 			process_escape_sequence(input);
 		else if (character == CTRL_C || character == CTRL_D)
 			return (process_control_characters(input, character));
-		else if (character == BACKSPACE)
-			handle_backspace(input);
 		else if (ft_isprint(character))
 			handle_input(input, character);
 	}
@@ -85,8 +84,9 @@ void	read_user_input(t_input *input)
 {
 	input->buffer = NULL;
 	input->len = 0;
+	input->alloc_len = 0;
 	input->cursor_x = 0;
-	write(STDOUT, ORANGE "➜  " RESET_COLOR, 14);
+	input->term_lines = 0;
 	if (process_input(input) == false)
 	{
 		if (input->buffer)

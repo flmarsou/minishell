@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/10/31 13:52:22 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/11/05 10:29:54 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,5 +62,11 @@ fclean:		clean
 			@rm -rf ${EXE}
 
 re:			fclean all
+
+debug:		re
+			./${EXE} 1>&1 2> ${EXE}.log
+
+trace:		re
+			strace ./${EXE} 1>&1 2> ${EXE}.log
 
 .PHONY:		all clean fclean re

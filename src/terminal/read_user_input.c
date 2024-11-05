@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 13:49:16 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/31 12:56:33 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/05 09:56:57 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool	process_control_characters(t_input *input, unsigned char character)
 		return (true);
 	else if (character == CTRL_D)
 	{
-		write(1, "\nExiting...\n", 11);
+		write(1, "Exiting...\n", 11);
 		return (false);
 	}
 	return (false);
@@ -91,7 +91,7 @@ void	read_user_input(t_input *input)
 	{
 		if (input->buffer)
 			free(input->buffer);
-		exit(1);
+		exit(0);
 	}
 	if (input->len == 0)
 	{

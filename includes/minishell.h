@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/31 13:51:49 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:27:59 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@
 # define CURSOR_DOWN	"\e[B"
 # define CURSOR_RIGHT	"\e[C"
 # define CURSOR_LEFT	"\e[D"
+# define CURSOR_RESET	"\e[J"
 # define CLEAR_LINE		"\e[K"
+# define SCROLL			"\e[S"
 
 // Colors
 # define RESET_COLOR	"\e[0m"

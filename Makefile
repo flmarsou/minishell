@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/11/05 10:29:54 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/11/06 12:08:51 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 EXE			:=	minishell
 
 # Files
-VPATH		:=	src:src/utils:src/terminal:src/lexer
+VPATH		:=	src:src/utils:src/lexer
 
 SRC			:=	main.c \
 
@@ -26,16 +26,10 @@ SRC_UTILS	:=	ft_perror.c \
 				ft_isspace.c \
 				ft_ismeta.c \
 
-SRC_TERM	:=	raw_mode.c \
-				get_terminal_size.c \
-				read_user_input.c \
-				edit_user_input.c \
-				arrow_keys.c \
-
 SRC_LEXER	:=	tokenizer.c \
 				count_tokens.c \
 
-SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_TERM} ${SRC_LEXER}
+SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_LEXER}
 OBJ_DIR		:=	obj
 OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 
@@ -64,9 +58,11 @@ fclean:		clean
 re:			fclean all
 
 debug:		re
+			rm -rf ${EXE}.log
 			./${EXE} 1>&1 2> ${EXE}.log
 
 trace:		re
+			rm -rf ${EXE}.log
 			strace ./${EXE} 1>&1 2> ${EXE}.log
 
 .PHONY:		all clean fclean re

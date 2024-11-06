@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/05 15:27:59 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:08:35 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,8 @@
 // Shortcuts
 # define STDIN			0
 # define STDOUT			1
-# define CHUNK			16
 # define ENV			__environ
 # define PATH_MAX		4096
-
-// Keys
-# define CTRL_C			3
-# define CTRL_D			4
-# define ENTER			10
-# define BACKSPACE		127
-
-// Escape Characters
-# define CURSOR_UP		"\e[A"
-# define CURSOR_DOWN	"\e[B"
-# define CURSOR_RIGHT	"\e[C"
-# define CURSOR_LEFT	"\e[D"
-# define CURSOR_RESET	"\e[J"
-# define CLEAR_LINE		"\e[K"
-# define SCROLL			"\e[S"
 
 // Colors
 # define RESET_COLOR	"\e[0m"
@@ -62,11 +46,6 @@
 typedef struct s_input
 {
 	unsigned char	*buffer;
-	unsigned int	len;
-	unsigned int	alloc_len;
-	unsigned int	cursor_x;
-	unsigned int	term_lines;
-	unsigned int	term_x;
 }					t_input;
 
 typedef enum e_tokens
@@ -108,24 +87,6 @@ bool				ft_isspace(unsigned char c);
 bool				ft_ismeta(unsigned char c);
 
 unsigned int		ft_strlen(unsigned char *str);
-
-//===============================//
-//     Terminal                  //
-//===============================//
-
-void				get_terminal_size(t_input *input);
-void				enable_raw_mode(struct termios *orig_termios);
-void				disable_raw_mode(struct termios *orig_termios);
-
-void				read_user_input(t_input *input);
-
-void				arrow_key_left(t_input *input);
-void				arrow_key_right(t_input *input);
-void				handle_input(t_input *input, unsigned char character);
-void				handle_backspace(t_input *input);
-void				handle_delete(t_input *input);
-
-void				rewrite(t_input *input);
 
 //===============================//
 //     Lexer                     //

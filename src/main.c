@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/07 14:28:36 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:50:05 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ static void	handle_signal(int sig)
 static void	free_all(char *buffer, t_lexer *lexer)
 {
 	unsigned int	i;
-	
+
 	i = 0;
 	if (buffer)
 		free(buffer);
 	while (lexer->str && lexer->str[i])
 		free(lexer->str[i++]);
 	free(lexer->str);
+	free(lexer->token);
 	lexer->str = NULL;
+	lexer->token = NULL;
 }
 
 int	main(void)
@@ -51,7 +53,8 @@ int	main(void)
 			add_history(buffer);
 		tokenizer((unsigned char *)buffer, &lexer);
 		for (unsigned int i = 0; lexer.str[i]; i++)
-			fprintf(stderr, "%u - %s\n", i, lexer.str[i]);
+			fprintf(stderr, "ID: %u Token: %d - \"%s\"\n", i, lexer.token[i], lexer.str[i]); // Debug
+		fprintf(stderr, "\n");
 		free_all(buffer, &lexer);
 	}
 	free_all(buffer, &lexer);

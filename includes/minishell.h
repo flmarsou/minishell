@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/06 12:08:35 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:50:13 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@
 # define RESET_COLOR	"\e[0m"
 # define ORANGE			"\e[34m"
 
-typedef struct s_input
+typedef struct s_lexer
 {
-	unsigned char	*buffer;
-}					t_input;
+	unsigned char	**str;
+	unsigned int	*token;
+}	t_lexer;
 
 typedef enum e_tokens
 {
@@ -62,12 +63,6 @@ typedef enum e_tokens
 	DOLLAR,				// $
 }	t_tokens;
 
-typedef struct s_lexer
-{
-	unsigned char	**str;
-	unsigned int	*token;
-}	t_lexer;
-
 //===============================//
 //     Utils                     //
 //===============================//
@@ -75,16 +70,13 @@ typedef struct s_lexer
 void				ft_perror(const unsigned int error);
 void				ft_putstr(unsigned char *str);
 
-unsigned char		*ft_realloc(unsigned char *old_str, unsigned int old_size,
-						unsigned int new_size);
 unsigned char		*ft_strcpy(unsigned char *dest, unsigned char *src,
-						unsigned int size);
-unsigned char		*ft_strmove(unsigned char *dest, unsigned char *src,
 						unsigned int size);
 
 bool				ft_isprint(unsigned char c);
 bool				ft_isspace(unsigned char c);
 bool				ft_ismeta(unsigned char c);
+bool				ft_strncmp(char *str1, char *str2, unsigned int size);
 
 unsigned int		ft_strlen(unsigned char *str);
 

@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/11/06 12:08:51 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/11/07 12:51:27 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,8 @@ VPATH		:=	src:src/utils:src/lexer
 SRC			:=	main.c \
 
 SRC_UTILS	:=	ft_perror.c \
-				ft_realloc.c \
 				ft_strcpy.c \
-				ft_strmove.c \
+				ft_strncmp.c \
 				ft_isprint.c \
 				ft_isspace.c \
 				ft_ismeta.c \
@@ -35,13 +34,13 @@ OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 
 # Variables
 CC			:=	cc
-CFLAGS		:=  -Iincludes -Wall -Wextra
+CFLAGS		:=  -Iincludes -Wall -Wextra -fsanitize=address,leak -g
 
 # Makefile
 all:		${EXE}
 
 ${EXE}:		${OBJECTS}
-			${CC} ${CFLAGS} $^ -o $@
+			${CC} ${CFLAGS} -lreadline $^ -o $@
 
 ${OBJ_DIR}/%.o:	%.c | ${OBJ_DIR}
 			${CC} ${CFLAGS} -c $< -o $@

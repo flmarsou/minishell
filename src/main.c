@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/07 12:51:39 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/07 13:31:56 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,17 @@ static void	handle_signal(int sig)
 	}
 }
 
-static void	free_all(char *buffer)
+static void	free_all(char *buffer, t_lexer *lexer)
 {
+	unsigned int	i;
+	
+	i = 0;
 	if (buffer)
 		free(buffer);
+	while (lexer->str && lexer->str[i])
+		free(lexer->str[i++]);
+	free(lexer->str);
+	lexer->str = NULL;
 }
 
 int	main(void)
@@ -42,10 +49,10 @@ int	main(void)
 			break ;
 		if (buffer)
 			add_history(buffer);
-		// tokenizer((unsigned char *)buffer, &lexer);
-		free(buffer);
+		tokenizer((unsigned char *)buffer, &lexer);
+		free_all(buffer, &lexer);
 	}
-	free_all(buffer);
+	free_all(buffer, &lexer);
 	rl_clear_history();
 	write(STDOUT, "Exiting...\n", 11);
 	return (0);

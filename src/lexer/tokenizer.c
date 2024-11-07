@@ -2,62 +2,80 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
-
+/*                                                    +:+ +:+         +:+     */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:20:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/24 10:32:24 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/11/07 14:24:53 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+
 #include "minishell.h"
+
+void	handle_double_meta(unsigned char *input, t_lexer *lexer, unsigned int *x, unsigned int *y)
+{
+	lexer->str[*y] = malloc(sizeof(char) * 3);
+	ft_strcpy(lexer->str[*y], &input[*x], 2);
+	lexer->str[*y][2] = '\0';
+	*y += 1;
+	*x += 2;
+}
+
+void	handle_single_meta(unsigned char *input, t_lexer *lexer, unsigned int *x, unsigned int *y)
+{
+	lexer->str[*y] = malloc(sizeof(char) * 2);
+	ft_strcpy(lexer->str[*y], &input[*x], 1);
+	lexer->str[*y][1] = '\0';
+	*y += 1;
+	*x += 1;
+}
+
+void	handle_whitespace(unsigned char *input, t_lexer *lexer, unsigned int *x, unsigned int *y)
+{
+	lexer->str[*y] = malloc(sizeof(char) * 2);
+	ft_strcpy(lexer->str[*y], &input[*x], 1);
+	lexer->str[*y][1] = '\0';
+	*y += 1;
+}
+
+void	handle_commands(unsigned char *input, t_lexer *lexer, unsigned int *x, unsigned int *y)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (ft_isprint(input[*x + i]) && !ft_ismeta(input[*x + i]) && !ft_isspace(input[*x + i]))
+		i++;
+	lexer->str[*y] = malloc(sizeof(char) * i + 1);
+	ft_strcpy(lexer->str[*y], &input[*x], i);
+	lexer->str[*y][i] = '\0';
+	*x += i;
+	*y += 1;
+}
 
 void	tokenizer(unsigned char *input, t_lexer	*lexer)
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	k;
+	unsigned int	x;
+	unsigned int	y;
 
-	i = 0;
-	k = 0;
-	lexer->str = malloc(sizeof(unsigned char *) * count_tokens(input) + 1);
-	while (ft_isspace(input[i]))
-		i++;
-	while (input[i])
+	x = 0;
+	y = 0;
+	lexer->str = malloc(sizeof(char *) * (count_tokens(input) + 1));
+	while (ft_isspace(input[x]))
+		x++;
+	while (input[x])
 	{
-		j = 0;
-		if ((input[i] == '>' || input[i] == '<') && input[i + 1] == input[i]
-			&& (input[i++] && input[i++]))
-		{
-			lexer->str[k] = malloc(sizeof(char) * 3);
-			ft_strcpy(lexer->str[k], &input[i - 2], 2);
-			lexer->str[k][2] = '\0';
-			k++;
-		}
-		else if (ft_ismeta(input[i]) && !ft_isspace(input[i++]))
-		{
-			lexer->str[k] = malloc(sizeof(char) * 2);
-			ft_strcpy(lexer->str[k], &input[i - 1], 1);
-			lexer->str[k][1] = '\0';
-			k++;
-		}
-		if (ft_isspace(input[i]))
-		{
-			lexer->str[k] = malloc(sizeof(char) * 2);
-			ft_strcpy(lexer->str[k], &input[i], 1);
-			lexer->str[k][1] = '\0';
-			k++;
-		}
-		while (ft_isspace(input[i]))
-			i++;
-		if (ft_isprint(input[i]) && !ft_ismeta(input[i]) && !ft_isspace(input[i]))
-		{
-			while (ft_isprint(input[i + j]) && !ft_ismeta(input[i + j]) && !ft_isspace(input[i + j]))
-				j++;
-			lexer->str[k] = malloc(sizeof(char) * j);
-			ft_strcpy(lexer->str[k], &input[i], j);
-			lexer->str[k][j] = '\0';
-			i += j;
-			k++;
-		}
+		if ((input[x] == '>' || input[x] == '<') && input[x + 1] == input[x])
+			handle_double_meta(input, lexer, &x, &y);
+		else if (ft_ismeta(input[x]) && !ft_isspace(input[x]))
+			handle_single_meta(input, lexer, &x, &y);
+		else if (ft_isspace(input[x]))
+			handle_whitespace(input, lexer, &x, &y);
+		while (ft_isspace(input[x]))
+			x++;
+		if (ft_isprint(input[x]) && !ft_ismeta(input[x]) && !ft_isspace(input[x]))
+			handle_commands(input, lexer, &x, &y);
 	}
-	lexer->str[k] = NULL;
+	lexer->str[y] = NULL;
 }

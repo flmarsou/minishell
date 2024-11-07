@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:20:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/07 14:24:53 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:27:10 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 
 void	handle_double_meta(unsigned char *input, t_lexer *lexer, unsigned int *x, unsigned int *y)
 {
+	if(&input[*x] == '>')
+		lexer->token = APPEND_REDIRECT;
+	else
+		lexer->token = HEREDOC;
 	lexer->str[*y] = malloc(sizeof(char) * 3);
 	ft_strcpy(lexer->str[*y], &input[*x], 2);
 	lexer->str[*y][2] = '\0';
@@ -25,6 +29,18 @@ void	handle_double_meta(unsigned char *input, t_lexer *lexer, unsigned int *x, u
 
 void	handle_single_meta(unsigned char *input, t_lexer *lexer, unsigned int *x, unsigned int *y)
 {
+	if(&input[*x] == '\'')
+		lexer->token = SINGLE_QUOTE;
+	else if(&input[*x] == '\"')
+		lexer->token = DOUBLE_QUOTE;
+	else if(&input[*x] == '|')
+		lexer->token = PIPE;
+	else if(&input[*x] == '>')
+		lexer->token = OUTPUT_REDIRECT;
+	else if(&input[*x] == '<')
+		lexer->token = INPUT_REDIRECT;
+	else if(&input[*x] == '$')
+		lexer->token = DOLLAR;
 	lexer->str[*y] = malloc(sizeof(char) * 2);
 	ft_strcpy(lexer->str[*y], &input[*x], 1);
 	lexer->str[*y][1] = '\0';
@@ -34,6 +50,7 @@ void	handle_single_meta(unsigned char *input, t_lexer *lexer, unsigned int *x, u
 
 void	handle_whitespace(unsigned char *input, t_lexer *lexer, unsigned int *x, unsigned int *y)
 {
+	lexer->token = SEPARATOR;
 	lexer->str[*y] = malloc(sizeof(char) * 2);
 	ft_strcpy(lexer->str[*y], &input[*x], 1);
 	lexer->str[*y][1] = '\0';
@@ -45,6 +62,7 @@ void	handle_commands(unsigned char *input, t_lexer *lexer, unsigned int *x, unsi
 	unsigned int	i;
 
 	i = 0;
+	lexer->token = COMMAND;
 	while (ft_isprint(input[*x + i]) && !ft_ismeta(input[*x + i]) && !ft_isspace(input[*x + i]))
 		i++;
 	lexer->str[*y] = malloc(sizeof(char) * i + 1);

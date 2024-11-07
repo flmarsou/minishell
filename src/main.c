@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/07 13:31:56 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/07 14:28:36 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	main(void)
 		if (buffer)
 			add_history(buffer);
 		tokenizer((unsigned char *)buffer, &lexer);
+		for (unsigned int i = 0; lexer.str[i]; i++)
+			fprintf(stderr, "%u - %s\n", i, lexer.str[i]);
 		free_all(buffer, &lexer);
 	}
 	free_all(buffer, &lexer);

@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:20:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/07 15:47:53 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/08 09:05:05 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	handle_double_meta(unsigned char *input, t_lexer *lexer,
 		unsigned int *x, unsigned int *y)
 {
-	if (&input[*x] == '>')
+	if (input[*x] == '>')
 		lexer->token[*y] = APPEND_REDIRECT;
 	else
 		lexer->token[*y] = HEREDOC;
@@ -28,17 +28,17 @@ void	handle_double_meta(unsigned char *input, t_lexer *lexer,
 void	handle_single_meta(unsigned char *input, t_lexer *lexer,
 		unsigned int *x, unsigned int *y)
 {
-	if (&input[*x] == '\'')
+	if (input[*x] == '\'')
 		lexer->token[*y] = SINGLE_QUOTE;
-	else if (&input[*x] == '\"')
+	else if (input[*x] == '\"')
 		lexer->token[*y] = DOUBLE_QUOTE;
-	else if (&input[*x] == '|')
+	else if (input[*x] == '|')
 		lexer->token[*y] = PIPE;
-	else if (&input[*x] == '>')
-		lexer->token[*y] = 666;
-	else if (&input[*x] == '<')
+	else if (input[*x] == '>')
+		lexer->token[*y] = OUTPUT_REDIRECT;
+	else if (input[*x] == '<')
 		lexer->token[*y] = INPUT_REDIRECT;
-	else if (&input[*x] == '$')
+	else if (input[*x] == '$')
 		lexer->token[*y] = DOLLAR;
 	lexer->str[*y] = malloc(sizeof(char) * 2);
 	ft_strcpy(lexer->str[*y], &input[*x], 1);

@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/11/07 12:51:27 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/11/08 15:03:04 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC			:=	main.c \
 SRC_UTILS	:=	ft_perror.c \
 				ft_strcpy.c \
 				ft_strncmp.c \
+				ft_strlen.c \
 				ft_isprint.c \
 				ft_isspace.c \
 				ft_ismeta.c \

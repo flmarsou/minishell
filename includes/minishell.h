@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/07 12:50:13 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:48:53 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,18 @@ typedef struct s_lexer
 	unsigned int	*token;
 }	t_lexer;
 
+typedef struct s_parser
+{
+	unsigned char	**str;
+	unsigned int	*token;
+}	t_parser;
+
+typedef struct s_environ
+{
+	unsigned char		*var;
+	struct s_environ	*next;
+}	t_environ;
+
 typedef enum e_tokens
 {
 	SEPARATOR,			// Whitespace
@@ -69,6 +81,7 @@ typedef enum e_tokens
 
 void				ft_perror(const unsigned int error);
 void				ft_putstr(unsigned char *str);
+void				ft_lstfree(t_environ *environ);
 
 unsigned char		*ft_strcpy(unsigned char *dest, unsigned char *src,
 						unsigned int size);
@@ -79,6 +92,10 @@ bool				ft_ismeta(unsigned char c);
 bool				ft_strncmp(char *str1, char *str2, unsigned int size);
 
 unsigned int		ft_strlen(unsigned char *str);
+signed int			ft_strcmp(unsigned char *str1, unsigned char *str2);
+unsigned int		ft_lstsize(t_environ *environ);
+
+t_environ			*ft_lstnew(unsigned char *var);
 
 //===============================//
 //     Lexer                     //
@@ -88,9 +105,17 @@ void				tokenizer(unsigned char *input, t_lexer *lexer);
 unsigned int		count_tokens(unsigned char *str);
 
 //===============================//
+//     Parser                    //
+//===============================//
+
+void				parsing(t_lexer lexer, t_parser *parser);
+
+//===============================//
 //     Builtins                  //
 //===============================//
 
 void				ft_echo(unsigned char **args);
+void				ft_env(t_environ *environ);
+void				ft_export(t_environ **environ, unsigned char *var);
 
 #endif

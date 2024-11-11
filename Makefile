@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/11/08 15:03:04 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/11/11 14:07:19 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,28 +14,37 @@
 EXE			:=	minishell
 
 # Files
-VPATH		:=	src:src/utils:src/lexer
+VPATH		:=	src:src/utils:src/lexer:src/parser:src/builtins
 
 SRC			:=	main.c \
 
 SRC_UTILS	:=	ft_perror.c \
 				ft_strcpy.c \
+				ft_strcmp.c \
 				ft_strncmp.c \
 				ft_strlen.c \
 				ft_isprint.c \
 				ft_isspace.c \
 				ft_ismeta.c \
+				ft_lstsize.c \
+				ft_lstnew.c \
+				ft_lstfree.c \
 
 SRC_LEXER	:=	tokenizer.c \
 				count_tokens.c \
 
-SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_LEXER}
+SRC_PARSER	:=	parsing.c \
+
+SRC_CMD		:=	ft_env.c \
+				ft_export.c \
+
+SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_LEXER} ${SRC_PARSER} ${SRC_CMD}
 OBJ_DIR		:=	obj
 OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 
 # Variables
 CC			:=	cc
-CFLAGS		:=  -Iincludes -Wall -Wextra -fsanitize=address,leak -g
+CFLAGS		:=  -Iincludes -Wall -Wextra
 
 # Makefile
 all:		${EXE}

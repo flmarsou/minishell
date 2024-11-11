@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:20:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/08 09:05:05 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/11 09:19:02 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	tokenizer(unsigned char *input, t_lexer *lexer)
 			handle_double_meta(input, lexer, &x, &y);
 		else if (ft_ismeta(input[x]) && !ft_isspace(input[x]))
 			handle_single_meta(input, lexer, &x, &y);
-		else if (ft_isspace(input[x]))
+		if (ft_isspace(input[x]))
 			handle_whitespace(input, lexer, &x, &y);
 		while (ft_isspace(input[x]))
 			x++;

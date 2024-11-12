@@ -6,13 +6,13 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:20:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/11 09:19:02 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:06:24 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_double_meta(unsigned char *input, t_lexer *lexer,
+void	handle_double_meta(char *input, t_lexer *lexer,
 		unsigned int *x, unsigned int *y)
 {
 	if (input[*x] == '>')
@@ -25,7 +25,7 @@ void	handle_double_meta(unsigned char *input, t_lexer *lexer,
 	*x += 2;
 }
 
-void	handle_single_meta(unsigned char *input, t_lexer *lexer,
+void	handle_single_meta(char *input, t_lexer *lexer,
 		unsigned int *x, unsigned int *y)
 {
 	if (input[*x] == '\'')
@@ -46,7 +46,7 @@ void	handle_single_meta(unsigned char *input, t_lexer *lexer,
 	*x += 1;
 }
 
-void	handle_whitespace(unsigned char *input, t_lexer *lexer, unsigned int *x,
+void	handle_whitespace(char *input, t_lexer *lexer, unsigned int *x,
 		unsigned int *y)
 {
 	lexer->token[*y] = SEPARATOR;
@@ -55,7 +55,7 @@ void	handle_whitespace(unsigned char *input, t_lexer *lexer, unsigned int *x,
 	*y += 1;
 }
 
-void	handle_commands(unsigned char *input, t_lexer *lexer, unsigned int *x,
+void	handle_commands(char *input, t_lexer *lexer, unsigned int *x,
 		unsigned int *y)
 {
 	unsigned int	i;
@@ -71,7 +71,7 @@ void	handle_commands(unsigned char *input, t_lexer *lexer, unsigned int *x,
 	*y += 1;
 }
 
-void	tokenizer(unsigned char *input, t_lexer *lexer)
+void	tokenizer(char *input, t_lexer *lexer)
 {
 	unsigned int	x;
 	unsigned int	y;

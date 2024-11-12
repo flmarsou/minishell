@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ismeta.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:25:13 by anvacca           #+#    #+#             */
-/*   Updated: 2024/10/24 14:27:32 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/11/12 14:05:07 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	ft_ismeta(unsigned char c)
+bool	ft_ismeta(char c)
 {
 	if (c == '|' || c == '>' || c == '<' || c == '\"' || c == '\'' || c == '$')
 		return (true);

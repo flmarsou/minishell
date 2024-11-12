@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:25:12 by anvacca           #+#    #+#             */
-/*   Updated: 2024/10/15 10:53:45 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/11/12 14:08:19 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	is_newline(unsigned char *str)
 	return (true);
 }
 
-void	ft_echo(unsigned char **args)
+void	ft_echo(char **args)
 {
 	unsigned int	i;
 	bool			new_line;

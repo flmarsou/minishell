@@ -6,13 +6,13 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:13:15 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/11 14:53:56 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:05:34 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-signed int	ft_strcmp(unsigned char *str1, unsigned char *str2)
+signed int	ft_strcmp(char *str1, char *str2)
 {
 	unsigned int	i;
 

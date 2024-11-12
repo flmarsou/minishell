@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/12 13:11:15 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/11/12 14:10:07 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,19 @@
 
 typedef struct s_lexer
 {
-	unsigned char	**str;
+	char			**str;
 	unsigned int	*token;
 }	t_lexer;
 
 typedef struct s_parser
 {
-	unsigned char	**str;
+	char			**str;
 	unsigned int	*token;
 }	t_parser;
 
 typedef struct s_environ
 {
-	unsigned char		*var;
+	char				*var;
 	struct s_environ	*next;
 }	t_environ;
 
@@ -80,30 +80,29 @@ typedef enum e_tokens
 //===============================//
 
 void				ft_perror(const unsigned int error);
-void				ft_putstr(unsigned char *str);
+void				ft_putstr(char *str);
 void				ft_lstfree(t_environ *environ);
 
-unsigned char		*ft_strcpy(unsigned char *dest, unsigned char *src,
-						unsigned int size);
+char				*ft_strcpy(char *dest, char *src, unsigned int size);
 
-bool				ft_isprint(unsigned char c);
-bool				ft_isspace(unsigned char c);
-bool				ft_ismeta(unsigned char c);
+bool				ft_isprint(char c);
+bool				ft_isspace(char c);
+bool				ft_ismeta(char c);
 bool				ft_strncmp(char *str1, char *str2, unsigned int size);
 
-unsigned int		ft_strlen(unsigned char *str);
-signed int			ft_strcmp(unsigned char *str1, unsigned char *str2);
+unsigned int		ft_strlen(char *str);
+signed int			ft_strcmp(char *str1, char *str2);
 unsigned int		ft_lstsize(t_environ *environ);
 
 t_environ			*ft_lstadd_last(t_environ **environ, char *input);
-t_environ			*ft_lstnew(unsigned char *var);
+t_environ			*ft_lstnew(char *var);
 
 //===============================//
 //     Lexer                     //
 //===============================//
 
-void				tokenizer(unsigned char *input, t_lexer *lexer);
-unsigned int		count_tokens(unsigned char *str);
+void				tokenizer(char *input, t_lexer *lexer);
+unsigned int		count_tokens(char *str);
 
 //===============================//
 //     Parser                    //
@@ -115,9 +114,9 @@ void				parsing(t_lexer lexer, t_parser *parser);
 //     Builtins                  //
 //===============================//
 
-void				ft_echo(unsigned char **args);
+void				ft_echo(char **args);
 void				ft_env(t_environ *environ);
-void				ft_export(t_environ **environ, unsigned char *input);
+void				ft_export(t_environ **environ, char *input);
 void				ft_export_print(char *str);
 
 #endif

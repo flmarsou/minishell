@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:13:25 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/22 12:44:26 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/11/12 14:05:11 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	ft_isspace(unsigned char c)
+bool	ft_isspace(char c)
 {
 	if ((c >= 10 && c <= 13) || c == ' ')
 		return (true);

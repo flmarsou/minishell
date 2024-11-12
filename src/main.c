@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/12 13:27:59 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/11/12 14:09:48 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static void	init_struct(t_environ **environ, t_lexer *lexer)
 
 	lexer->str = NULL;
 	lexer->token = NULL;
-	head = ft_lstnew((unsigned char *)ENV[0]);
+	head = ft_lstnew(ENV[0]);
 	current = head;
 	i = 1;
 	while (ENV[i])
 	{
-		current->next = ft_lstnew((unsigned char *)ENV[i]);
+		current->next = ft_lstnew(ENV[i]);
 		current = current->next;
 		i++;
 	}
@@ -73,7 +73,7 @@ int	main(void)
 			break ;
 		if (buffer)
 			add_history(buffer);
-		tokenizer((unsigned char *)buffer, &lexer);
+		tokenizer(buffer, &lexer);
 		free_all(buffer, &lexer);
 	}
 	free_all(buffer, &lexer);

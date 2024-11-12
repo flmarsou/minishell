@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:35:40 by anvacca           #+#    #+#             */
-/*   Updated: 2024/10/15 10:36:37 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/11/12 14:05:25 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_putstr(unsigned char *str)
+void	ft_putstr(char *str)
 {
 	unsigned int	i;
 

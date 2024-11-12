@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   count_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:09:18 by anvacca           #+#    #+#             */
-/*   Updated: 2024/10/24 15:21:59 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/11/12 14:07:22 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-unsigned int	count_tokens(unsigned char *str)
+unsigned int	count_tokens(char *str)
 {
 	unsigned int	i;
 	unsigned int	wordcount;

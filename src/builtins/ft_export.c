@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:10:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/12 13:17:43 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/11/12 14:09:19 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	swap_vars(unsigned char **str1, unsigned char **str2)
+static void	swap_vars(char **str1, char **str2)
 {
-	unsigned char	*temp;
+	char	*temp;
 
 	temp = *str1;
 	*str1 = *str2;
 	*str2 = temp;
 }
 
-static unsigned char	**copy_tab(t_environ *environ)
+static char	**copy_tab(t_environ *environ)
 {
-	unsigned char	**unsorted_tab;
+	char			**unsorted_tab;
 	unsigned int	i;
 
 	unsorted_tab = malloc(sizeof(char *) * (ft_lstsize(environ) + 1));
@@ -40,7 +40,7 @@ static unsigned char	**copy_tab(t_environ *environ)
 
 static void	bubble_sort(t_environ *environ)
 {
-	unsigned char	**sorted_tab;
+	char			**sorted_tab;
 	bool			swapped;
 	unsigned int	i;
 
@@ -81,7 +81,7 @@ static void	modify_env(t_environ **environ, char *input, unsigned int i,
 			i++;
 		if (j == i)
 		{
-			if (ft_strncmp((char *)input, (char *)current->var, j) == true)
+			if (ft_strncmp(input, current->var, j) == true)
 			{
 				modified = true;
 				if (input[j + 1])
@@ -96,7 +96,7 @@ static void	modify_env(t_environ **environ, char *input, unsigned int i,
 		ft_lstadd_last(environ, input);
 }
 
-void	ft_export(t_environ **environ, unsigned char *input)
+void	ft_export(t_environ **environ, char *input)
 {
 	unsigned int	j;
 

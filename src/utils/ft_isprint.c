@@ -6,13 +6,13 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:13:25 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/10/21 15:10:53 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:05:09 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	ft_isprint(unsigned char c)
+bool	ft_isprint(char c)
 {
 	if ((c >= ' ' && c <= '~') || c == '\t')
 		return (true);

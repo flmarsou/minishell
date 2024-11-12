@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:26:28 by andi              #+#    #+#             */
-/*   Updated: 2024/10/28 10:37:34 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:08:14 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	ft_cd(char *next_path)
 {
-	unsigned char	current_path[PATH_MAX];
+	char			current_path[PATH_MAX];
 	unsigned int	i;
 	unsigned int	j;
 

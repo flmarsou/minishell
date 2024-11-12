@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/12 14:10:07 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:06:38 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ void				ft_echo(char **args);
 void				ft_env(t_environ *environ);
 void				ft_export(t_environ **environ, char *input);
 void				ft_export_print(char *str);
+void				ft_unset(t_environ **environ, char *input);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/11 15:48:53 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:11:15 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ unsigned int		ft_strlen(unsigned char *str);
 signed int			ft_strcmp(unsigned char *str1, unsigned char *str2);
 unsigned int		ft_lstsize(t_environ *environ);
 
+t_environ			*ft_lstadd_last(t_environ **environ, char *input);
 t_environ			*ft_lstnew(unsigned char *var);
 
 //===============================//
@@ -116,6 +117,7 @@ void				parsing(t_lexer lexer, t_parser *parser);
 
 void				ft_echo(unsigned char **args);
 void				ft_env(t_environ *environ);
-void				ft_export(t_environ **environ, unsigned char *var);
+void				ft_export(t_environ **environ, unsigned char *input);
+void				ft_export_print(char *str);
 
 #endif

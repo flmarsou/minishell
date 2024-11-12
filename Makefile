@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
+#    By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/11/11 14:07:19 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/11/12 13:09:42 by anvacca          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC_UTILS	:=	ft_perror.c \
 				ft_lstsize.c \
 				ft_lstnew.c \
 				ft_lstfree.c \
+				ft_lstadd_last.c \
 
 SRC_LEXER	:=	tokenizer.c \
 				count_tokens.c \
@@ -37,6 +38,7 @@ SRC_PARSER	:=	parsing.c \
 
 SRC_CMD		:=	ft_env.c \
 				ft_export.c \
+				ft_export_print.c \
 
 SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_LEXER} ${SRC_PARSER} ${SRC_CMD}
 OBJ_DIR		:=	obj

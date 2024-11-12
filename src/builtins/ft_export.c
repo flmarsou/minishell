@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:10:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/11 16:09:19 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:17:43 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,56 @@ static void	bubble_sort(t_environ *environ)
 	}
 	i = 0;
 	while (sorted_tab[i])
-		printf("%s\n", sorted_tab[i++]);
+		ft_export_print(sorted_tab[i++]);
 	free(sorted_tab);
+}
+
+static void	modify_env(t_environ **environ, char *input, unsigned int i,
+		unsigned int j)
+{
+	t_environ	*current;
+	bool		modified;
+
+	current = *environ;
+	modified = false;
+	while (current)
+	{
+		i = 0;
+		while (current->var[i + 1] && current->var[i + 1] != '=')
+			i++;
+		if (j == i)
+		{
+			if (ft_strncmp((char *)input, (char *)current->var, j) == true)
+			{
+				modified = true;
+				if (input[j + 1])
+					current->var = input;
+				else
+					return ;
+			}
+		}
+		current = current->next;
+	}
+	if (!modified)
+		ft_lstadd_last(environ, input);
 }
 
 void	ft_export(t_environ **environ, unsigned char *input)
 {
-	unsigned int	i;
+	unsigned int	j;
 
-	i = 0;
+	if (input && input[0] == '=')
+	{
+		write(1, "\e[1;97mExport: '=': not a valid identifier!\n\e[0m", 48);
+		return ;
+	}
 	if (!input)
 		bubble_sort(*environ);
 	else
 	{
-		while (environ[i] != '=')
-			i++;
-		if (ft_strncmp(input, (*environ)->var, ))
-		{
-			// Takes size of both until '='
-			// Compares if sizes are equal
-			// If not, strcmp
-		}
-		
+		j = 0;
+		while (input[j + 1] && input[j + 1] != '=')
+			j++;
+		modify_env(environ, input, 0, j);
 	}
 }

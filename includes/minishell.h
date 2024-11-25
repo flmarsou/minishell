@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/12 15:06:38 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:26:25 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ typedef struct s_lexer
 
 typedef struct s_parser
 {
-	char			**str;
-	unsigned int	*token;
+	unsigned int	groups;
 }	t_parser;
 
 typedef struct s_environ
@@ -80,18 +79,19 @@ typedef enum e_tokens
 //===============================//
 
 void				ft_perror(const unsigned int error);
-void				ft_putstr(char *str);
+void				ft_strerror(const char *str);
 void				ft_lstfree(t_environ *environ);
 
 char				*ft_strcpy(char *dest, char *src, unsigned int size);
+char				*ft_strchr(char *str, char c);
 
 bool				ft_isprint(char c);
 bool				ft_isspace(char c);
 bool				ft_ismeta(char c);
+bool				ft_strcmp(char *str1, char *str2);
 bool				ft_strncmp(char *str1, char *str2, unsigned int size);
 
 unsigned int		ft_strlen(char *str);
-signed int			ft_strcmp(char *str1, char *str2);
 unsigned int		ft_lstsize(t_environ *environ);
 
 t_environ			*ft_lstadd_last(t_environ **environ, char *input);

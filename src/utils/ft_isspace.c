@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:13:25 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/12 14:05:11 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/25 12:34:06 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	ft_isspace(char c)
 {
-	if ((c >= 10 && c <= 13) || c == ' ')
+	if ((c >= 9 && c <= 13) || c == ' ')
 		return (true);
 	return (false);
 }

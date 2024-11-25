@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:13:25 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/12 14:05:09 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/25 12:33:50 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	ft_isprint(char c)
 {
-	if ((c >= ' ' && c <= '~') || c == '\t')
+	if (c >= ' ' && c <= '~')
 		return (true);
 	return (false);
 }

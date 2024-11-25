@@ -6,11 +6,32 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/12 14:09:48 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:17:39 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Debugger (REMOVE BEFORE PUSH !!)
+static void	print_lexer(t_lexer lexer)
+{
+	const char		*tokens[] = {"Separator", "Command", "Single Quote",
+		"Double Quote", "Pipe", "Input Redirect", "Output Redirect",
+		"Heredoc", "Append Redirect", "Dollar"};
+	unsigned int	i;
+
+	i = 0;
+	if (lexer.str[i])
+	{
+		fprintf(stderr, "\e[34m========== L E X E R ==========\e[0m\n");
+		while (lexer.str[i])
+		{
+			fprintf(stderr, "String: \"\e[32m%s\e[0m\" Token: \e[32m%s\e[0m\n",
+				lexer.str[i], tokens[lexer.token[i]]);
+			i++;
+		}
+	}
+}
 
 static void	handle_signal(int sig)
 {
@@ -63,6 +84,7 @@ int	main(void)
 	char		*buffer;
 	t_environ	*environ;
 	t_lexer		lexer;
+	t_parser	parser;
 
 	signal(SIGINT, handle_signal);
 	init_struct(&environ, &lexer);
@@ -73,7 +95,8 @@ int	main(void)
 			break ;
 		if (buffer)
 			add_history(buffer);
-		tokenizer(buffer, &lexer);
+		tokenizer(buffer, &lexer); print_lexer(lexer); // Debug
+		parsing(lexer, &parser);
 		free_all(buffer, &lexer);
 	}
 	free_all(buffer, &lexer);

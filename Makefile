@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/11/12 15:23:44 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/11/25 15:26:34 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,17 +19,19 @@ VPATH		:=	src:src/utils:src/lexer:src/parser:src/builtins
 SRC			:=	main.c \
 
 SRC_UTILS	:=	ft_perror.c \
+				ft_strerror.c \
+				ft_lstfree.c \
 				ft_strcpy.c \
-				ft_strcmp.c \
-				ft_strncmp.c \
-				ft_strlen.c \
+				ft_strchr.c \
 				ft_isprint.c \
 				ft_isspace.c \
 				ft_ismeta.c \
+				ft_strcmp.c \
+				ft_strncmp.c \
+				ft_strlen.c \
 				ft_lstsize.c \
-				ft_lstnew.c \
-				ft_lstfree.c \
 				ft_lstadd_last.c \
+				ft_lstnew.c \
 
 SRC_LEXER	:=	tokenizer.c \
 				count_tokens.c \

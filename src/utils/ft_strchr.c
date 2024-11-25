@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 10:25:55 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/25 11:40:12 by flmarsou         ###   ########.fr       */
+/*   Created: 2024/11/25 11:37:51 by flmarsou          #+#    #+#             */
+/*   Updated: 2024/11/25 11:44:59 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_environ *environ)
+char	*ft_strchr(char *str, char c)
 {
-	while (environ)
+	unsigned int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		if (!ft_strchr(environ->var, '='))
-			environ = (*environ).next;
-		else
-		{
-			printf("%s\n", (*environ).var);
-			environ = (*environ).next;
-		}
+		if (str[i] == c)
+			return (str + i);
+		i++;
 	}
+	if (c == str[i])
+		return (str + i);
+	return (NULL);
 }

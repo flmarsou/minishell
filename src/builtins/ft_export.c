@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:10:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/12 14:09:19 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:44:18 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	bubble_sort(t_environ *environ)
 		i = 0;
 		while (sorted_tab[i] && sorted_tab[i + 1])
 		{
-			if (ft_strcmp(sorted_tab[i], sorted_tab[i + 1]) > 0)
+			if (!ft_strcmp(sorted_tab[i], sorted_tab[i + 1]))
 			{
 				swap_vars(&sorted_tab[i], &sorted_tab[i + 1]);
 				swapped = true;

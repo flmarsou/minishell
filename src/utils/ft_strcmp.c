@@ -6,13 +6,13 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:13:15 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/12 14:05:34 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:44:00 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-signed int	ft_strcmp(char *str1, char *str2)
+bool	ft_strcmp(char *str1, char *str2)
 {
 	unsigned int	i;
 
@@ -20,8 +20,8 @@ signed int	ft_strcmp(char *str1, char *str2)
 	while (str1[i] && str2[i])
 	{
 		if (str1[i] != str2[i])
-			return (str1[i] - str2[i]);
+			return (false);
 		i++;
 	}
-	return (0);
+	return (true);
 }

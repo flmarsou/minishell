@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:20:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/12 14:06:24 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:14:36 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,15 @@ void	handle_single_meta(char *input, t_lexer *lexer,
 void	handle_whitespace(char *input, t_lexer *lexer, unsigned int *x,
 		unsigned int *y)
 {
+	unsigned int	i;
+
+	i = 0;
 	lexer->token[*y] = SEPARATOR;
-	lexer->str[*y] = malloc(sizeof(char) * 2);
-	ft_strcpy(lexer->str[*y], &input[*x], 1);
+	while (input[*x + i] == ' ' || input[*x + i] == '\t')
+		i++;
+	lexer->str[*y] = malloc(sizeof(char) * (i + 1));
+	ft_strcpy(lexer->str[*y], &input[*x], i);
+	*x += i;
 	*y += 1;
 }
 
@@ -65,7 +71,7 @@ void	handle_commands(char *input, t_lexer *lexer, unsigned int *x,
 	while (ft_isprint(input[*x + i]) && !ft_ismeta(input[*x + i])
 		&& !ft_isspace(input[*x + i]))
 		i++;
-	lexer->str[*y] = malloc(sizeof(char) * i + 1);
+	lexer->str[*y] = malloc(sizeof(char) * (i + 1));
 	ft_strcpy(lexer->str[*y], &input[*x], i);
 	*x += i;
 	*y += 1;
@@ -74,7 +80,7 @@ void	handle_commands(char *input, t_lexer *lexer, unsigned int *x,
 void	tokenizer(char *input, t_lexer *lexer)
 {
 	unsigned int	x;
-	unsigned int	y;
+	unsigned int	y;	
 
 	x = 0;
 	y = 0;
@@ -90,8 +96,6 @@ void	tokenizer(char *input, t_lexer *lexer)
 			handle_single_meta(input, lexer, &x, &y);
 		if (ft_isspace(input[x]))
 			handle_whitespace(input, lexer, &x, &y);
-		while (ft_isspace(input[x]))
-			x++;
 		if (ft_isprint(input[x]) && !ft_ismeta(input[x])
 			&& !ft_isspace(input[x]))
 			handle_commands(input, lexer, &x, &y);

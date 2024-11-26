@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/11/25 15:26:34 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/11/26 12:56:47 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,8 @@ SRC_LEXER	:=	tokenizer.c \
 				count_tokens.c \
 
 SRC_PARSER	:=	parsing.c \
+				parse_pipes.c \
+				parse_quotes.c \
 
 SRC_CMD		:=	ft_env.c \
 				ft_export.c \

@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/25 15:26:25 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:56:28 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,9 @@ unsigned int		count_tokens(char *str);
 //===============================//
 
 void				parsing(t_lexer lexer, t_parser *parser);
+
+bool				handle_pipes_error(t_lexer lexer, t_parser *parser);
+bool				handle_quote_error(t_lexer lexer);
 
 //===============================//
 //     Builtins                  //

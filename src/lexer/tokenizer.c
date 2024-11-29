@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:20:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/25 15:14:36 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:43:41 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	handle_commands(char *input, t_lexer *lexer, unsigned int *x,
 void	tokenizer(char *input, t_lexer *lexer)
 {
 	unsigned int	x;
-	unsigned int	y;	
+	unsigned int	y;
 
 	x = 0;
 	y = 0;

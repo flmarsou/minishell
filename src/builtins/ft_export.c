@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:10:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/25 11:44:18 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:57:29 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void	modify_env(t_environ **environ, char *input, unsigned int i,
 		current = current->next;
 	}
 	if (!modified)
-		ft_lstadd_last(environ, input);
+		lstadd_last_env(environ, input);
 }
 
 void	ft_export(t_environ **environ, char *input)

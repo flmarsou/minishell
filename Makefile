@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/11/29 10:13:41 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/11/29 14:57:36 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ EXE			:=	minishell
 VPATH		:=	src:src/utils:src/lexer:src/parser:src/builtins
 
 SRC			:=	main.c \
+				init.c \
 
 SRC_UTILS	:=	ft_perror.c \
 				ft_strerror.c \
@@ -30,8 +31,6 @@ SRC_UTILS	:=	ft_perror.c \
 				ft_strncmp.c \
 				ft_strlen.c \
 				ft_lstsize.c \
-				ft_lstadd_last.c \
-				ft_lstnew.c \
 
 SRC_LEXER	:=	tokenizer.c \
 				count_tokens.c \

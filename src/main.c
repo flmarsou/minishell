@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/28 11:37:46 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/29 15:02:04 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,6 @@ static void	handle_signal(int sig)
 	}
 }
 
-static void	init_struct(t_environ **environ, t_lexer *lexer)
-{
-	t_environ		*head;
-	t_environ		*current;
-	unsigned int	i;
-
-	lexer->str = NULL;
-	lexer->token = NULL;
-	head = ft_lstnew(ENV[0]);
-	current = head;
-	i = 1;
-	while (ENV[i])
-	{
-		current->next = ft_lstnew(ENV[i]);
-		current = current->next;
-		i++;
-	}
-	*environ = head;
-}
-
 static void	free_all(char *buffer, t_lexer *lexer)
 {
 	unsigned int	i;
@@ -95,7 +75,8 @@ int	main(void)
 			break ;
 		if (buffer)
 			add_history(buffer);
-		tokenizer(buffer, &lexer); print_lexer(lexer); // Debug
+		tokenizer(buffer, &lexer);
+		print_lexer(lexer);
 		parsing(lexer, &parser, *environ);
 		free_all(buffer, &lexer);
 	}

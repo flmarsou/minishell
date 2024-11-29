@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/29 10:13:06 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/29 15:02:50 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@
 
 typedef struct s_lexer
 {
-	char			**str;
-	unsigned int	*token;
+	char				**str;
+	unsigned int		*token;
 }	t_lexer;
 
 typedef struct s_parser
 {
-	unsigned int	groups;
+	char				**command;
+	struct s_parser		*next;
 }	t_parser;
 
 typedef struct s_environ
@@ -74,6 +75,10 @@ typedef enum e_tokens
 	DOLLAR,				// $
 }	t_tokens;
 
+void				init_struct(t_environ **environ, t_lexer *lexer);
+t_environ			*lstnew_env(char *var);
+t_environ			*lstadd_last_env(t_environ **environ, char *input);
+
 //===============================//
 //     Utils                     //
 //===============================//
@@ -93,9 +98,6 @@ bool				ft_strncmp(char *str1, char *str2, unsigned int size);
 
 unsigned int		ft_strlen(char *str);
 unsigned int		ft_lstsize(t_environ *environ);
-
-t_environ			*ft_lstadd_last(t_environ **environ, char *input);
-t_environ			*ft_lstnew(char *var);
 
 //===============================//
 //     Lexer                     //

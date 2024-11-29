@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/26 12:56:28 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/29 10:13:06 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,8 @@ unsigned int		count_tokens(char *str);
 //     Parser                    //
 //===============================//
 
-void				parsing(t_lexer lexer, t_parser *parser);
+void				parsing(t_lexer lexer, t_parser *parser, t_environ envrion);
 
-bool				handle_pipes_error(t_lexer lexer, t_parser *parser);
 bool				handle_quote_error(t_lexer lexer);
 
 //===============================//

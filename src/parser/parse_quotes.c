@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:55:45 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/29 10:13:31 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:43:42 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ bool	handle_quote_error(t_lexer lexer)
 	while (lexer.str[i])
 	{
 		if (quote == 42 && (lexer.token[i] == SINGLE_QUOTE
-			|| lexer.token[i] == DOUBLE_QUOTE))
+				|| lexer.token[i] == DOUBLE_QUOTE))
 			quote = lexer.token[i];
 		else if (quote != 42 && lexer.token[i] == quote)
 			quote = 42;
 		i++;
 	}
-	if (quote != 42)
-		return (ft_strerror("Wrong quote placement!"), false);
+	if (quote == SINGLE_QUOTE)
+		return (ft_strerror("Syntax error, unexpected `'`"), false);
+	else if (quote == DOUBLE_QUOTE)
+		return (ft_strerror("Syntax error, unexpected `\"`"), false);
 	return (true);
 }

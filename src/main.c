@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/29 15:02:04 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:49:58 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(void)
 			add_history(buffer);
 		tokenizer(buffer, &lexer);
 		print_lexer(lexer);
-		parsing(lexer, &parser, *environ);
+		parsing(&lexer, &parser, *environ);
 		free_all(buffer, &lexer);
 	}
 	free_all(buffer, &lexer);

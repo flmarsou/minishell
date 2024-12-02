@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/02 12:50:11 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:53:53 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_lexer
 
 typedef struct s_parser
 {
-	char				**command;
+	char				**group;
 	struct s_parser		*next;
 }	t_parser;
 

@@ -6,13 +6,13 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 14:13:08 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/02 14:20:33 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/02 15:15:24 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*find_in_env(const char *var, t_environ environ)
+static char	*find_in_env(char *var, t_environ environ)
 {
 	while (environ.next)
 	{

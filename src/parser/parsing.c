@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 10:10:24 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/02 14:22:43 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/12/02 14:32:00 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,13 @@ static unsigned int count_commands(t_lexer *lexer)
 	return (commands);
 }
 
-void	parsing(t_lexer *lexer, t_parser *parser, t_environ envrion)
+void	parsing(t_lexer *lexer, t_parser *parser, t_environ environ)
 {
 	unsigned int	word_count;
 
-	handle_quote_error(*lexer);
-	// handle_pipe_error();
+	handle_quotes_error(*lexer);
+	handle_quotes(lexer);
+	handle_dollars(lexer, environ);
 	word_count = count_commands(lexer);
 	printf("%u\n", word_count);
 	fflush(stdout);

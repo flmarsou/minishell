@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/02 12:53:53 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/12/02 14:32:19 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,9 @@ unsigned int		count_tokens(char *str);
 
 void				parsing(t_lexer *lexer, t_parser *parser, t_environ envrion);
 
-bool				handle_quote_error(t_lexer lexer);
+bool				handle_quotes_error(t_lexer lexer);
+void				handle_quotes(t_lexer *lexer);
+void				handle_dollars(t_lexer *lexer, t_environ environ);
 
 //===============================//
 //     Builtins                  //

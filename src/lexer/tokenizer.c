@@ -6,13 +6,13 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:20:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/27 14:43:41 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/04 14:17:02 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_double_meta(char *input, t_lexer *lexer,
+static void	handle_double_meta(char *input, t_lexer *lexer,
 		unsigned int *x, unsigned int *y)
 {
 	if (input[*x] == '>')
@@ -25,7 +25,7 @@ void	handle_double_meta(char *input, t_lexer *lexer,
 	*x += 2;
 }
 
-void	handle_single_meta(char *input, t_lexer *lexer,
+static void	handle_single_meta(char *input, t_lexer *lexer,
 		unsigned int *x, unsigned int *y)
 {
 	if (input[*x] == '\'')
@@ -46,14 +46,14 @@ void	handle_single_meta(char *input, t_lexer *lexer,
 	*x += 1;
 }
 
-void	handle_whitespace(char *input, t_lexer *lexer, unsigned int *x,
+static void	handle_whitespace(char *input, t_lexer *lexer, unsigned int *x,
 		unsigned int *y)
 {
 	unsigned int	i;
 
 	i = 0;
 	lexer->token[*y] = SEPARATOR;
-	while (input[*x + i] == ' ' || input[*x + i] == '\t')
+	while (ft_isspace(input[*x + i]))
 		i++;
 	lexer->str[*y] = malloc(sizeof(char) * (i + 1));
 	ft_strcpy(lexer->str[*y], &input[*x], i);
@@ -61,7 +61,7 @@ void	handle_whitespace(char *input, t_lexer *lexer, unsigned int *x,
 	*y += 1;
 }
 
-void	handle_commands(char *input, t_lexer *lexer, unsigned int *x,
+static void	handle_commands(char *input, t_lexer *lexer, unsigned int *x,
 		unsigned int *y)
 {
 	unsigned int	i;
@@ -79,13 +79,14 @@ void	handle_commands(char *input, t_lexer *lexer, unsigned int *x,
 
 void	tokenizer(char *input, t_lexer *lexer)
 {
-	unsigned int	x;
-	unsigned int	y;
+	unsigned int		x;
+	unsigned int		y;
+	const unsigned int	nbr_of_tokens = count_tokens(input);
 
 	x = 0;
 	y = 0;
-	lexer->str = malloc(sizeof(char *) * (count_tokens(input) + 1));
-	lexer->token = malloc(sizeof(int) * (count_tokens(input) + 1));
+	lexer->str = malloc(sizeof(char *) * (nbr_of_tokens + 1));
+	lexer->token = malloc(sizeof(t_tokens) * (nbr_of_tokens));
 	while (ft_isspace(input[x]))
 		x++;
 	while (input[x])

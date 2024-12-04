@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/04 13:10:20 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:50:26 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,6 @@
 # define RESET_COLOR	"\e[0m"
 # define ORANGE			"\e[38;2;255;165;0m"
 
-typedef struct s_lexer
-{
-	char				**str;
-	unsigned int		*token;
-}	t_lexer;
-
-typedef struct s_parser
-{
-	char				**group;
-}	t_parser;
-
-typedef struct s_environ
-{
-	char				*var;
-	struct s_environ	*next;
-}	t_environ;
-
 typedef enum e_tokens
 {
 	SEPARATOR,			// Whitespace
@@ -73,6 +56,28 @@ typedef enum e_tokens
 	APPEND_REDIRECT,	// >>
 	DOLLAR,				// $
 }	t_tokens;
+
+typedef struct s_lexer
+{
+	char				**str;
+	t_tokens			*token;
+}	t_lexer;
+
+typedef struct s_parser
+{
+	char				**command;
+	struct s_redir
+	{
+		t_tokens	*token;
+		char		**type;
+	}	redir;
+}	t_parser;
+
+typedef struct s_environ
+{
+	char				*var;
+	struct s_environ	*next;
+}	t_environ;
 
 //===============================//
 //     Source                    //

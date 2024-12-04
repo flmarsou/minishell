@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_dollars.c                                   :+:      :+:    :+:   */
+/*   handle_redir_error.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 14:13:08 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/03 12:25:57 by flmarsou         ###   ########.fr       */
+/*   Created: 2024/12/03 12:26:14 by flmarsou          #+#    #+#             */
+/*   Updated: 2024/12/04 12:55:19 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// static char	*find_in_env(char *var, t_environ environ)
-// {
-// 	while (environ.next)
-// 	{
-// 		if (ft_strncmp(environ.var, var, ft_strlen(var)))
-// 			return (environ.var + ft_strlen(var) + 1);
-// 		environ = *environ.next;
-// 	}
-// 	return ("\n");
-// }
-
-// void	handle_dollars(t_lexer *lexer, t_environ environ)
-// {
-// 	(void)lexer;
-// 	(void)environ;
-// 	return ;
-// }
+bool	handle_redir_error(t_lexer lexer)
+{
+	(void)lexer;
+	return (true);
+}

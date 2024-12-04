@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/12/02 14:15:38 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/12/04 11:01:38 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,9 @@ SRC_LEXER	:=	tokenizer.c \
 SRC_PARSER	:=	parsing.c \
 				handle_quotes_error.c \
 				handle_quotes.c \
-				handle_dollars.c \
+				handle_pipes_error.c \
+				handle_redir_error.c \
+				init_parser.c \
 
 SRC_CMD		:=	ft_env.c \
 				ft_export.c \
@@ -51,16 +53,16 @@ OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 
 # Variables
 CC			:=	cc
-CFLAGS		:=  -Iincludes -Wall -Wextra
+CFLAGS		:=  -Iincludes -O3 -Wall -Wextra
 
 # Makefile
 all:		${EXE}
 
 ${EXE}:		${OBJECTS}
-			${CC} ${CFLAGS} -lreadline $^ -o $@
+			@${CC} ${CFLAGS} -lreadline $^ -o $@
 
 ${OBJ_DIR}/%.o:	%.c | ${OBJ_DIR}
-			${CC} ${CFLAGS} -c $< -o $@
+			@${CC} ${CFLAGS} -c $< -o $@
 
 ${OBJ_DIR}:
 			@mkdir -p $@

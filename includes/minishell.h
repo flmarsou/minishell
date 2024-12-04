@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/02 15:16:22 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:16:35 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 
 // Colors
 # define RESET_COLOR	"\e[0m"
-# define ORANGE			"\e[34m"
+# define ORANGE			"\e[1m\e[38;2;255;165;0m"
 
 typedef struct s_lexer
 {
@@ -52,7 +52,6 @@ typedef struct s_lexer
 typedef struct s_parser
 {
 	char				**group;
-	struct s_parser		*next;
 }	t_parser;
 
 typedef struct s_environ
@@ -114,7 +113,11 @@ void			parsing(t_lexer *lexer, t_parser *parser, t_environ environ);
 
 bool			handle_quotes_error(t_lexer lexer);
 void			handle_quotes(t_lexer *lexer);
+bool			handle_pipes_error(t_lexer lexer);
+bool			handle_redir_error(t_lexer lexer);
 void			handle_dollars(t_lexer *lexer, t_environ environ);
+
+void			init_parser(t_lexer lexer, t_parser *parser);
 
 //===============================//
 //     Builtins                  //

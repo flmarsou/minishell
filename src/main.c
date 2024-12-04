@@ -6,32 +6,14 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/04 12:55:56 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:07:52 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Debugger (REMOVE BEFORE PUSH !!)
-// static void	print_lexer(t_lexer lexer)
-// {
-// 	const char		*tokens[] = {"Separator", "Command", "Single Quote",
-// 		"Double Quote", "Pipe", "Input Redirect", "Output Redirect",
-// 		"Heredoc", "Append Redirect", "Dollar"};
-// 	unsigned int	i;
-
-// 	i = 0;
-// 	if (lexer.str[i])
-// 	{
-// 		fprintf(stderr, "\e[34m========== L E X E R ==========\e[0m\n");
-// 		while (lexer.str[i])
-// 		{
-// 			fprintf(stderr, "String: \"\e[32m%s\e[0m\" Token: \e[32m%s\e[0m\n",
-// 				lexer.str[i], tokens[lexer.token[i]]);
-// 			i++;
-// 		}
-// 	}
-// }
+#define _RESET	"\001\e[0m\002"
+#define _COLOR	"\001\e[1m\e[38;2;255;165;0m\002"
 
 static void	handle_signal(int sig)
 {
@@ -70,7 +52,7 @@ int	main(void)
 	init_struct(&environ, &lexer);
 	while (true)
 	{
-		buffer = readline(ORANGE"Nanashell > "RESET_COLOR);
+		buffer = readline(_COLOR"Nanashell > "_RESET);
 		if (!buffer)
 			break ;
 		if (buffer)

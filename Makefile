@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/12/04 11:01:38 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/12/04 13:05:40 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ VPATH		:=	src:src/utils:src/lexer:src/parser:src/builtins
 
 SRC			:=	main.c \
 				init.c \
+				debug.c \
 
 SRC_UTILS	:=	ft_perror.c \
 				ft_strerror.c \

@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 13:18:57 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/02 13:48:04 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:47:40 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	single_quote(t_lexer *lexer, unsigned int *i)
 	(*i)++;
 	while (lexer->str[*i] && lexer->token[*i] != SINGLE_QUOTE)
 	{
-		lexer->token[*i] = COMMAND;
+		lexer->token[*i] = WORD;
 		(*i)++;
 	}
 }
@@ -30,7 +30,7 @@ static void	double_quote(t_lexer *lexer, unsigned int *i)
 	while (lexer->str[*i] && lexer->token[*i] != DOUBLE_QUOTE)
 	{
 		if (lexer->token[*i] != DOLLAR)
-			lexer->token[*i] = COMMAND;
+			lexer->token[*i] = WORD;
 		(*i)++;
 	}
 }

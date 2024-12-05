@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:03:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/04 13:12:37 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:48:06 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_lexer(t_lexer lexer)
 {
 	const char		*tokens[] = {
 	[SEPARATOR] = "Separator",
-	[COMMAND] = "Command",
+	[WORD] = "Word",
 	[SINGLE_QUOTE] = "Single Quote",
 	[DOUBLE_QUOTE] = "Double Quote",
 	[PIPE] = "Pipe",

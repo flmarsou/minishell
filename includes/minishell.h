@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/04 15:50:26 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:49:22 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 typedef enum e_tokens
 {
 	SEPARATOR,			// Whitespace
-	COMMAND,			// Others
+	WORD,				// Others
 	SINGLE_QUOTE,		// '
 	DOUBLE_QUOTE,		// "
 	PIPE,				// |
@@ -98,7 +98,7 @@ void			ft_perror(const unsigned int error);
 void			ft_strerror(const char *str);
 void			ft_lstfree(t_environ *environ);
 
-char			*ft_strcpy(char *dest, char *src, unsigned int size);
+char			*ft_strncpy(char *dest, char *src, unsigned int size);
 char			*ft_strchr(char *str, char c);
 
 bool			ft_isprint(char c);

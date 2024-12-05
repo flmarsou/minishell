@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 09:56:41 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/03 12:29:21 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:47:40 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	check_input(t_lexer lexer, bool *found_pipe)
 				return (false);
 			*found_pipe = true;
 		}
-		else if (lexer.token[i] == COMMAND)
+		else if (lexer.token[i] == WORD)
 		{
 			found_word = true;
 			*found_pipe = false;

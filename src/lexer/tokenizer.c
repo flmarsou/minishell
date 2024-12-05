@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:20:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/04 14:17:02 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:49:51 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	handle_double_meta(char *input, t_lexer *lexer,
 	else
 		lexer->token[*y] = HEREDOC;
 	lexer->str[*y] = malloc(sizeof(char) * 3);
-	ft_strcpy(lexer->str[*y], &input[*x], 2);
+	ft_strncpy(lexer->str[*y], &input[*x], 2);
 	*y += 1;
 	*x += 2;
 }
@@ -41,7 +41,7 @@ static void	handle_single_meta(char *input, t_lexer *lexer,
 	else if (input[*x] == '$')
 		lexer->token[*y] = DOLLAR;
 	lexer->str[*y] = malloc(sizeof(char) * 2);
-	ft_strcpy(lexer->str[*y], &input[*x], 1);
+	ft_strncpy(lexer->str[*y], &input[*x], 1);
 	*y += 1;
 	*x += 1;
 }
@@ -56,7 +56,7 @@ static void	handle_whitespace(char *input, t_lexer *lexer, unsigned int *x,
 	while (ft_isspace(input[*x + i]))
 		i++;
 	lexer->str[*y] = malloc(sizeof(char) * (i + 1));
-	ft_strcpy(lexer->str[*y], &input[*x], i);
+	ft_strncpy(lexer->str[*y], &input[*x], i);
 	*x += i;
 	*y += 1;
 }
@@ -67,12 +67,12 @@ static void	handle_commands(char *input, t_lexer *lexer, unsigned int *x,
 	unsigned int	i;
 
 	i = 0;
-	lexer->token[*y] = COMMAND;
+	lexer->token[*y] = WORD;
 	while (ft_isprint(input[*x + i]) && !ft_ismeta(input[*x + i])
 		&& !ft_isspace(input[*x + i]))
 		i++;
 	lexer->str[*y] = malloc(sizeof(char) * (i + 1));
-	ft_strcpy(lexer->str[*y], &input[*x], i);
+	ft_strncpy(lexer->str[*y], &input[*x], i);
 	*x += i;
 	*y += 1;
 }

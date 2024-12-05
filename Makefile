@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/12/04 13:05:40 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/12/05 10:49:41 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC			:=	main.c \
 SRC_UTILS	:=	ft_perror.c \
 				ft_strerror.c \
 				ft_lstfree.c \
-				ft_strcpy.c \
+				ft_strncpy.c \
 				ft_strchr.c \
 				ft_isprint.c \
 				ft_isspace.c \

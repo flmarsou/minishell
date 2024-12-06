@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:03:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/06 10:39:35 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/06 14:10:34 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,11 @@
 void	print_lexer(t_lexer lexer)
 {
 	const char		*tokens[] = {
-	[SEPARATOR] = "Separator",
-	[WORD] = "Word",
-	[SINGLE_QUOTE] = "Single Quote",
-	[DOUBLE_QUOTE] = "Double Quote",
-	[PIPE] = "Pipe",
-	[INPUT_REDIRECT] = "Input Redirect",
-	[OUTPUT_REDIRECT] = "Output Redirect",
-	[HEREDOC] = "Heredoc",
-	[APPEND_REDIRECT] = "Append Redirect",
-	[DOLLAR] = "Dollar",
-	[TOKENLESS] = "N/A"
+	[SEPARATOR] = "Separator", [WORD] = "Word", [SINGLE_QUOTE] = "Single Quote",
+	[DOUBLE_QUOTE] = "Double Quote", [PIPE] = "Pipe",
+	[INPUT_REDIRECT] = "Input Redirect", [OUTPUT_REDIRECT] = "Output Redirect",
+	[HEREDOC] = "Heredoc", [APPEND_REDIRECT] = "Append Redirect",
+	[DOLLAR] = "Dollar", [TOKENLESS] = "N/A"
 	};
 	unsigned int	i;
 

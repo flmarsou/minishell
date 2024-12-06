@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/12/05 10:49:41 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/12/06 14:54:15 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC			:=	main.c \
 SRC_UTILS	:=	ft_perror.c \
 				ft_strerror.c \
 				ft_lstfree.c \
+				ft_strcpy.c \
 				ft_strncpy.c \
 				ft_strchr.c \
 				ft_isprint.c \
@@ -41,6 +42,7 @@ SRC_PARSER	:=	parsing.c \
 				handle_quotes.c \
 				handle_pipes_error.c \
 				handle_redir_error.c \
+				handle_dollars.c \
 				init_parser.c \
 
 SRC_CMD		:=	ft_env.c \

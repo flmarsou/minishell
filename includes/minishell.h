@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/06 10:29:13 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:32:07 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void			ft_perror(const unsigned int error);
 void			ft_strerror(const char *str);
 void			ft_lstfree(t_environ *environ);
 
+char			*ft_strcpy(char *dest, char *src);
 char			*ft_strncpy(char *dest, char *src, unsigned int size);
 char			*ft_strchr(char *str, char c);
 

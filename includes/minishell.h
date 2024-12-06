@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/05 10:49:22 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/06 10:29:13 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef enum e_tokens
 	HEREDOC,			// <<
 	APPEND_REDIRECT,	// >>
 	DOLLAR,				// $
+	TOKENLESS			// Equivalent to NULL
 }	t_tokens;
 
 typedef struct s_lexer

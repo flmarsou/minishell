@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:03:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/05 10:48:06 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/06 10:39:35 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	print_lexer(t_lexer lexer)
 	[OUTPUT_REDIRECT] = "Output Redirect",
 	[HEREDOC] = "Heredoc",
 	[APPEND_REDIRECT] = "Append Redirect",
-	[DOLLAR] = "Dollar"
+	[DOLLAR] = "Dollar",
+	[TOKENLESS] = "N/A"
 	};
 	unsigned int	i;
 

@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:20:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/05 10:49:51 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/06 14:20:40 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static void	handle_double_meta(char *input, t_lexer *lexer,
 	else
 		lexer->token[*y] = HEREDOC;
 	lexer->str[*y] = malloc(sizeof(char) * 3);
-	ft_strncpy(lexer->str[*y], &input[*x], 2);
+	lexer->str[*y][0] = input[*x];
+	lexer->str[*y][1] = input[*x];
+	lexer->str[*y][2] = '\0';
 	*y += 1;
 	*x += 2;
 }
@@ -41,7 +43,8 @@ static void	handle_single_meta(char *input, t_lexer *lexer,
 	else if (input[*x] == '$')
 		lexer->token[*y] = DOLLAR;
 	lexer->str[*y] = malloc(sizeof(char) * 2);
-	ft_strncpy(lexer->str[*y], &input[*x], 1);
+	lexer->str[*y][0] = input[*x];
+	lexer->str[*y][1] = '\0';
 	*y += 1;
 	*x += 1;
 }

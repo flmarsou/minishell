@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/06 15:32:07 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:14:08 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef enum e_tokens
 	HEREDOC,			// <<
 	APPEND_REDIRECT,	// >>
 	DOLLAR,				// $
-	TOKENLESS			// Equivalent to NULL
+	NA_VALUE,			// Equivalent to NULL
 }	t_tokens;
 
 typedef struct s_lexer
@@ -66,13 +66,16 @@ typedef struct s_lexer
 
 typedef struct s_parser
 {
-	char				**command;
+	char			**command;
+	unsigned int	nbr_of_groups;
 	struct s_redir
 	{
-		t_tokens	*token;
-		char		**type;
+		t_tokens		*token;
+		char			**type;
 	}	redir;
 }	t_parser;
+
+// echo toto >> truc | echo toto >> truc
 
 typedef struct s_environ
 {
@@ -80,9 +83,9 @@ typedef struct s_environ
 	struct s_environ	*next;
 }	t_environ;
 
-//===============================//
-//     Source                    //
-//===============================//
+//============================================================================//
+//     Source                                                                 //
+//============================================================================//
 
 void			init_struct(t_environ **environ, t_lexer *lexer);
 t_environ		*lstnew_env(char *var);
@@ -91,9 +94,9 @@ t_environ		*lstadd_last_env(t_environ **environ, char *input);
 // Debug
 void			print_lexer(t_lexer lexer);
 
-//===============================//
-//     Utils                     //
-//===============================//
+//============================================================================//
+//     Utils                                                                  //
+//============================================================================//
 
 void			ft_perror(const unsigned int error);
 void			ft_strerror(const char *str);
@@ -112,30 +115,61 @@ bool			ft_strncmp(char *str1, char *str2, unsigned int size);
 unsigned int	ft_strlen(char *str);
 unsigned int	ft_lstsize(t_environ *environ);
 
-//===============================//
-//     Lexer                     //
-//===============================//
+//============================================================================//
+//     Lexer                                                                  //
+//============================================================================//
 
 void			tokenizer(char *input, t_lexer *lexer);
 unsigned int	count_tokens(char *str);
 
-//===============================//
-//     Parser                    //
-//===============================//
+//============================================================================//
+//     Parser                                                                 //
+//============================================================================//
 
 void			parsing(t_lexer *lexer, t_parser *parser, t_environ environ);
 
+/**
+ * Checks the placement of quotes in the lexer tokens.
+ * Ensures that all quotes are properly opened and closed.
+ */
 bool			handle_quotes_error(t_lexer lexer);
-bool			handle_pipes_error(t_lexer lexer);
-bool			handle_redir_error(t_lexer lexer);
+/**
+ * Converts all tokens between quotes into WORD tokens,
+ * except for DOLLAR tokens within double quotes.
+ */
 void			handle_quotes(t_lexer *lexer);
+/**
+ * Checks the placement of pipes in the lexer tokens.
+ */
+bool			handle_pipes_error(t_lexer lexer);
+/**
+ * Expands environment variables in the lexer strings.
+ * Replaces DOLLAR to NA_VALUE and changes the following WORD by the
+ * corresponding environment variable. Replaces it by NULL if nothing were found.
+ */
 void			handle_dollars(t_lexer *lexer, t_environ environ);
+/**
+ * Checks the placement of redirections in the lexer tokens.
+ * Ensures that all redirections are followed by a WORD token.
+ */
+bool			handle_redir_error(t_lexer lexer);
+/**
+ * Fuses every WORD tokens next to one another into one, and removes quotes.
+ */
+void			handle_words(t_lexer *lexer);
+/**
+ * Allocates the array of struct parser.
+ */
+void			alloc_parser(t_lexer lexer, t_parser *parser);
+/**
+ * Populates the parser.redir struct.
+ * Removes redirections and their following words from the lexer.
+ */
+void			handle_redir(t_lexer *lexer, t_parser *parser);
 
-void			init_parser(t_lexer lexer, t_parser *parser);
-
-//===============================//
-//     Builtins                  //
-//===============================//
+//============================================================================//
+//     Builtins                                                               //
+//============================================================================//
 
 void			ft_echo(char **args);
 void			ft_env(t_environ *environ);

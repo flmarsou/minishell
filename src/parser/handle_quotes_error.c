@@ -6,13 +6,12 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:55:45 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/02 13:49:23 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/09 09:50:14 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Checks if single and double quotes are properly placed.
 bool	handle_quotes_error(t_lexer lexer)
 {
 	unsigned int	i;

@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/12/06 14:54:15 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/12/09 14:04:46 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,19 +20,19 @@ SRC			:=	main.c \
 				init.c \
 				debug.c \
 
-SRC_UTILS	:=	ft_perror.c \
-				ft_strerror.c \
-				ft_lstfree.c \
-				ft_strcpy.c \
-				ft_strncpy.c \
-				ft_strchr.c \
+SRC_UTILS	:=	ft_ismeta.c \
 				ft_isprint.c \
 				ft_isspace.c \
-				ft_ismeta.c \
-				ft_strcmp.c \
-				ft_strncmp.c \
-				ft_strlen.c \
+				ft_lstfree.c \
 				ft_lstsize.c \
+				ft_perror.c \
+				ft_strchr.c \
+				ft_strcmp.c \
+				ft_strcpy.c \
+				ft_strerror.c \
+				ft_strlen.c \
+				ft_strncmp.c \
+				ft_strncpy.c \
 
 SRC_LEXER	:=	tokenizer.c \
 				count_tokens.c \
@@ -41,9 +41,9 @@ SRC_PARSER	:=	parsing.c \
 				handle_quotes_error.c \
 				handle_quotes.c \
 				handle_pipes_error.c \
-				handle_redir_error.c \
 				handle_dollars.c \
-				init_parser.c \
+				handle_words.c \
+				handle_redir_error.c \
 
 SRC_CMD		:=	ft_env.c \
 				ft_export.c \

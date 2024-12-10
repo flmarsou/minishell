@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/09 14:14:08 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:36:07 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,13 @@ typedef struct s_lexer
 typedef struct s_parser
 {
 	char			**command;
-	unsigned int	nbr_of_groups;
 	struct s_redir
 	{
+		unsigned int	nbr_of_redirs;
 		t_tokens		*token;
 		char			**type;
 	}	redir;
 }	t_parser;
-
-// echo toto >> truc | echo toto >> truc
 
 typedef struct s_environ
 {
@@ -126,8 +124,8 @@ unsigned int	count_tokens(char *str);
 //     Parser                                                                 //
 //============================================================================//
 
-void			parsing(t_lexer *lexer, t_parser *parser, t_environ environ);
-
+void			parsing(t_lexer *lexer, t_parser *parser, t_environ environ,
+					unsigned int *groups);
 /**
  * Checks the placement of quotes in the lexer tokens.
  * Ensures that all quotes are properly opened and closed.
@@ -153,19 +151,20 @@ void			handle_dollars(t_lexer *lexer, t_environ environ);
  * Ensures that all redirections are followed by a WORD token.
  */
 bool			handle_redir_error(t_lexer lexer);
+
+void			destroy_token(t_lexer *lexer, unsigned int y);
+void			realloc_token(t_lexer *lexer, unsigned int y, char **buffer);
+
 /**
  * Fuses every WORD tokens next to one another into one, and removes quotes.
  */
 void			handle_words(t_lexer *lexer);
 /**
- * Allocates the array of struct parser.
- */
-void			alloc_parser(t_lexer lexer, t_parser *parser);
-/**
  * Populates the parser.redir struct.
  * Removes redirections and their following words from the lexer.
  */
-void			handle_redir(t_lexer *lexer, t_parser *parser);
+void			handle_redir(t_lexer *lexer, t_parser *parser,
+					unsigned int groups);
 
 //============================================================================//
 //     Builtins                                                               //

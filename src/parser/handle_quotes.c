@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 13:18:57 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/05 10:47:40 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:38:27 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	single_quote(t_lexer *lexer, unsigned int *i)
 		lexer->token[*i] = WORD;
 		(*i)++;
 	}
+	(*i)++;
 }
 
 // Turns all tokens encapsulated in double quotes to `COMMAND` except `DOLLAR`.
@@ -33,6 +34,7 @@ static void	double_quote(t_lexer *lexer, unsigned int *i)
 			lexer->token[*i] = WORD;
 		(*i)++;
 	}
+	(*i)++;
 }
 
 void	handle_quotes(t_lexer *lexer)

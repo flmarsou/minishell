@@ -1,37 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_parser.c                                      :+:      :+:    :+:   */
+/*   realloc_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 12:20:17 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/09 11:47:36 by flmarsou         ###   ########.fr       */
+/*   Created: 2024/12/10 10:59:13 by flmarsou          #+#    #+#             */
+/*   Updated: 2024/12/10 10:59:27 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static unsigned int	count_groups(t_lexer lexer)
+void	realloc_token(t_lexer *lexer, unsigned int y, char **buffer)
 {
-	unsigned int	i;
-	unsigned int	count;
-
-	i = 0;
-	count = 1;
-	while (lexer.str[i])
-	{
-		if (lexer.token[i] == PIPE)
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-void	alloc_parser(t_lexer lexer, t_parser *parser)
-{
-	unsigned int	groups;
-
-	groups = count_groups(lexer);
-	parser = malloc(sizeof(parser) * (groups));
+	lexer->token[y] = WORD;
+	free(lexer->str[y]);
+	lexer->str[y] = *buffer;
 }

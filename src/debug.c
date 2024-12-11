@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:03:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/11 13:40:58 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:10:42 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	print_lexer(t_lexer lexer)
 	};
 	unsigned int	i;
 
-	if (!PRINT_DEBUG)
-		return ;
 	i = 0;
 	if (lexer.str[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/11 13:47:33 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:05:16 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_lexer
 typedef struct s_parser
 {
 	char			**command;
+	unsigned int	nbr_of_commands;
 	struct s_redir
 	{
 		unsigned int	nbr_of_redirs;
@@ -172,7 +173,7 @@ void			handle_words(t_lexer *lexer);
 void			handle_redir(t_lexer *lexer, t_parser *parser,
 					unsigned int groups);
 void			handle_command(t_lexer *lexer, t_parser *parser,
-					unsigned int *groups);
+					unsigned int groups);
 
 //============================================================================//
 //     Builtins                                                               //

@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/12/10 12:35:35 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/12/11 13:49:43 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC_UTILS	:=	ft_ismeta.c \
 				ft_strchr.c \
 				ft_strcmp.c \
 				ft_strcpy.c \
+				ft_strdup.c \
 				ft_strerror.c \
 				ft_strlen.c \
 				ft_strncmp.c \
@@ -47,6 +48,7 @@ SRC_PARSER	:=	parsing.c \
 				_realloc_token.c \
 				handle_words.c \
 				handle_redir.c \
+				handle_command.c \
 
 SRC_CMD		:=	ft_env.c \
 				ft_export.c \
@@ -59,7 +61,7 @@ OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 
 # Variables
 CC			:=	cc
-CFLAGS		:=  -Iincludes -O3 -Wall -Wextra
+CFLAGS		:=  -Iincludes -O2 -Wall -Wextra
 
 # Makefile
 all:		${EXE}
@@ -77,16 +79,16 @@ clean:
 			@rm -rf obj
 
 fclean:		clean
-			@rm -rf ${EXE}
+			@rm -rf ${EXE} ${EXE}.log
 
 re:			fclean all
 
+debug:		CFLAGS += -D PRINT_DEBUG=true
 debug:		re
-			rm -rf ${EXE}.log
-			./${EXE} 1>&1 2> ${EXE}.log
+			@echo "Running the program in debug mode..."
+			@./${EXE} 1>&1 2> ${EXE}.log
 
 trace:		re
-			rm -rf ${EXE}.log
 			strace ./${EXE} 1>&1 2> ${EXE}.log
 
 .PHONY:		all clean fclean re

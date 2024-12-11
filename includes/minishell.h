@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/10 14:36:07 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:47:33 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@
 # include <stdbool.h>           // Booleans
 								// rl_replace_line, rl_redisplay
 # include <readline/history.h>  // add_history
+
+// Debug
+# ifndef PRINT_DEBUG
+#  define PRINT_DEBUG false
+# endif
 
 // Shortcuts
 # define STDIN			0
@@ -103,6 +108,7 @@ void			ft_lstfree(t_environ *environ);
 char			*ft_strcpy(char *dest, char *src);
 char			*ft_strncpy(char *dest, char *src, unsigned int size);
 char			*ft_strchr(char *str, char c);
+char			*ft_strdup(char *str);
 
 bool			ft_isprint(char c);
 bool			ft_isspace(char c);
@@ -165,6 +171,8 @@ void			handle_words(t_lexer *lexer);
  */
 void			handle_redir(t_lexer *lexer, t_parser *parser,
 					unsigned int groups);
+void			handle_command(t_lexer *lexer, t_parser *parser,
+					unsigned int *groups);
 
 //============================================================================//
 //     Builtins                                                               //

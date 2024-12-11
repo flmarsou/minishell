@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:03:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/09 14:11:29 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:40:58 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,15 @@ void	print_lexer(t_lexer lexer)
 	};
 	unsigned int	i;
 
+	if (!PRINT_DEBUG)
+		return ;
 	i = 0;
 	if (lexer.str[i])
 	{
-		fprintf(stderr, ORANGE"========== L E X E R ==========\n"RESET_COLOR);
+		fprintf(stderr, "=================== L E X E R ===================\n");
 		while (lexer.str[i])
 		{
-			fprintf(stderr, "String: \"\e[32m%s\e[0m\" Token: \e[32m%s\e[0m\n",
+			fprintf(stderr, "String: \"%s\" Token: %s\n",
 				lexer.str[i], tokens[lexer.token[i]]);
 			i++;
 		}

@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 10:10:24 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/11 14:07:38 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:04:52 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ void	parsing(t_lexer *lexer, t_parser *parser, t_environ environ,
 	*groups = count_groups(*lexer);
 	parser = malloc(sizeof(parser) * (*groups));
 	handle_redir(lexer, parser, *groups);
-	// handle_command(lexer, parser, *groups);
+	handle_command(lexer, parser, *groups);
 }

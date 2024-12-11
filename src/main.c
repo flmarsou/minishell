@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/10 13:01:36 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/11 10:54:44 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,9 @@ static void	handle_signal(int sig)
 	}
 }
 
-static void	free_all(char *buffer, t_lexer *lexer)
-{
-	unsigned int	i;
-
-	if (buffer)
-		free(buffer);
-	i = 0;
-	while (lexer->str && lexer->str[i])
-		free(lexer->str[i++]);
-	free(lexer->str);
-	free(lexer->token);
-	lexer->str = NULL;
-	lexer->token = NULL;
-}
-
+// TODO: Free Lexer after parser
+// TODO: Free Parser after Exec
+// TODO: Free Exec before continue
 int	main(void)
 {
 	char			*buffer;
@@ -60,9 +48,7 @@ int	main(void)
 			add_history(buffer);
 		tokenizer(buffer, &lexer);
 		parsing(&lexer, &parser, *environ, &groups);
-		free_all(buffer, &lexer);
 	}
-	free_all(buffer, &lexer);
 	ft_lstfree(environ);
 	rl_clear_history();
 	write(STDOUT, "Exiting...\n", 11);

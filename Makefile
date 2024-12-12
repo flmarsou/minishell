@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/12/11 13:49:43 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/12/12 09:29:58 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,12 @@ EXE			:=	minishell
 VPATH		:=	src:src/utils:src/lexer:src/parser:src/builtins
 
 SRC			:=	main.c \
-				init.c \
+				free.c \
 				debug.c \
 
 SRC_UTILS	:=	ft_ismeta.c \
 				ft_isprint.c \
 				ft_isspace.c \
-				ft_lstfree.c \
 				ft_lstsize.c \
 				ft_perror.c \
 				ft_strchr.c \
@@ -34,6 +33,8 @@ SRC_UTILS	:=	ft_ismeta.c \
 				ft_strlen.c \
 				ft_strncmp.c \
 				ft_strncpy.c \
+				lstadd_last_env.c \
+				lstnew_env.c \
 
 SRC_LEXER	:=	tokenizer.c \
 				count_tokens.c \

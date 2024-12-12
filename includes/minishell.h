@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/11 15:05:16 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/12 09:31:09 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ typedef struct s_environ
 //     Source                                                                 //
 //============================================================================//
 
-void			init_struct(t_environ **environ, t_lexer *lexer);
-t_environ		*lstnew_env(char *var);
-t_environ		*lstadd_last_env(t_environ **environ, char *input);
+void			free_lexer(t_lexer *lexer);
+void			free_parser(t_parser *parser);
+void			free_env(t_environ *environ);
 
 // Debug
 void			print_lexer(t_lexer lexer);
@@ -104,7 +104,6 @@ void			print_lexer(t_lexer lexer);
 
 void			ft_perror(const unsigned int error);
 void			ft_strerror(const char *str);
-void			ft_lstfree(t_environ *environ);
 
 char			*ft_strcpy(char *dest, char *src);
 char			*ft_strncpy(char *dest, char *src, unsigned int size);
@@ -119,6 +118,9 @@ bool			ft_strncmp(char *str1, char *str2, unsigned int size);
 
 unsigned int	ft_strlen(char *str);
 unsigned int	ft_lstsize(t_environ *environ);
+
+t_environ		*lstnew_env(char *var);
+t_environ		*lstadd_last_env(t_environ **environ, char *input);
 
 //============================================================================//
 //     Lexer                                                                  //

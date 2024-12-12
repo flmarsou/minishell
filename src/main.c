@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/11 10:54:44 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/12 10:37:30 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,29 @@ static void	handle_signal(int sig)
 	}
 }
 
-// TODO: Free Lexer after parser
-// TODO: Free Parser after Exec
-// TODO: Free Exec before continue
-int	main(void)
+static void	init_env(t_environ **environ)
+{
+	t_environ		*head;
+	t_environ		*current;
+	unsigned int	i;
+
+	head = lstnew_env(ENV[0]);
+	current = head;
+	i = 1;
+	while (ENV[i])
+	{
+		current->next = lstnew_env(ENV[i]);
+		current = current->next;
+		i++;
+	}
+	*environ = head;
+}
+
+static void	main_loop(t_lexer *lexer, t_parser *parser, t_environ *environ)
 {
 	char			*buffer;
-	t_environ		*environ;
-	t_lexer			lexer;
-	t_parser		parser;
 	unsigned int	groups;
 
-	signal(SIGINT, handle_signal);
-	init_struct(&environ, &lexer);
 	while (true)
 	{
 		buffer = readline(_COLOR"Nanashell > "_RESET);
@@ -46,10 +56,21 @@ int	main(void)
 			break ;
 		if (buffer)
 			add_history(buffer);
-		tokenizer(buffer, &lexer);
-		parsing(&lexer, &parser, *environ, &groups);
+		tokenizer(buffer, lexer);
+		parsing(lexer, parser, *environ, &groups);
 	}
-	ft_lstfree(environ);
+}
+
+int	main(void)
+{
+	t_environ		*environ;
+	t_lexer			lexer;
+	t_parser		parser;
+
+	signal(SIGINT, handle_signal);
+	init_env(&environ);
+	main_loop(&lexer, &parser, environ);
+	free_env(environ);
 	rl_clear_history();
 	write(STDOUT, "Exiting...\n", 11);
 	return (0);

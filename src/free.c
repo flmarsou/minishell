@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 14:53:24 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/12 09:44:00 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:05:51 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	free_env(t_environ *environ)
 	}
 }
 
-void	free_parser(t_parser *parser)
-{
+// void	free_parser(t_parser *parser)
+// {
 	
-}
+// }
 
 void	free_lexer(t_lexer *lexer)
 {

@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:55:53 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/10 12:36:40 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:27:59 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	edit_lexer(t_lexer *lexer, unsigned int y, unsigned int length,
 				i++;
 				x++;
 			}
-			destroy_token(lexer, y);
+			lexer->token[y] = NA_VALUE;
 		}
 		y++;
 		nbr_of_token--;

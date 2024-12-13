@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/12/12 09:29:58 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/12/13 14:45:15 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,6 @@ SRC_PARSER	:=	parsing.c \
 				handle_pipes_error.c \
 				handle_dollars.c \
 				handle_redir_error.c \
-				_destroy_token.c \
 				_realloc_token.c \
 				handle_words.c \
 				handle_redir.c \

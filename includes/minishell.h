@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/12 09:31:09 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:55:49 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,9 @@ typedef struct s_parser
 {
 	char			**command;
 	unsigned int	nbr_of_commands;
-	struct s_redir
-	{
-		unsigned int	nbr_of_redirs;
-		t_tokens		*token;
-		char			**type;
-	}	redir;
+	unsigned int	nbr_of_redirs;
+	t_tokens		*token;
+	char			**type;
 }	t_parser;
 
 typedef struct s_environ
@@ -161,7 +158,6 @@ void			handle_dollars(t_lexer *lexer, t_environ environ);
  */
 bool			handle_redir_error(t_lexer lexer);
 
-void			destroy_token(t_lexer *lexer, unsigned int y);
 void			realloc_token(t_lexer *lexer, unsigned int y, char **buffer);
 
 /**

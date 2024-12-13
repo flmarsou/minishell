@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:30:36 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/13 15:13:18 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:27:45 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,41 +34,58 @@ static unsigned int	count_redirs(t_lexer lexer, unsigned int *i)
 	return (count);
 }
 
-void	handle_redir(t_lexer *lexer, t_parser *parser, unsigned int groups)
+static void	alloc_redir(t_lexer *lexer, t_parser *parser, unsigned int groups)
 {
-	unsigned int	i;
-	unsigned int	index;
 	unsigned int	group;
+	unsigned int	i;
 
 	group = 0;
 	i = 0;
 	while (group < groups)
 	{
 		parser[group].nbr_of_redirs = count_redirs(*lexer, &i);
-		parser[group].token = malloc(sizeof(t_tokens) * (parser[group].nbr_of_redirs));
-		parser[group].type = malloc(sizeof(char *) * (parser[group].nbr_of_redirs));
+		parser[group].token = malloc(sizeof(t_tokens)
+				* (parser[group].nbr_of_redirs));
+		parser[group].type = malloc(sizeof(char *)
+				* (parser[group].nbr_of_redirs));
 		group++;
 	}
-	group = 0;
-	i = 0;
+}
+
+static void	loop(t_lexer *lexer, t_parser *parser, unsigned int *i)
+{
+	unsigned int	index;
+	unsigned int	group;
+
 	index = 0;
-	while (lexer->str[i])
+	group = 0;
+	if (lexer->token[*i] == INPUT_REDIRECT
+		|| lexer->token[*i] == OUTPUT_REDIRECT
+		|| lexer->token[*i] == HEREDOC
+		|| lexer->token[*i] == APPEND_REDIRECT)
 	{
-		if (lexer->token[i] == INPUT_REDIRECT || lexer->token[i] == OUTPUT_REDIRECT || lexer->token[i] == HEREDOC || lexer->token[i] == APPEND_REDIRECT)
-		{
-			parser[group].token[index] = lexer->token[i];
-			while (lexer->str[i] && lexer->token[i] != WORD)
-				i++;
-			parser[group].type[index] = strdup(lexer->str[i]);
-			index++;
-		}
-		else if (lexer->token[i] == PIPE)
-		{
-			index = 0;
-			group++;
-			i++;
-		}
-		else
-			i++;
+		parser[group].token[index] = lexer->token[*i];
+		while (lexer->str[*i] && lexer->token[*i] != WORD)
+			(*i)++;
+		parser[group].type[index] = strdup(lexer->str[*i]);
+		index++;
 	}
+	else if (lexer->token[*i] == PIPE)
+	{
+		index = 0;
+		group++;
+		(*i)++;
+	}
+	else
+		(*i)++;
+}
+
+void	handle_redir(t_lexer *lexer, t_parser *parser, unsigned int groups)
+{
+	unsigned int	i;
+
+	alloc_redir(lexer, parser, groups);
+	i = 0;
+	while (lexer->str[i])
+		loop(lexer, parser, &i);
 }

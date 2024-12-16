@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:46:15 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/11 15:12:40 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:06:02 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,8 @@ static void	alloc_commands(t_lexer *lexer, t_parser *parser,
 	while (i < groups)
 	{
 		parser[i].nbr_of_commands = count_commands(*lexer, false);
-		if (parser[i].nbr_of_commands > 0)
-		{
-			parser[i].command = malloc(sizeof(char *)
-					* (parser[i].nbr_of_commands + 1));
-			parser[i].command[parser[i].nbr_of_commands] = NULL;
-		}
+		parser[i].command = malloc(sizeof(char *)
+				* (parser[i].nbr_of_commands));
 		i++;
 	}
 	count_commands(*lexer, true);
@@ -88,8 +84,9 @@ void	handle_command(t_lexer *lexer, t_parser *parser, unsigned int groups)
 			group++;
 			found_command(lexer, &parser[group], &i, true);
 		}
-		if (lexer->token[i] == WORD)
+		else if (lexer->token[i] == WORD)
 			found_command(lexer, &parser[group], &i, false);
 		i++;
 	}
+	found_command(lexer, &parser[group], &i, true);
 }

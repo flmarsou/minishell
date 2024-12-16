@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/13 14:55:49 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/16 10:18:25 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,12 @@ typedef struct s_environ
 //============================================================================//
 
 void			free_lexer(t_lexer *lexer);
-void			free_parser(t_parser *parser);
+void			free_parser(t_parser *parser, unsigned int groups);
 void			free_env(t_environ *environ);
 
 // Debug
 void			print_lexer(t_lexer lexer);
+void			print_parser(t_parser *parser, unsigned int groups);
 
 //============================================================================//
 //     Utils                                                                  //
@@ -130,7 +131,7 @@ unsigned int	count_tokens(char *str);
 //     Parser                                                                 //
 //============================================================================//
 
-void			parsing(t_lexer *lexer, t_parser *parser, t_environ environ,
+void			parsing(t_lexer *lexer, t_parser **parser, t_environ environ,
 					unsigned int *groups);
 /**
  * Checks the placement of quotes in the lexer tokens.

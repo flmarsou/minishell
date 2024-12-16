@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:03:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/16 12:21:59 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:05:33 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,61 @@
 #define PRINT_N_COMMAND	"Group[%u] - No Command Found!\n"
 #define PRINT_COMMAND	"Group[%u] - Command[%u]: %s\n"
 #define PRINT_N_REDIR	"Group[%u] - No Redir Found!\n"
-#define PRINT_REDIR		"Group[%u] - Redir[%u]: %s\n"
+#define PRINT_REDIR		"Group[%u] - Redir[%u] (%s): %s\n"
+
+static void	print_parser_command(t_parser parser, unsigned int i)
+{
+	unsigned int	j;
+
+	if (parser.nbr_of_commands == 0)
+		fprintf(stderr, PRINT_N_COMMAND, i);
+	else
+	{
+		j = 0;
+		while (j < parser.nbr_of_commands)
+		{
+			fprintf(stderr, PRINT_COMMAND, i, j, parser.command[j]);
+			j++;
+		}
+	}
+}
+
+static void	print_parser_redir(t_parser parser, unsigned int i)
+{
+	unsigned int	j;
+	const char		*tokens[] = {
+	[INPUT_REDIRECT] = "Input Redirect", [OUTPUT_REDIRECT] = "Output Redirect",
+	[HEREDOC] = "Heredoc", [APPEND_REDIRECT] = "Append Redirect"
+	};
+
+	if (parser.nbr_of_redirs == 0)
+		fprintf(stderr, PRINT_N_REDIR, i);
+	else
+	{
+		j = 0;
+		while (j < parser.nbr_of_redirs)
+		{
+			fprintf(stderr, PRINT_REDIR, i, j,
+				tokens[parser.token[j]], parser.type[j]);
+			j++;
+		}
+	}
+}
 
 void	print_parser(t_parser *parser, unsigned int groups)
 {
 	unsigned int	i;
-	unsigned int	j;
 
 	i = 0;
 	fprintf(stderr, PARSER_BANNER);
 	while (i < groups)
 	{
-		if (parser[i].nbr_of_redirs == 0)
-			fprintf(stderr, PRINT_N_REDIR, i);
-		else
-		{
-			j = 0;
-			while (j < parser[i].nbr_of_redirs)
-			{
-				fprintf(stderr, PRINT_REDIR, i, j, parser[i].type[j]);
-				j++;
-			}
-		}
+		print_parser_command(parser[i], i);
 		fprintf(stderr, "\n");
+		print_parser_redir(parser[i], i);
 		i++;
+		if (i < groups)
+			fprintf(stderr, "\n\n");
 	}
 }
 

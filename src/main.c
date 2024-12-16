@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/12 10:37:30 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:16:59 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,12 @@ static void	main_loop(t_lexer *lexer, t_parser *parser, t_environ *environ)
 		if (buffer)
 			add_history(buffer);
 		tokenizer(buffer, lexer);
-		parsing(lexer, parser, *environ, &groups);
+		free(buffer);
+		parsing(lexer, &parser, *environ, &groups);
+		free_lexer(lexer);
+		// Exec
+		free_parser(parser, groups);
+		// Free Exec
 	}
 }
 

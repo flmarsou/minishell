@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 14:53:24 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/13 14:05:51 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:16:19 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,26 @@ void	free_env(t_environ *environ)
 	}
 }
 
-// void	free_parser(t_parser *parser)
-// {
-	
-// }
+void	free_parser(t_parser *parser, unsigned int groups)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	while (i < groups)
+	{
+		j = 0;
+		while (j < parser[i].nbr_of_redirs)
+		{
+			free(parser[i].type[j]);
+			j++;
+		}
+		free(parser[i].token);
+		free(parser[i].type);
+		i++;
+	}
+	free(parser);
+}
 
 void	free_lexer(t_lexer *lexer)
 {

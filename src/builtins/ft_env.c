@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andi <andi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 10:25:55 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/25 11:40:12 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/22 23:51:43 by andi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_environ *environ)
+void	ft_env(t_environ *environ, unsigned int *builtin)
 {
+	*builtin = 1;
 	while (environ)
 	{
 		if (!ft_strchr(environ->var, '='))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andi <andi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:10:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/29 14:57:29 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/22 23:51:37 by andi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,11 @@ static void	modify_env(t_environ **environ, char *input, unsigned int i,
 		lstadd_last_env(environ, input);
 }
 
-void	ft_export(t_environ **environ, char *input)
+void	ft_export(t_environ **environ, char *input, unsigned int *builtin)
 {
 	unsigned int	j;
 
+	*builtin = 1;
 	if (input && input[0] == '=')
 	{
 		write(1, "\e[1;97mExport: '=': not a valid identifier!\n\e[0m", 48);

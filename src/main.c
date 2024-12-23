@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/16 12:16:59 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/23 14:51:03 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void	main_loop(t_lexer *lexer, t_parser *parser, t_environ *environ)
 {
 	char			*buffer;
 	unsigned int	groups;
+	bool			must_free;
 
 	while (true)
 	{
@@ -58,10 +59,11 @@ static void	main_loop(t_lexer *lexer, t_parser *parser, t_environ *environ)
 			add_history(buffer);
 		tokenizer(buffer, lexer);
 		free(buffer);
-		parsing(lexer, &parser, *environ, &groups);
+		must_free = parsing(lexer, &parser, *environ, &groups);
 		free_lexer(lexer);
 		// Exec
-		free_parser(parser, groups);
+		if (must_free)
+			free_parser(parser, groups);
 		// Free Exec
 	}
 }

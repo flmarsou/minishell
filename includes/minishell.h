@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/23 10:04:55 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/23 14:50:33 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef enum e_tokens
 	APPEND_REDIRECT,	// >>
 	DOLLAR,				// $
 	NA_VALUE,			// Equivalent to NULL
+	END,
 }	t_tokens;
 
 typedef struct s_lexer
@@ -131,7 +132,7 @@ unsigned int	count_tokens(char *str);
 //     Parser                                                                 //
 //============================================================================//
 
-void			parsing(t_lexer *lexer, t_parser **parser, t_environ environ,
+bool			parsing(t_lexer *lexer, t_parser **parser, t_environ environ,
 					unsigned int *groups);
 /**
  * Checks the placement of quotes in the lexer tokens.

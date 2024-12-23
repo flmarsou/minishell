@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andi <andi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 18:53:50 by andi              #+#    #+#             */
-/*   Updated: 2024/12/23 00:21:20 by andi             ###   ########.fr       */
+/*   Updated: 2024/12/23 10:10:58 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 bool	exec_builtin(char **command, t_environ **environ)
 {
-	unsigned int i;
-	unsigned int builtin;
-	
+	unsigned int	i;
+	unsigned int	builtin;
 
 	i = 1;
 	if (ft_strcmp(command[0], "cd") == 0)
@@ -34,48 +33,45 @@ bool	exec_builtin(char **command, t_environ **environ)
 	else if (ft_strcmp(command[0], "env") == 0)
 		ft_env(*environ, &builtin);
 	else if (ft_strcmp(command[0], "exit") == 0)
-	{
-	
-	}
+		exit(0); // TODO: ft_exit
 	if (builtin == 1)
 		return (true);
 	return (false);
 }
 
-void handle_redirections(t_parser *parser)
+void	handle_redirections(t_parser *parser)
 {
-    int fd;
-	unsigned int i;
+	int				fd;
+	unsigned int	i;
 
 	i = 0;
-    while (i < parser->nbr_of_redirs)
-    {
-        if (parser->token[i] == HEREDOC)
-            fd = heredoc(parser->type[i][1]); // Handle HEREDOC (<<).
-        else if (parser->token[i] == OUTPUT_REDIRECT)
-            fd = open(parser->type[i][1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-        else if (parser->token[i] == APPEND_REDIRECT)
-            fd = open(parser->type[i][1], O_WRONLY | O_CREAT | O_APPEND, 0644);
-        else if (parser->token[i] == INPUT_REDIRECT)
-            fd = open(parser->type[i][1], O_RDONLY);
-        if (fd == -1)
-            ft_perror("redirection");
-        if (parser->token[i] == INPUT_REDIRECT || parser->token[i] == HEREDOC)
-            dup2(fd, STDIN_FILENO); // Redirect input.
-        else
-            dup2(fd, STDOUT_FILENO); // Redirect output.
-
-        close(fd); // Close the file descriptor after duplication.
+	while (i < parser->nbr_of_redirs)
+	{
+		if (parser->token[i] == HEREDOC)
+			fd = heredoc(parser->type[i][1]); // Handle HEREDOC (<<).
+		else if (parser->token[i] == OUTPUT_REDIRECT)
+			fd = open(parser->type[i][1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		else if (parser->token[i] == APPEND_REDIRECT)
+			fd = open(parser->type[i][1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+		else if (parser->token[i] == INPUT_REDIRECT)
+			fd = open(parser->type[i][1], O_RDONLY);
+		if (fd == -1)
+			perror("redirection");
+		if (parser->token[i] == INPUT_REDIRECT || parser->token[i] == HEREDOC)
+			dup2(fd, STDIN_FILENO); // Redirect input.
+		else
+			dup2(fd, STDOUT_FILENO); // Redirect output.
+		close(fd); // Close the file descriptor after duplication.
 		i++;
-    }
+	}
 }
 
-void exec(t_parser *parser, unsigned int groups, t_environ *environ)
+void	exec(t_parser *parser, unsigned int groups, t_environ *environ)
 {
-	int pipefd[2];
-    int prev_fd;
-    pid_t pid;
-	unsigned int i;
+	int				pipefd[2];
+	int				prev_fd;
+	pid_t			pid;
+	unsigned int	i;
 
 	i = 0;
 	prev_fd = -1;
@@ -117,6 +113,6 @@ void exec(t_parser *parser, unsigned int groups, t_environ *environ)
 	while (i < groups)
 	{
 		wait(NULL);
-		i++;	
+		i++;
 	}
 }

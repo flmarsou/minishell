@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/12/13 14:45:15 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/12/23 10:03:59 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,12 @@
 EXE			:=	minishell
 
 # Files
-VPATH		:=	src:src/utils:src/lexer:src/parser:src/builtins
+VPATH		:=	src \
+				src/utils \
+				src/lexer \
+				src/parser \
+				src/execution \
+				src/builtins \
 
 SRC			:=	main.c \
 				free.c \
@@ -50,12 +55,17 @@ SRC_PARSER	:=	parsing.c \
 				handle_redir.c \
 				handle_command.c \
 
-SRC_CMD		:=	ft_env.c \
+SRC_EXEC	:=	exec.c \
+
+SRC_CMD		:=	ft_cd.c \
+				ft_echo.c \
+				ft_env.c \
 				ft_export.c \
 				ft_export_print.c \
+				ft_pwd.c \
 				ft_unset.c \
 
-SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_LEXER} ${SRC_PARSER} ${SRC_CMD}
+SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_LEXER} ${SRC_PARSER} ${SRC_EXEC} ${SRC_CMD}
 OBJ_DIR		:=	obj
 OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 

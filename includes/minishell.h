@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andi <andi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/22 23:57:56 by andi             ###   ########.fr       */
+/*   Updated: 2024/12/23 10:04:55 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,13 +175,21 @@ void			handle_command(t_lexer *lexer, t_parser *parser,
 					unsigned int groups);
 
 //============================================================================//
+//     Execution                                                              //
+//============================================================================//
+
+void			exec(t_parser *parser, unsigned int groups, t_environ *environ);
+
+//============================================================================//
 //     Builtins                                                               //
 //============================================================================//
 
+bool			ft_cd(char *next_path, unsigned int *builtin);
 void			ft_echo(char **args, unsigned int *builtin);
 void			ft_env(t_environ *environ, unsigned int *builtin);
 void			ft_export(t_environ **environ, char *input, unsigned int *builtin);
 void			ft_export_print(char *str);
+bool			ft_pwd(unsigned int *builtin);
 void			ft_unset(t_environ **environ, char *input, unsigned int *builtin);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 18:53:50 by andi              #+#    #+#             */
-/*   Updated: 2024/12/24 13:06:30 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/12/24 13:39:06 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,22 @@
 // 	return (false);
 // }
 
-static void	count_redirs(t_parser *parser, t_redir *redir, unsigned int groups)
+static void	count_redirs(t_parser *parser, t_redir *redir, unsigned int group)
 {
 	unsigned int	i;
-	unsigned int	group;
 
-	group = 0;
 	redir->nbr_of_outfile = 0;
 	redir->nbr_of_infile = 0;
-	while (group < groups)
+	i = 0;
+	while (i < parser[group].nbr_of_redirs)
 	{
-		i = 0;
-		while (i < parser[group].nbr_of_redirs)
-		{
-			if (parser[group].token[i] == OUTPUT_REDIRECT
-				|| parser[group].token[i] == APPEND_REDIRECT)
-				redir->nbr_of_outfile++;
-			if (parser[group].token[i] == INPUT_REDIRECT
-				|| parser[group].token[i] == HEREDOC)
-				redir->nbr_of_infile++;
-			i++;
-		}
-		group++;
+		if (parser[group].token[i] == OUTPUT_REDIRECT
+			|| parser[group].token[i] == APPEND_REDIRECT)
+			redir->nbr_of_outfile++;
+		if (parser[group].token[i] == INPUT_REDIRECT
+			|| parser[group].token[i] == HEREDOC)
+			redir->nbr_of_infile++;
+		i++;
 	}
 }
 
@@ -108,17 +102,17 @@ static void	handle_infile(t_parser *parser, t_redir *redir,
 	{
 		if (parser[j].token[i] == HEREDOC)
 		{
-			redir->infile[k] = open();
+			redir->infile[k] = herdoc(parser[j].type[i]);
 			k++;
 		}
 		i++;
 	}
 }
 
-void	handle_fd(t_parser *parser, unsigned int groups, t_environ *environ,
+void	handle_fd(t_parser *parser, unsigned int group, t_environ *environ,
 		t_redir *redir)
 {
-	count_redirs(parser, redir, groups);
-	handle_infile(parser, groups, redir);
+	count_redirs(parser, redir, group);
+	handle_infile(parser, group, redir);
 	// handle_outfile(parser, groups, redir);
 }

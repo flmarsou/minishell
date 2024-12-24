@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 18:53:50 by andi              #+#    #+#             */
-/*   Updated: 2024/12/24 13:39:06 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/12/24 13:56:55 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ static void	count_redirs(t_parser *parser, t_redir *redir, unsigned int group)
 	}
 }
 
-static void	handle_outfile(t_parser *parser, t_redir *redir,
-		unsigned int groups)
+static void	handle_outfile(t_parser *parser, t_redir *redir)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -68,6 +67,7 @@ static void	handle_outfile(t_parser *parser, t_redir *redir,
 	i = 0;
 	j = 0;
 	k = 0;
+	printf("%u\n", redir->nbr_of_outfile);
 	redir->outfile = malloc(sizeof(int) * redir->nbr_of_outfile);
 	while (i < redir->nbr_of_outfile)
 	{
@@ -87,8 +87,7 @@ static void	handle_outfile(t_parser *parser, t_redir *redir,
 	}
 }
 
-static void	handle_infile(t_parser *parser, t_redir *redir,
-		unsigned int groups)
+static void	handle_infile(t_parser *parser, t_redir *redir)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -113,6 +112,11 @@ void	handle_fd(t_parser *parser, unsigned int group, t_environ *environ,
 		t_redir *redir)
 {
 	count_redirs(parser, redir, group);
-	handle_infile(parser, group, redir);
-	// handle_outfile(parser, groups, redir);
+	// handle_infile(parser, redir);
+	handle_outfile(parser, redir);
+	int fd = dup(STDOUT_FILENO);
+	dup2(redir->outfile[0], STDOUT_FILENO);
+	puts("caca");
+	dup2(redir->outfile[1], STDOUT_FILENO);
+	dup2(fd, STDOUT_FILENO);
 }

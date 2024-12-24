@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/24 12:29:08 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/12/24 13:48:25 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	main_loop(t_lexer *lexer, t_parser *parser, t_environ *environ,
 		// Exec
 		if (must_free)
 		{
-			handle_fd(parser, groups, environ, redir);
+			handle_fd(parser, 0, environ, redir);
 			free_parser(parser, groups);
 		}
 		// Free Exec

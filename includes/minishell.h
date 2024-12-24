@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/23 14:50:33 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/12/24 13:04:02 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,14 @@ typedef struct s_lexer
 	char				**str;
 	t_tokens			*token;
 }	t_lexer;
+
+ typedef struct s_redir
+{
+	int					*outfile;
+	int					*infile;
+	unsigned int	nbr_of_outfile;
+	unsigned int	nbr_of_infile;
+}	t_redir;
 
 typedef struct s_parser
 {
@@ -179,7 +187,7 @@ void			handle_command(t_lexer *lexer, t_parser *parser,
 //     Execution                                                              //
 //============================================================================//
 
-void			exec(t_parser *parser, unsigned int groups, t_environ *environ);
+void handle_fd(t_parser *parser, unsigned int groups, t_environ *environ, t_redir *redir);
 
 //============================================================================//
 //     Builtins                                                               //

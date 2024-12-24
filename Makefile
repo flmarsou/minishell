@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+         #
+#    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2024/12/24 12:28:21 by anvacca          ###   ########.fr        #
+#    Updated: 2024/12/24 14:31:12 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC			:=	main.c \
 SRC_UTILS	:=	ft_ismeta.c \
 				ft_isprint.c \
 				ft_isspace.c \
+				ft_itoa.c \
 				ft_lstsize.c \
 				ft_perror.c \
 				ft_strchr.c \
@@ -35,6 +36,7 @@ SRC_UTILS	:=	ft_ismeta.c \
 				ft_strcpy.c \
 				ft_strdup.c \
 				ft_strerror.c \
+				ft_strjoin.c \
 				ft_strlen.c \
 				ft_strncmp.c \
 				ft_strncpy.c \
@@ -56,6 +58,7 @@ SRC_PARSER	:=	parsing.c \
 				handle_command.c \
 
 SRC_EXEC	:=	handle_fd.c \
+				heredoc.c \
 
 SRC_CMD		:=	ft_cd.c \
 				ft_echo.c \

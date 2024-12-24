@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/24 13:04:02 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/12/24 14:30:58 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ char			*ft_strcpy(char *dest, char *src);
 char			*ft_strncpy(char *dest, char *src, unsigned int size);
 char			*ft_strchr(char *str, char c);
 char			*ft_strdup(char *str);
+char			*ft_itoa(int nbr);
+char			*ft_strjoin(char *str1, char *str2);
 
 bool			ft_isprint(char c);
 bool			ft_isspace(char c);
@@ -187,7 +189,9 @@ void			handle_command(t_lexer *lexer, t_parser *parser,
 //     Execution                                                              //
 //============================================================================//
 
-void handle_fd(t_parser *parser, unsigned int groups, t_environ *environ, t_redir *redir);
+void			handle_fd(t_parser *parser, unsigned int groups,
+					t_environ *environ, t_redir *redir);
+int				heredoc(char *limiter);
 
 //============================================================================//
 //     Builtins                                                               //

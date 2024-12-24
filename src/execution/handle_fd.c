@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 18:53:50 by andi              #+#    #+#             */
-/*   Updated: 2024/12/24 13:56:55 by anvacca          ###   ########.fr       */
+/*   Updated: 2024/12/24 14:00:05 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void	handle_infile(t_parser *parser, t_redir *redir)
 	{
 		if (parser[j].token[i] == HEREDOC)
 		{
-			redir->infile[k] = herdoc(parser[j].type[i]);
+			redir->infile[k] = heredoc(parser[j].type[i]);
 			k++;
 		}
 		i++;
@@ -112,11 +112,6 @@ void	handle_fd(t_parser *parser, unsigned int group, t_environ *environ,
 		t_redir *redir)
 {
 	count_redirs(parser, redir, group);
-	// handle_infile(parser, redir);
-	handle_outfile(parser, redir);
-	int fd = dup(STDOUT_FILENO);
-	dup2(redir->outfile[0], STDOUT_FILENO);
-	puts("caca");
-	dup2(redir->outfile[1], STDOUT_FILENO);
-	dup2(fd, STDOUT_FILENO);
+	handle_infile(parser, redir);
+	// handle_outfile(parser, redir);
 }

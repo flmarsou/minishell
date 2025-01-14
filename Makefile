@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+         #
+#    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2025/01/06 14:28:55 by anvacca          ###   ########.fr        #
+#    Updated: 2025/01/14 12:24:03 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,6 @@ SRC_UTILS	:=	ft_ismeta.c \
 				ft_strlen.c \
 				ft_strncmp.c \
 				ft_strncpy.c \
-				lstadd_last_env.c \
 				lstnew_env.c \
 
 SRC_LEXER	:=	tokenizer.c \
@@ -65,7 +64,7 @@ SRC_EXEC	:=	exec.c \
 SRC_CMD		:=	ft_echo.c \
 				ft_env.c \
 				ft_export.c \
-				ft_export_print.c \
+				ft_export_utils.c \
 				ft_pwd.c \
 				ft_unset.c \
 

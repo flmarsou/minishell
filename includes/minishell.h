@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/06 15:19:59 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/14 12:25:43 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,42 +145,21 @@ unsigned int	count_tokens(char *str);
 
 bool			parsing(t_lexer *lexer, t_parser **parser, t_environ environ,
 					unsigned int *groups);
-/**
- * Checks the placement of quotes in the lexer tokens.
- * Ensures that all quotes are properly opened and closed.
- */
+
 bool			handle_quotes_error(t_lexer lexer);
-/**
- * Converts all tokens between quotes into WORD tokens,
- * except for DOLLAR tokens within double quotes.
- */
+
 void			handle_quotes(t_lexer *lexer);
-/**
- * Checks the placement of pipes in the lexer tokens.
- */
+
 bool			handle_pipes_error(t_lexer lexer);
-/**
- * Expands environment variables in the lexer strings.
- * Replaces DOLLAR to NA_VALUE and changes the following WORD by the
- * corresponding environment variable. Replaces it by NULL if nothing were found.
- */
+
 void			handle_dollars(t_lexer *lexer, t_environ environ);
-/**
- * Checks the placement of redirections in the lexer tokens.
- * Ensures that all redirections are followed by a WORD token.
- */
+
 bool			handle_redir_error(t_lexer lexer);
 
 void			realloc_token(t_lexer *lexer, unsigned int y, char **buffer);
 
-/**
- * Fuses every WORD tokens next to one another into one, and removes quotes.
- */
 void			handle_words(t_lexer *lexer);
-/**
- * Populates the parser.redir struct.
- * Removes redirections and their following words from the lexer.
- */
+
 void			handle_redir(t_lexer *lexer, t_parser *parser,
 					unsigned int groups);
 void			handle_command(t_lexer *lexer, t_parser *parser,
@@ -190,23 +169,31 @@ void			handle_command(t_lexer *lexer, t_parser *parser,
 //     Execution                                                              //
 //============================================================================//
 
-void	handle_fd(t_parser *parser, unsigned int groups, t_redir *redir);
+void			handle_fd(t_parser *parser, unsigned int groups, t_redir *redir);
 
-void	exec(t_parser *parser, unsigned int groups, t_environ **environ,
-		t_redir *redir);
+void			exec(t_parser *parser, unsigned int groups, t_environ **environ,
+					t_redir *redir);
 
-int		heredoc(char *limiter);
+int				heredoc(char *limiter);
 
 //============================================================================//
 //     Builtins                                                               //
 //============================================================================//
 
 // bool			ft_cd(char *next_path);
+
 void			ft_echo(char **args, unsigned int argc);
+
 void			ft_env(t_environ *environ);
+
 void			ft_export(t_environ **environ, char **input, unsigned int nbr_of_cmd);
-void			ft_export_print(char *str);
+void			export_print(char *str);
+void			export_swap_vars(char **str1, char **str2);
+char			**export_copy_arr(t_environ *environ);
+void			export_lstadd_last(t_environ **environ, char *input);
+
 bool			ft_pwd();
+
 void			ft_unset(t_environ **environ, char *input);
 
 #endif

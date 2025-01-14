@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:10:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/06 15:28:32 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/14 12:25:48 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	swap_vars(char **str1, char **str2)
-{
-	char	*temp;
-
-	temp = *str1;
-	*str1 = *str2;
-	*str2 = temp;
-}
-
-static char	**copy_tab(t_environ *environ)
-{
-	char			**unsorted_tab;
-	unsigned int	i;
-
-	unsorted_tab = malloc(sizeof(char *) * (ft_lstsize(environ) + 1));
-	i = 0;
-	while (environ)
-	{
-		unsorted_tab[i] = environ->var;
-		environ = environ->next;
-		i++;
-	}
-	unsorted_tab[i] = NULL;
-	return (unsorted_tab);
-}
 
 static void	bubble_sort(t_environ *environ)
 {
@@ -44,7 +18,7 @@ static void	bubble_sort(t_environ *environ)
 	bool			swapped;
 	unsigned int	i;
 
-	sorted_tab = copy_tab(environ);
+	sorted_tab = export_copy_arr(environ);
 	swapped = true;
 	while (swapped)
 	{
@@ -54,7 +28,7 @@ static void	bubble_sort(t_environ *environ)
 		{
 			if (strcmp(sorted_tab[i], sorted_tab[i + 1]) > 0)
 			{
-				swap_vars(&sorted_tab[i], &sorted_tab[i + 1]);
+				export_swap_vars(&sorted_tab[i], &sorted_tab[i + 1]);
 				swapped = true;
 			}
 			i++;
@@ -62,7 +36,7 @@ static void	bubble_sort(t_environ *environ)
 	}
 	i = 0;
 	while (sorted_tab[i])
-		ft_export_print(sorted_tab[i++]);
+		export_print(sorted_tab[i++]);
 	free(sorted_tab);
 }
 
@@ -93,10 +67,7 @@ static void	modify_env(t_environ **environ, char *input, unsigned int i,
 		current = current->next;
 	}
 	if (!modified)
-	{
-		puts("in");
-		lstadd_last_env(environ, input);
-	}
+		export_lstadd_last(environ, input);
 }
 
 void	ft_export(t_environ **environ, char **input, unsigned int nbr_of_cmd)

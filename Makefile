@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2025/01/14 12:24:03 by flmarsou         ###   ########.fr        #
+#    Updated: 2025/01/15 12:30:24 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ SRC_UTILS	:=	ft_ismeta.c \
 				ft_isprint.c \
 				ft_isspace.c \
 				ft_itoa.c \
-				ft_lstsize.c \
 				ft_perror.c \
 				ft_strchr.c \
 				ft_putstr.c \
@@ -41,7 +40,6 @@ SRC_UTILS	:=	ft_ismeta.c \
 				ft_strlen.c \
 				ft_strncmp.c \
 				ft_strncpy.c \
-				lstnew_env.c \
 
 SRC_LEXER	:=	tokenizer.c \
 				count_tokens.c \
@@ -68,7 +66,7 @@ SRC_CMD		:=	ft_echo.c \
 				ft_pwd.c \
 				ft_unset.c \
 
-SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_LEXER} ${SRC_PARSER} ${SRC_EXEC} ${SRC_CMD}
+SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_LEXER} ${SRC_PARSER}
 OBJ_DIR		:=	obj
 OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 

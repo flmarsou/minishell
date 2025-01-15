@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/14 12:25:43 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:50:47 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@
 // Shortcuts
 # define STDIN			0
 # define STDOUT			1
-# define ENV			__environ
 # define PATH_MAX		4096
 
 // Colors
 # define RESET_COLOR	"\e[0m"
 # define ORANGE			"\e[38;2;255;165;0m"
+
+extern unsigned int		g_exit_status;
 
 typedef enum e_tokens
 {
@@ -66,14 +67,14 @@ typedef enum e_tokens
 
 typedef struct s_lexer
 {
-	char				**str;
-	t_tokens			*token;
+	char			**str;
+	t_tokens		*token;
 }	t_lexer;
 
- typedef struct s_redir
+typedef struct s_redir
 {
-	int					*outfile;
-	int					*infile;
+	int				*outfile;
+	int				*infile;
 	unsigned int	nbr_of_outfile;
 	unsigned int	nbr_of_infile;
 }	t_redir;
@@ -87,19 +88,13 @@ typedef struct s_parser
 	char			**type;
 }	t_parser;
 
-typedef struct s_environ
-{
-	char				*var;
-	struct s_environ	*next;
-}	t_environ;
-
 //============================================================================//
 //     Source                                                                 //
 //============================================================================//
 
+// Free
 void			free_lexer(t_lexer *lexer);
 void			free_parser(t_parser *parser, unsigned int groups);
-void			free_env(t_environ *environ);
 
 // Debug
 void			print_lexer(t_lexer lexer);
@@ -127,10 +122,6 @@ bool			ft_strcmp(char *str1, char *str2);
 bool			ft_strncmp(char *str1, char *str2, unsigned int size);
 
 unsigned int	ft_strlen(char *str);
-unsigned int	ft_lstsize(t_environ *environ);
-
-t_environ		*lstnew_env(char *var);
-void			lstadd_last_env(t_environ **environ, char *input);
 
 //============================================================================//
 //     Lexer                                                                  //
@@ -143,7 +134,7 @@ unsigned int	count_tokens(char *str);
 //     Parser                                                                 //
 //============================================================================//
 
-bool			parsing(t_lexer *lexer, t_parser **parser, t_environ environ,
+bool			parsing(t_lexer *lexer, t_parser **parser, char **envp,
 					unsigned int *groups);
 
 bool			handle_quotes_error(t_lexer lexer);
@@ -152,7 +143,7 @@ void			handle_quotes(t_lexer *lexer);
 
 bool			handle_pipes_error(t_lexer lexer);
 
-void			handle_dollars(t_lexer *lexer, t_environ environ);
+void			handle_dollars(t_lexer *lexer, char **envp);
 
 bool			handle_redir_error(t_lexer lexer);
 
@@ -169,12 +160,12 @@ void			handle_command(t_lexer *lexer, t_parser *parser,
 //     Execution                                                              //
 //============================================================================//
 
-void			handle_fd(t_parser *parser, unsigned int groups, t_redir *redir);
+// void			handle_fd(t_parser *parser, unsigned int groups, t_redir *redir);
 
-void			exec(t_parser *parser, unsigned int groups, t_environ **environ,
-					t_redir *redir);
+// void			exec(t_parser *parser, unsigned int groups, t_environ **environ,
+// 					t_redir *redir);
 
-int				heredoc(char *limiter);
+// int				heredoc(char *limiter);
 
 //============================================================================//
 //     Builtins                                                               //
@@ -182,18 +173,18 @@ int				heredoc(char *limiter);
 
 // bool			ft_cd(char *next_path);
 
-void			ft_echo(char **args, unsigned int argc);
+// void			ft_echo(char **args, unsigned int argc);
 
-void			ft_env(t_environ *environ);
+// void			ft_env(t_environ *environ);
 
-void			ft_export(t_environ **environ, char **input, unsigned int nbr_of_cmd);
-void			export_print(char *str);
-void			export_swap_vars(char **str1, char **str2);
-char			**export_copy_arr(t_environ *environ);
-void			export_lstadd_last(t_environ **environ, char *input);
+// void			ft_export(t_environ **environ, char **input, unsigned int nbr_of_cmd);
+// void			export_print(char *str);
+// void			export_swap_vars(char **str1, char **str2);
+// char			**export_copy_arr(t_environ *environ);
+// void			export_lstadd_last(t_environ **environ, char *input);
 
-bool			ft_pwd();
+// bool			ft_pwd();
 
-void			ft_unset(t_environ **environ, char *input);
+// void			ft_unset(t_environ **environ, char *input);
 
 #endif

@@ -6,13 +6,14 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/01/06 15:19:49 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/15 15:12:05 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	exec_builtin(char **command, t_environ **environ, unsigned int nbr_of_cmd)
+void	exec_builtin(char **command, t_environ **environ,
+		unsigned int nbr_of_cmd)
 {
 	unsigned int	i;
 
@@ -20,59 +21,88 @@ bool	exec_builtin(char **command, t_environ **environ, unsigned int nbr_of_cmd)
 	// if (ft_strcmp(command[0], "cd") == 0)
 	// 	ft_cd(command[i]);
 	if (ft_strcmp(command[0], "echo"))
-		return (ft_echo(command, nbr_of_cmd), true);
+		ft_echo(command, nbr_of_cmd);
 	else if (ft_strcmp(command[0], "pwd"))
-		return (ft_pwd(), true);
+		ft_pwd();
 	else if (ft_strcmp(command[0], "unset"))
 	{
 		while (i < nbr_of_cmd)
 			ft_unset(environ, command[i++]);
-		return (true);
 	}
 	else if (ft_strcmp(command[0], "export"))
-		return (ft_export(environ, command, nbr_of_cmd), true);
+		ft_export(environ, command, nbr_of_cmd);
 	else if (ft_strcmp(command[0], "env"))
-		return (ft_env(*environ), true);
+		ft_env(*environ);
 	// else if (ft_strcmp(command[0], "exit"))
 	// 	exit(0); // TODO: ft_exit
-	return (false);
+	else
+		// execve
+		exit(0);
+	return ;
 }
 
-void	do_pipe(t_parser *parser, t_redir *redir, t_environ **environ)
+void	do_outfile(t_parser *parser, t_redir *redir, t_environ **environ)
 {
 	unsigned int	i;
-	int				fd_temp;
+	int				fd_out;
 
+	fd_out = dup(STDOUT_FILENO);
 	i = 0;
-	fd_temp = STDOUT_FILENO;
 	while (i < redir->nbr_of_outfile)
 	{
-		printf("%d\n", redir->nbr_of_outfile);
-		dup2(redir->outfile[i], fd_temp);
-		if (exec_builtin(parser->command, environ, parser->nbr_of_commands) == false)
-			puts("execve");
+		dup2(redir->outfile[i], STDOUT_FILENO);
+		exec_builtin(parser->command, environ, parser->nbr_of_commands);
 		close(redir->outfile[i]);
 		i++;
 	}
-	if (redir->nbr_of_outfile == 0)
-		if (exec_builtin(parser->command, environ, parser->nbr_of_commands) == false)
-			puts("execve");
+	dup2(fd_out, STDOUT_FILENO);
+}
+
+void	do_infile(t_parser *parser, t_redir *redir, t_environ **environ)
+{
+	unsigned int	j;
+	int				fd_in;
+
+	j = 0;
+	fd_in = dup(STDIN);
+	while (j < redir->nbr_of_infile)
+	{
+		dup2(redir->infile[j], STDIN);
+		if (redir->nbr_of_outfile > 0)
+			do_outfile(parser, redir, environ);
+		else
+			exec_builtin(parser->command, environ, parser->nbr_of_commands);
+		close(redir->infile[j]);
+		j++;
+	}
+	dup2(fd_in, STDIN);
+}
+
+void	do_redir(t_parser *parser, t_redir *redir, t_environ **environ)
+{
+	if (redir->nbr_of_infile > 0)
+		do_infile(parser, redir, environ);
+	else if (redir->nbr_of_outfile > 0)
+		do_outfile(parser, redir, environ);
 }
 
 void	exec(t_parser *parser, unsigned int groups, t_environ **environ,
 		t_redir *redir)
 {
 	unsigned int	i;
-	// int				fd1;
-	
-	// fd1 = dup(STDOUT_FILENO);
+	pid_t			pid;
+
 	i = 0;
 	redir->nbr_of_outfile = 0;
 	redir->nbr_of_infile = 0;
-	// while (i < groups - 1)
-	// {
-	if (parser[i].nbr_of_redirs > 0)
-		handle_fd(parser, i, redir);
-	do_pipe(&parser[i], redir, environ);
-	// }
+	while (i < groups)
+	{
+		pid = fork();
+		if (pid = 0)
+		{
+			if (parser[i].nbr_of_redirs > 0)
+				handle_fd(parser, i, redir);
+			do_redir(&parser[i], redir, environ);
+		}
+	}
 }

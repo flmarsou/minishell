@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:25:12 by anvacca           #+#    #+#             */
-/*   Updated: 2025/01/06 15:23:54 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/15 15:01:07 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ void	ft_echo(char **args, unsigned int argc)
 	bool			new_line;
 
 	i = 1;
-	new_line = is_newline(args[i]);
+	new_line = false;
+	if (argc > i)
+		new_line = is_newline(args[i]);
 	if (new_line)
 		i++;
 	while (i < argc)

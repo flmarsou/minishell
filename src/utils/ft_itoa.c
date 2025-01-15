@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:26:57 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/24 14:27:55 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:47:58 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,13 @@ char	*ft_itoa(int nbr)
 {
 	char	*str;
 
+	if (nbr == 0)
+	{
+		str = malloc(sizeof(char) * 2);
+		str[0] = '0';
+		str[1] = '\0';
+		return (str);
+	}
 	str = putnbr(nbr);
 	return (str);
 }

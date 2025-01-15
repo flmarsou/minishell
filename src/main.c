@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/06 15:17:06 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/15 15:29:07 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+unsigned int	g_exit_status = 0;
 
 #define _RESET "\001\e[0m\002"
 #define _COLOR "\001\e[1m\e[38;2;255;165;0m\002"
@@ -26,33 +28,13 @@ static void	handle_signal(int sig)
 	}
 }
 
-static void	init_env(t_environ **environ)
-{
-	t_environ		*head;
-	t_environ		*current;
-	unsigned int	i;
-
-	head = lstnew_env(ENV[0]);
-	current = head;
-	i = 1;
-	while (ENV[i])
-	{
-		current->next = lstnew_env(ENV[i]);
-		current = current->next;
-		i++;
-	}
-	*environ = head;
-}
-
-static void	main_loop(t_lexer *lexer, t_parser *parser, t_environ **environ,
+static void	main_loop(t_lexer *lexer, t_parser *parser, char **envp,
 		t_redir *redir)
 {
 	char			*buffer;
 	unsigned int	groups;
-	bool			must_free;
-	unsigned int i; // remove this line
-	
-	i = 0; // remove this line
+	bool			parser_valid;
+
 	while (true)
 	{
 		buffer = readline(_COLOR "Nanashell > "_RESET);
@@ -67,32 +49,26 @@ static void	main_loop(t_lexer *lexer, t_parser *parser, t_environ **environ,
 			add_history(buffer);
 		tokenizer(buffer, lexer);
 		free(buffer);
-		must_free = parsing(lexer, &parser, **environ, &groups);
+		parser_valid = parsing(lexer, &parser, envp, &groups);
 		free_lexer(lexer);
-		// Exec
-		if (must_free)
+		if (parser_valid)
 		{
-			exec(parser, groups, environ, redir);
-			// ft_export(environ, parser[0].command, &i, 2);
-			// ft_env(*environ, &i);
+			print_parser(parser, groups);
 			free_parser(parser, groups);
-			parser = NULL;
 		}
-		// Free Exec
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	t_environ	*environ;
 	t_lexer		lexer;
 	t_parser	parser;
 	t_redir		redir;
+	(void)argc;
+	(void)argv;
 
 	signal(SIGINT, handle_signal);
-	init_env(&environ);
-	main_loop(&lexer, &parser, &environ, &redir);
-	free_env(environ);
+	main_loop(&lexer, &parser, envp, &redir);
 	rl_clear_history();
 	write(STDOUT, "Exiting...\n", 11);
 	return (0);

@@ -6,11 +6,24 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 14:53:24 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/15 12:39:58 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:17:52 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_env(char **env)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		free(env[i]);
+		i++;
+	}
+	free(env);
+}
 
 void	free_parser(t_parser *parser, unsigned int groups)
 {

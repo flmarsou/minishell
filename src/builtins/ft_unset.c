@@ -3,32 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:13:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/06 15:12:42 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/16 15:36:01 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_unset(t_environ **environ, char *input)
+static void	remove_var(char ***env, unsigned int index)
 {
-	t_environ	*save;
-	t_environ	*current;
+	unsigned int	i;
+	unsigned int	j;
+	char			**new_env;
 
-	current = *environ;
-	if (!input)
-		return ;
-	while (current)
+	i = 0;
+	while ((*env)[i])
+		i++;
+	new_env = malloc(sizeof(char *) * (i));
+	new_env[i - 1] = NULL;
+	i = 0;
+	j = 0;
+	while ((*env)[i])
 	{
-		if (current->next && ft_strcmp(current->next->var, input))
+		if (i == index)
+			i++;
+		else
 		{
-			save = current->next;
-			current->next = current->next->next;
-			free(save);
-			break ;
+			new_env[j] = ft_strdup((*env)[i]);
+			i++;
+			j++;
 		}
-		current = current->next;
+	}
+	free_env(*env);
+	*env = new_env;
+}
+
+void	ft_unset(char ***env, char **input, unsigned int nbr_of_cmd)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	j = 0;
+	while (j < nbr_of_cmd)
+	{
+		if (!input)
+		{
+			j++;
+			continue ;
+		}
+		i = 0;
+		while ((*env)[i])
+		{
+			if (ft_strncmp((*env)[i], input[j], ft_strlen(input[j])))
+				remove_var(env, i);
+			i++;
+		}
+		j++;
 	}
 }

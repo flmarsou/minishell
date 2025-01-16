@@ -6,19 +6,19 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:10:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/14 12:25:48 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:58:42 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	bubble_sort(t_environ *environ)
+static void	bubble_sort(char **env)
 {
 	char			**sorted_tab;
 	bool			swapped;
 	unsigned int	i;
 
-	sorted_tab = export_copy_arr(environ);
+	sorted_tab = export_copy_arr(env);
 	swapped = true;
 	while (swapped)
 	{
@@ -40,37 +40,12 @@ static void	bubble_sort(t_environ *environ)
 	free(sorted_tab);
 }
 
-static void	modify_env(t_environ **environ, char *input, unsigned int i,
-		unsigned int j)
+static void	modify_env(char ***env, char *input)
 {
-	t_environ	*current;
-	bool		modified;
-
-	current = *environ;
-	modified = false;
-	while (current)
-	{
-		i = 0;
-		while (current->var[i + 1] && current->var[i + 1] != '=')
-			i++;
-		if (j == i)
-		{
-			if (ft_strncmp(input, current->var, j) == true)
-			{
-				modified = true;
-				if (input[j + 1])
-					current->var = input;
-				else
-					return ;
-			}
-		}
-		current = current->next;
-	}
-	if (!modified)
-		export_lstadd_last(environ, input);
+	
 }
 
-void	ft_export(t_environ **environ, char **input, unsigned int nbr_of_cmd)
+void	ft_export(char ***env, char **input, unsigned int nbr_of_cmd)
 {
 	unsigned int	j;
 	unsigned int	i;
@@ -78,22 +53,19 @@ void	ft_export(t_environ **environ, char **input, unsigned int nbr_of_cmd)
 	i = 1;
 	if (nbr_of_cmd == 1)
 	{
-		bubble_sort(*environ);
+		bubble_sort(*env);
 		return ;
 	}
 	while (i < nbr_of_cmd)
 	{
-		if (input[i] && input[i][0] == '=')
+		if (input[i] && input[i][0] == '=') // TODO: Add conditions for naming
 		{
 			write(1, "\e[1;97mExport: '=': not a valid identifier!\n\e[0m", 48);
 			return ;
 		}
 		else
 		{
-			j = 0;
-			while (input[i][j + 1] && input[i][j + 1] != '=')
-				j++;
-			modify_env(environ, input[i], 0, j);
+			// TODO: Add if not already exist
 		}
 		i++;
 	}

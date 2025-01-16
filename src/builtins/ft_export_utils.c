@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:08:48 by anvacca           #+#    #+#             */
-/*   Updated: 2025/01/14 12:25:36 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:44:15 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,21 @@ void	export_swap_vars(char **str1, char **str2)
 	*str2 = temp;
 }
 
-char	**export_copy_arr(t_environ *environ)
+char	**export_copy_arr(char **env)
 {
-	char			**unsorted_tab;
+	char			**unsorted_arr;
 	unsigned int	i;
 
-	unsorted_tab = malloc(sizeof(char *) * (ft_lstsize(environ) + 1));
 	i = 0;
-	while (environ)
+	while (env[i])
+		i++;
+	unsorted_arr = malloc(sizeof(char *) * (i + 1));
+	unsorted_arr[i] = NULL;
+	i = 0;
+	while (env[i])
 	{
-		unsorted_tab[i] = environ->var;
-		environ = environ->next;
+		unsorted_arr[i] = env[i];
 		i++;
 	}
-	unsorted_tab[i] = NULL;
-	return (unsorted_tab);
-}
-
-void	export_lstadd_last(t_environ **environ, char *input)
-{
-	t_environ	*current;
-
-	current = *environ;
-	while (current && current->next)
-	{
-		current = current->next;
-	}
-	current->next = lstnew_env(input);
+	return (unsorted_arr);
 }

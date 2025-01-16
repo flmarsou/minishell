@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2025/01/15 12:30:24 by flmarsou         ###   ########.fr        #
+#    Updated: 2025/01/16 15:48:30 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,12 +61,12 @@ SRC_EXEC	:=	exec.c \
 
 SRC_CMD		:=	ft_echo.c \
 				ft_env.c \
-				ft_export.c \
-				ft_export_utils.c \
 				ft_pwd.c \
 				ft_unset.c \
+				ft_export.c \
+				ft_export_utils.c \
 
-SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_LEXER} ${SRC_PARSER}
+SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_LEXER} ${SRC_PARSER} ${SRC_CMD}
 OBJ_DIR		:=	obj
 OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 

@@ -6,23 +6,23 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 14:13:08 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/15 15:27:51 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:50:11 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*find_in_env(char *var, char **envp)
+static char	*find_in_env(char *var, char **env)
 {
 	unsigned int	len;
 	unsigned int	i;
 
 	len = ft_strlen(var);
 	i = 0;
-	while (envp[i])
+	while (env[i])
 	{
-		if (ft_strncmp(envp[i], var, ft_strlen(var)) && envp[i][len] == '=')
-			return (envp[i] + ft_strlen(var) + 1);
+		if (ft_strncmp(env[i], var, ft_strlen(var)) && env[i][len] == '=')
+			return (env[i] + ft_strlen(var) + 1);
 		i++;
 	}
 	return (NULL);
@@ -43,13 +43,13 @@ static void	handle_dollar_exit(t_lexer *lexer, unsigned int *i)
 	free(buffer);
 }
 
-static void	handle_dollar_word(t_lexer *lexer, unsigned int *i, char **envp)
+static void	handle_dollar_word(t_lexer *lexer, unsigned int *i, char **env)
 {
 	char	*var;
 
 	lexer->token[*i] = NA_VALUE;
 	(*i)++;
-	var = find_in_env(lexer->str[*i], envp);
+	var = find_in_env(lexer->str[*i], env);
 	if (var)
 	{
 		free(lexer->str[*i]);
@@ -60,7 +60,7 @@ static void	handle_dollar_word(t_lexer *lexer, unsigned int *i, char **envp)
 		lexer->token[*i] = NA_VALUE;
 }
 
-void	handle_dollars(t_lexer *lexer, char **envp)
+void	handle_dollars(t_lexer *lexer, char **env)
 {
 	unsigned int	i;
 
@@ -81,7 +81,7 @@ void	handle_dollars(t_lexer *lexer, char **envp)
 			&& lexer->str[i + 1][0] == '?')
 			handle_dollar_exit(lexer, &i);
 		else if (lexer->token[i] == DOLLAR && lexer->token[i + 1] == WORD)
-			handle_dollar_word(lexer, &i, envp);
+			handle_dollar_word(lexer, &i, env);
 		i++;
 	}
 	if (lexer->str[i] && lexer->token[i] == DOLLAR)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:25:12 by anvacca           #+#    #+#             */
-/*   Updated: 2025/01/15 15:01:07 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/16 12:25:00 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	is_newline(char *str)
 	return (true);
 }
 
-void	ft_echo(char **args, unsigned int argc)
+void	ft_echo(char **command, unsigned int argc)
 {
 	unsigned int	i;
 	bool			new_line;
@@ -37,12 +37,12 @@ void	ft_echo(char **args, unsigned int argc)
 	i = 1;
 	new_line = false;
 	if (argc > i)
-		new_line = is_newline(args[i]);
+		new_line = is_newline(command[i]);
 	if (new_line)
 		i++;
 	while (i < argc)
 	{
-		ft_putstr(args[i]);
+		ft_putstr(command[i]);
 		if (i + 1 < argc)
 			write(1, " ", 1);
 		i++;

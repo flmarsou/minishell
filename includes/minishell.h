@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/15 15:50:47 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:49:46 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_parser
 // Free
 void			free_lexer(t_lexer *lexer);
 void			free_parser(t_parser *parser, unsigned int groups);
+void			free_env(char **env);
 
 // Debug
 void			print_lexer(t_lexer lexer);
@@ -134,7 +135,7 @@ unsigned int	count_tokens(char *str);
 //     Parser                                                                 //
 //============================================================================//
 
-bool			parsing(t_lexer *lexer, t_parser **parser, char **envp,
+bool			parsing(t_lexer *lexer, t_parser **parser, char **env,
 					unsigned int *groups);
 
 bool			handle_quotes_error(t_lexer lexer);
@@ -143,7 +144,7 @@ void			handle_quotes(t_lexer *lexer);
 
 bool			handle_pipes_error(t_lexer lexer);
 
-void			handle_dollars(t_lexer *lexer, char **envp);
+void			handle_dollars(t_lexer *lexer, char **env);
 
 bool			handle_redir_error(t_lexer lexer);
 
@@ -173,18 +174,17 @@ void			handle_command(t_lexer *lexer, t_parser *parser,
 
 // bool			ft_cd(char *next_path);
 
-// void			ft_echo(char **args, unsigned int argc);
+void			ft_echo(char **command, unsigned int argc);
 
-// void			ft_env(t_environ *environ);
+void			ft_env(char **env);
 
-// void			ft_export(t_environ **environ, char **input, unsigned int nbr_of_cmd);
-// void			export_print(char *str);
-// void			export_swap_vars(char **str1, char **str2);
-// char			**export_copy_arr(t_environ *environ);
-// void			export_lstadd_last(t_environ **environ, char *input);
+void			ft_export(char ***env, char **input, unsigned int nbr_of_cmd);
+char			**export_copy_arr(char **env);
+void			export_swap_vars(char **str1, char **str2);
+void			export_print(char *str);
 
-// bool			ft_pwd();
+bool			ft_pwd();
 
-// void			ft_unset(t_environ **environ, char *input);
+void			ft_unset(char ***env, char **input, unsigned int nbr_of_cmd);
 
 #endif

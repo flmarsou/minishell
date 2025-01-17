@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 18:53:50 by andi              #+#    #+#             */
-/*   Updated: 2025/01/15 14:44:25 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/17 13:30:52 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,12 @@ static void	handle_infile(t_parser *parser, t_redir *redir)
 
 void	handle_fd(t_parser *parser, unsigned int group, t_redir *redir)
 {
-	count_redirs(parser, redir, group);
-	handle_infile(&parser[group], redir);
-	handle_outfile(&parser[group], redir);
+	if (parser[group].nbr_of_redirs > 0)
+	{
+		count_redirs(parser, redir, group);
+		handle_infile(&parser[group], redir);
+		handle_outfile(&parser[group], redir);
+	}
 	// int fd = dup(STDOUT_FILENO);
 	// dup2(redir->outfile[0], STDOUT_FILENO);
 	// puts("caca");

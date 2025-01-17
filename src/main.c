@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/17 14:31:51 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/17 15:25:15 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ int	main(int argc, char **argv, char **envp)
 	main_loop(&lexer, &parser, &env, &redir);
 	rl_clear_history();
 	write(STDOUT, "Exiting...\n", 11);
-	free_env(env);
+	free_env(&env);
 	return (0);
 }

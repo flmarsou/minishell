@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/01/17 14:57:58 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/17 15:31:24 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ bool	check_builtin(char **command, unsigned int nbr_of_cmd)
 	unsigned int	i;
 
 	i = 1;
+	if (nbr_of_cmd < 1)
+		return (false);
 	if (ft_strcmp(command[0], "export") && nbr_of_cmd - 1 > 0)
 		return (true);
 	else if (ft_strcmp(command[0], "unset") && nbr_of_cmd - 1 > 0)
@@ -33,6 +35,8 @@ void	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 	unsigned int	i;
 
 	i = 1;
+	if (nbr_of_cmd < 1)
+		return ;
 	// if (ft_strcmp(command[0], "cd"))
 	// 	ft_cd(command[i]);
 	if (ft_strcmp(command[0], "echo"))
@@ -134,6 +138,8 @@ void	exec(t_parser *parser, unsigned int groups, char ***env,
 				exec_builtin(parser[i].command, env,
 					parser[i].nbr_of_commands);
 				dup2(fd_in, STDIN);
+				free_parser(parser, groups);
+				free_env(env);
 				exit(0);
 			}
 		}

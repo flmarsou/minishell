@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/17 13:27:51 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/17 13:40:47 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,12 +162,12 @@ void			handle_command(t_lexer *lexer, t_parser *parser,
 //     Execution                                                              //
 //============================================================================//
 
-// void			handle_fd(t_parser *parser, unsigned int groups, t_redir *redir);
+void			handle_fd(t_parser *parser, unsigned int groups, t_redir *redir);
 
-// void			exec(t_parser *parser, unsigned int groups, t_environ **environ,
-// 					t_redir *redir);
+void			exec(t_parser *parser, unsigned int groups, char ***env,
+					t_redir *redir);
 
-// int				heredoc(char *limiter);
+int				heredoc(char *limiter);
 
 //============================================================================//
 //     Builtins                                                               //

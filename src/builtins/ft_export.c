@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:10:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/17 14:22:11 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:57:21 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	add_var(char ***env, char *str)
 	}
 	new_env[j] = ft_strdup(str);
 	new_env[j + 1] = NULL;
-	free_env(*env);
+	free_env(env);
 	*env = new_env;
 }
 

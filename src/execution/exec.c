@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/01/17 14:25:01 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/17 14:57:58 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 		ft_pwd();
 	else if (ft_strcmp(command[0], "unset"))
 			ft_unset(env, command, nbr_of_cmd);
-	// else if (ft_strcmp(command[0], "export"))
-	// 	ft_export(environ, command, nbr_of_cmd);
+	else if (ft_strcmp(command[0], "export"))
+		ft_export(env, command, nbr_of_cmd);
 	else if (ft_strcmp(command[0], "env"))
 		ft_env(*env);
-	// else if (ft_strcmp(command[0], "exit"))
-	// 	exit(0); // TODO: ft_exit
+	else if (ft_strcmp(command[0], "exit"))
+		exit(0); // TODO: ft_exit
 	else
 		// execve
 		execve("/bin/ls", command, NULL);

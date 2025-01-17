@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/17 14:28:22 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/17 14:56:29 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct s_parser
 // Free
 void			free_lexer(t_lexer *lexer);
 void			free_parser(t_parser *parser, unsigned int groups);
-void			free_env(char **env);
+void			free_env(char ***env);
 
 // Debug
 void			print_lexer(t_lexer lexer);

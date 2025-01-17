@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/16 15:50:50 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:31:51 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	main_loop(t_lexer *lexer, t_parser *parser, char ***env,
 		free(buffer);
 		if (parsing(lexer, &parser, *env, &groups))
 		{
-			ft_export(env, NULL, 1);
+			exec(parser, groups, env, redir);
 			free_parser(parser, groups);
 		}
 		free_lexer(lexer);

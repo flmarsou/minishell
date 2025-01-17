@@ -6,11 +6,26 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:00:15 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/24 15:20:55 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:37:54 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	handle_signal(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_exit_status = 130;
+		exit(130);
+	}
+}
+
+static void	ctrl_d(void)
+{
+	g_exit_status = 0;
+	exit(0);
+}
 
 static char	*heredoc_name(void)
 {
@@ -28,11 +43,17 @@ int	heredoc(char *limiter)
 {
 	int		fd;
 	char	*input;
+	char	*file_name;
 
-	fd = open(heredoc_name(), O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	file_name = heredoc_name();
+	fd = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	free(file_name);
+	signal(SIGINT, handle_signal);
 	while (1)
 	{
 		input = readline("heredoc > ");
+		if (!input)
+			ctrl_d();
 		if (ft_strcmp(input, limiter))
 		{
 			free(input);

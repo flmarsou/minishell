@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/17 14:23:10 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:25:13 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_parser
 	unsigned int	nbr_of_redirs;
 	t_tokens		*token;
 	char			**type;
+	int				fd[2];
 }	t_parser;
 
 //============================================================================//

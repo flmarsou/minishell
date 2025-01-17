@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/17 13:40:47 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/17 14:28:22 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,6 @@
 # define STDIN			0
 # define STDOUT			1
 # define PATH_MAX		4096
-
-// Colors
-# define RESET_COLOR	"\e[0m"
-# define ORANGE			"\e[38;2;255;165;0m"
 
 extern unsigned int		g_exit_status;
 
@@ -117,6 +113,9 @@ char			*ft_strdup(char *str);
 char			*ft_itoa(int nbr);
 char			*ft_strjoin(char *str1, char *str2);
 
+bool			ft_isalnum(char c);
+bool			ft_isalpha(char c);
+bool			ft_isdigit(char c);
 bool			ft_isprint(char c);
 bool			ft_isspace(char c);
 bool			ft_ismeta(char c);
@@ -180,9 +179,11 @@ void			ft_echo(char **command, unsigned int argc);
 void			ft_env(char **env);
 
 void			ft_export(char ***env, char **input, unsigned int nbr_of_cmd);
-char			**export_copy_arr(char **env);
+void			bubble_sort(char **env);
 void			export_swap_vars(char **str1, char **str2);
 void			export_print(char *str);
+bool			check_input(char *str);
+char			**export_copy_arr(char **env);
 
 bool			ft_pwd();
 

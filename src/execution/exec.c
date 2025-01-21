@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/01/17 15:31:24 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/21 12:41:29 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ void	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 	else if (ft_strcmp(command[0], "exit"))
 		exit(0); // TODO: ft_exit
 	else
-		// execve
-		execve("/bin/ls", command, NULL);
+		ft_execve(command, *env);
 	return ;
 }
 

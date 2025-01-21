@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/17 14:56:29 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/21 12:49:53 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ unsigned int	ft_strlen(char *str);
 //============================================================================//
 
 void			tokenizer(char *input, t_lexer *lexer);
+
 unsigned int	count_tokens(char *str);
 
 //============================================================================//
@@ -167,6 +168,8 @@ void			exec(t_parser *parser, unsigned int groups, char ***env,
 					t_redir *redir);
 
 int				heredoc(char *limiter);
+
+void			ft_execve(char **command, char **env);
 
 //============================================================================//
 //     Builtins                                                               //

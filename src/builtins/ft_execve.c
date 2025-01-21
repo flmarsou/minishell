@@ -6,13 +6,99 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:02:29 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/15 12:09:41 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:14:12 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	ft_execve(char **command, t_environ )
+static char	*get_var_path(char *str, unsigned int *i)
 {
-	
+	unsigned int		j;
+	char				*current_path;
+
+	j = 0;
+	current_path = malloc(sizeof(char) * 256);
+	while (str[*i])
+	{
+		if (str[*i] == ':')
+		{
+			(*i)++;
+			break ;
+		}
+		if (j < 255)
+		{
+			current_path[j] = str[*i];
+			j++;
+		}
+		(*i)++;
+	}
+	current_path[j] = '\0';
+	return (current_path);
+}
+
+static unsigned int	count_paths(char *str)
+{
+	unsigned int	nbr_of_paths;
+	unsigned int	i;
+
+	nbr_of_paths = 1;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ':')
+			nbr_of_paths++;
+		i++;
+	}
+	return (nbr_of_paths);
+}
+
+static char	*get_path_var(char **env)
+{
+	unsigned int	i;
+	char			*var;
+	bool			found_var;
+
+	i = 0;
+	found_var = false;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], "PATH=", 5))
+		{
+			var = env[i] + 5;
+			found_var = true;
+		}
+		i++;
+	}
+	if (!found_var)
+	{
+		ft_strerror("$PATH not found!");
+		return (NULL);
+	}
+	return (var);
+}
+
+void	ft_execve(char **command, char **env)
+{
+	char			*path_var;
+	unsigned int	nbr_of_paths;
+	char			*current_path;
+	unsigned int	index;
+
+	path_var = get_path_var(env);
+	if (!path_var)
+		return ;
+	nbr_of_paths = count_paths(path_var);
+	index = 0;
+	while (nbr_of_paths)
+	{
+		current_path = get_var_path(path_var, &index);
+		if (current_path)
+		{
+			// TODO: Check if command exists and give path to execve
+			printf("%s\n", current_path);
+			free(current_path);
+		}
+		nbr_of_paths--;
+	}
 }

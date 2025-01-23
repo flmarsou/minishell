@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:02:29 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/21 15:14:12 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:07:28 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,15 @@ static char	*get_var_path(char *str, unsigned int *i)
 			(*i)++;
 			break ;
 		}
-		if (j < 255)
+		if (j < 254)
 		{
 			current_path[j] = str[*i];
 			j++;
 		}
 		(*i)++;
 	}
-	current_path[j] = '\0';
+	current_path[j] = '/';
+	current_path[++j] = '\0';
 	return (current_path);
 }
 
@@ -84,6 +85,7 @@ void	ft_execve(char **command, char **env)
 	unsigned int	nbr_of_paths;
 	char			*current_path;
 	unsigned int	index;
+	char 			*full_path;
 
 	path_var = get_path_var(env);
 	if (!path_var)
@@ -95,9 +97,12 @@ void	ft_execve(char **command, char **env)
 		current_path = get_var_path(path_var, &index);
 		if (current_path)
 		{
-			// TODO: Check if command exists and give path to execve
-			printf("%s\n", current_path);
+			full_path = ft_strjoin(current_path, command[0]);
 			free(current_path);
+			if (access(full_path, F_OK) == 0)
+			{
+				execve(full_path, command, env);
+			}
 		}
 		nbr_of_paths--;
 	}

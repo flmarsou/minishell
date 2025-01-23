@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/17 15:25:15 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/23 10:54:34 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char **alloc_envp(char **envp)
 	return (env);
 }
 
-static void	handle_signal(int sig)
+void	handle_signal(int sig)
 {
 	if (sig == SIGINT)
 	{

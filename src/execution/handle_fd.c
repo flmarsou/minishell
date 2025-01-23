@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 18:53:50 by andi              #+#    #+#             */
-/*   Updated: 2025/01/17 13:30:52 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/23 11:40:59 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,38 +57,53 @@ static void	handle_outfile(t_parser *parser, t_redir *redir)
 	}
 }
 
-static void	handle_infile(t_parser *parser, t_redir *redir)
+static bool	handle_infile(t_parser *parser, t_redir *redir)
 {
 	unsigned int	i;
 	unsigned int	k;
+	bool			leave;
 
 	i = 0;
 	k = 0;
+	leave = true;
 	redir->infile = malloc(sizeof(int) * redir->nbr_of_infile);
 	while (i < redir->nbr_of_infile)
 	{
-		if (parser->token[i] == HEREDOC)
+		if (parser->token[i] == HEREDOC && leave)
 		{
-			redir->infile[k] = heredoc(parser->type[i]);
+			signal(SIGINT, SIG_IGN);
+			redir->infile[k] = heredoc(parser->type[i], &leave);
 			k++;
 		}
-		if (parser->token[i] == INPUT_REDIRECT)
+		if (parser->token[i] == INPUT_REDIRECT && leave)
 		{
 			redir->infile[k] = open(parser->type[i], O_RDONLY);
 			k++;
 		}
 		i++;
 	}
+	return (leave);
 }
 
-void	handle_fd(t_parser *parser, unsigned int group, t_redir *redir)
+bool	handle_fd(t_parser *parser, unsigned int groups, t_redir *redir)
 {
-	if (parser[group].nbr_of_redirs > 0)
+	unsigned int i;
+
+	i = 0;
+	while (i < groups)
 	{
-		count_redirs(parser, redir, group);
-		handle_infile(&parser[group], redir);
-		handle_outfile(&parser[group], redir);
+		if (parser[i].nbr_of_redirs > 0)
+		{
+			count_redirs(parser, redir, i);
+			if (redir->nbr_of_infile > 0)
+				if (!handle_infile(&parser[i], redir))
+					return(false);
+			if (redir->nbr_of_outfile > 0)
+				handle_outfile(&parser[i], redir);
+		}
+		i++;
 	}
+	return (true);
 	// int fd = dup(STDOUT_FILENO);
 	// dup2(redir->outfile[0], STDOUT_FILENO);
 	// puts("caca");

@@ -6,11 +6,39 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/01/17 15:31:24 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/23 12:29:07 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*heredoc_name(unsigned int i)
+{
+	char			*ret;
+	char			*itoa;
+
+	itoa = ft_itoa(i++);
+	ret = ft_strjoin(".heredoc_", itoa);
+	free(itoa);
+	return (ret);
+}
+
+static void	unlinker(t_redir *redir)
+{
+	static unsigned int	i = 1;
+	unsigned int		j;
+	char				*str;
+
+	j = 0;
+	i += redir->nbr_of_infile;
+	while (j < i)
+	{
+		str = heredoc_name(j);
+		unlink(str);
+		free(str);
+		j++;
+	}
+}
 
 bool	check_builtin(char **command, unsigned int nbr_of_cmd)
 {
@@ -44,7 +72,7 @@ void	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 	else if (ft_strcmp(command[0], "pwd"))
 		ft_pwd();
 	else if (ft_strcmp(command[0], "unset"))
-			ft_unset(env, command, nbr_of_cmd);
+		ft_unset(env, command, nbr_of_cmd);
 	else if (ft_strcmp(command[0], "export"))
 		ft_export(env, command, nbr_of_cmd);
 	else if (ft_strcmp(command[0], "env"))
@@ -53,7 +81,7 @@ void	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 		exit(0); // TODO: ft_exit
 	else
 		// execve
-		execve("/bin/ls", command, NULL);
+		puts("caca");
 	return ;
 }
 
@@ -79,10 +107,7 @@ void	do_infile(t_parser *parser, t_redir *redir, char ***env)
 	{
 		dup2(redir->infile[j], STDIN);
 		if (redir->nbr_of_outfile > 0)
-		{
 			do_outfile(parser, redir, env);
-			exec_builtin(parser->command, env, parser->nbr_of_commands);
-		}
 		close(redir->infile[j]);
 		j++;
 	}
@@ -93,14 +118,10 @@ void	do_exec(t_parser *parser, t_redir *redir, char ***env)
 	if (redir->nbr_of_infile > 0)
 		do_infile(parser, redir, env);
 	else if (redir->nbr_of_outfile > 0)
-	{
 		do_outfile(parser, redir, env);
-		exec_builtin(parser->command, env, parser->nbr_of_commands);
-	}
 }
 
-void	exec(t_parser *parser, unsigned int groups, char ***env,
-		t_redir *redir)
+void	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
 {
 	unsigned int	i;
 	pid_t			pid;
@@ -113,6 +134,15 @@ void	exec(t_parser *parser, unsigned int groups, char ***env,
 	redir->nbr_of_infile = 0;
 	fd_in = dup(STDIN);
 	fd_out = dup(STDOUT);
+	if (!handle_fd(parser, groups, redir))
+	{
+		if (redir->nbr_of_infile > 0)
+			free(redir->infile);
+		if (redir->nbr_of_outfile > 0)
+			free(redir->outfile);
+		unlinker(redir);
+		return ;
+	}
 	while (i < groups)
 	{
 		if (i == 0 && check_builtin(parser[i].command,
@@ -131,12 +161,12 @@ void	exec(t_parser *parser, unsigned int groups, char ***env,
 					dup2(parser[i - 1].fd[0], STDIN);
 				}
 				close(parser[i].fd[0]);
-				handle_fd(parser, i, redir);
 				do_exec(&parser[i], redir, env);
 				if (i < groups - 1)
 					dup2(parser[i].fd[1], STDOUT);
-				exec_builtin(parser[i].command, env,
-					parser[i].nbr_of_commands);
+				if (parser[i].nbr_of_commands > 0)
+					exec_builtin(parser[i].command, env,
+						parser[i].nbr_of_commands);
 				dup2(fd_in, STDIN);
 				free_parser(parser, groups);
 				free_env(env);
@@ -149,12 +179,12 @@ void	exec(t_parser *parser, unsigned int groups, char ***env,
 	{
 		i = 0;
 		waitpid(pid, &status, 0);
-		while (i < groups - 1)
-		{
-			close(parser[i].fd[0]);
-			close(parser[i].fd[1]);
-			i++;
-		}
+		g_exit_status = status / 256;
 		dup2(fd_out, STDOUT);
+		if (redir->nbr_of_infile > 0)
+			free(redir->infile);
+		if (redir->nbr_of_outfile > 0)
+			free(redir->outfile);
+		unlinker(redir);
 	}
 }

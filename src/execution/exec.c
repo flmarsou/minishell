@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/01/23 12:29:07 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/23 12:38:34 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 	else
 		// execve
 		puts("caca");
+		// ft_execve(command, *env);
 	return ;
 }
 

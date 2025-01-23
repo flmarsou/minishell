@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/23 12:36:13 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/23 12:37:51 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ unsigned int	ft_strlen(char *str);
 //============================================================================//
 
 void			tokenizer(char *input, t_lexer *lexer);
+
 unsigned int	count_tokens(char *str);
 
 //============================================================================//
@@ -171,6 +172,8 @@ int				heredoc(char *limiter, bool *leave);
 
 
 void			handle_signal(int sig);
+
+void			ft_execve(char **command, char **env);
 
 //============================================================================//
 //     Builtins                                                               //

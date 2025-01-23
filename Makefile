@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+         #
+#    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2025/01/17 14:28:40 by anvacca          ###   ########.fr        #
+#    Updated: 2025/01/21 12:28:39 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,12 +64,13 @@ SRC_EXEC	:=	exec.c \
 
 SRC_CMD		:=	ft_echo.c \
 				ft_env.c \
-				ft_pwd.c \
-				ft_unset.c \
+				ft_execve.c \
 				ft_export.c \
 				ft_export_utils.c \
+				ft_pwd.c \
+				ft_unset.c \
 
-SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_LEXER} ${SRC_PARSER} ${SRC_CMD} ${SRC_EXEC}
+SOURCES		:=	${SRC} ${SRC_UTILS} ${SRC_LEXER} ${SRC_PARSER} ${SRC_EXEC} ${SRC_CMD}
 OBJ_DIR		:=	obj
 OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 

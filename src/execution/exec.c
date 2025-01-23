@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/01/23 12:38:34 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/23 13:14:46 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,17 +135,17 @@ void	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
 	redir->nbr_of_infile = 0;
 	fd_in = dup(STDIN);
 	fd_out = dup(STDOUT);
-	if (!handle_fd(parser, groups, redir))
-	{
-		if (redir->nbr_of_infile > 0)
-			free(redir->infile);
-		if (redir->nbr_of_outfile > 0)
-			free(redir->outfile);
-		unlinker(redir);
-		return ;
-	}
 	while (i < groups)
 	{
+		if (!handle_fd(parser, i, redir))
+		{
+			if (redir->nbr_of_infile > 0)
+				free(redir->infile);
+			if (redir->nbr_of_outfile > 0)
+				free(redir->outfile);
+			unlinker(redir);
+			return ;
+		}
 		if (i == 0 && check_builtin(parser[i].command,
 				parser[i].nbr_of_commands))
 			exec_builtin(parser[i].command, env, parser[i].nbr_of_commands);

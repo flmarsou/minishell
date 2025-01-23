@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 18:53:50 by andi              #+#    #+#             */
-/*   Updated: 2025/01/23 11:40:59 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/23 13:51:30 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,26 @@ static bool	handle_infile(t_parser *parser, t_redir *redir)
 	return (leave);
 }
 
-bool	handle_fd(t_parser *parser, unsigned int groups, t_redir *redir)
+bool	handle_fd(t_parser *parser, unsigned int i, t_redir *redir)
 {
-	unsigned int i;
 
-	i = 0;
-	while (i < groups)
+	if (i > 0)
 	{
-		if (parser[i].nbr_of_redirs > 0)
-		{
-			count_redirs(parser, redir, i);
-			if (redir->nbr_of_infile > 0)
-				if (!handle_infile(&parser[i], redir))
-					return(false);
-			if (redir->nbr_of_outfile > 0)
-				handle_outfile(&parser[i], redir);
-		}
-		i++;
+		if (redir->nbr_of_infile > 0)
+			free(redir->infile);
+		if (redir->nbr_of_outfile > 0)
+			free(redir->outfile);
 	}
+	if (parser[i].nbr_of_redirs > 0)
+	{
+		count_redirs(parser, redir, i);
+		if (redir->nbr_of_infile > 0)
+			if (!handle_infile(&parser[i], redir))
+				return(false);
+		if (redir->nbr_of_outfile > 0)
+			handle_outfile(&parser[i], redir);
+	}
+	i++;
 	return (true);
 	// int fd = dup(STDOUT_FILENO);
 	// dup2(redir->outfile[0], STDOUT_FILENO);

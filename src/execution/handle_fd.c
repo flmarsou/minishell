@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 18:53:50 by andi              #+#    #+#             */
-/*   Updated: 2025/01/23 13:51:30 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/24 13:06:28 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ static bool	handle_infile(t_parser *parser, t_redir *redir)
 bool	handle_fd(t_parser *parser, unsigned int i, t_redir *redir)
 {
 
-	if (i > 0)
-	{
-		if (redir->nbr_of_infile > 0)
-			free(redir->infile);
-		if (redir->nbr_of_outfile > 0)
-			free(redir->outfile);
-	}
+	// if (i > 0)
+	// {
+	// 	if (redir->nbr_of_infile > 0)
+	// 		free(redir->infile);
+	// 	if (redir->nbr_of_outfile > 0)
+	// 		free(redir->outfile);
+	// }
 	if (parser[i].nbr_of_redirs > 0)
 	{
 		count_redirs(parser, redir, i);

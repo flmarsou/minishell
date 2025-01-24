@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/23 10:54:34 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/24 12:19:58 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	main(int argc, char **argv, char **envp)
 
 	env = alloc_envp(envp);
 	signal(SIGINT, handle_signal);
+	signal(SIGKILL, SIG_IGN);
 	main_loop(&lexer, &parser, &env, &redir);
 	rl_clear_history();
 	write(STDOUT, "Exiting...\n", 11);

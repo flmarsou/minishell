@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/01/24 13:21:30 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/29 13:45:35 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,31 @@
 
 static char	*heredoc_name(unsigned int i)
 {
-	char			*ret;
-	char			*itoa;
+	char	*ret;
+	char	*itoa;
 
 	itoa = ft_itoa(i++);
 	ret = ft_strjoin(".heredoc_", itoa);
 	free(itoa);
 	return (ret);
+}
+
+static void	count_redirs(t_parser *parser, t_redir *redir)
+{
+	unsigned int	i;
+
+	redir->nbr_of_outfile = 0;
+	redir->nbr_of_infile = 0;
+	i = 0;
+	while (i < parser->nbr_of_redirs)
+	{
+		if (parser->token[i] == OUTPUT_REDIRECT
+			|| parser->token[i] == APPEND_REDIRECT)
+			redir->nbr_of_outfile++;
+		if (parser->token[i] == INPUT_REDIRECT || parser->token[i] == HEREDOC)
+			redir->nbr_of_infile++;
+		i++;
+	}
 }
 
 static void	unlinker(t_redir *redir)
@@ -67,55 +85,104 @@ void	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 	return ;
 }
 
-void	do_outfile(t_parser *parser, t_redir *redir, char ***env)
+void	do_outfile(t_parser *parser, t_redir *redir)
 {
 	unsigned int	i;
+	int				fd;
 
 	i = 0;
 	while (i < redir->nbr_of_outfile)
 	{
-		dup2(redir->outfile[i], STDOUT);
-		close(redir->outfile[i]);
+		if (parser->token[i] == OUTPUT_REDIRECT)
+			fd = open(parser->type[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (parser->token[i] == APPEND_REDIRECT)
+			fd = open(parser->type[i], O_WRONLY | O_CREAT | O_APPEND, 0644);
+		dup2(fd, STDOUT);
+		close(fd);
 		i++;
 	}
 }
 
-void	do_infile(t_parser *parser, t_redir *redir, char ***env)
+static char	*handle_name(bool reset)
+{
+	static unsigned int	i = 1;
+	char				*ret;
+	char				*itoa;
+
+	if (reset == false)
+	{
+		i = 1;
+		return (NULL);
+	}
+	itoa = ft_itoa(i++);
+	ret = ft_strjoin(".heredoc_", itoa);
+	free(itoa);
+	return (ret);
+}
+
+static void	do_infile(t_parser *parser, t_redir *redir)
 {
 	unsigned int	j;
+	int				fd;
+	char			*name;
 
 	j = 0;
 	while (j < redir->nbr_of_infile)
 	{
-		dup2(redir->infile[j], STDIN);
+		if (parser->token[j] == HEREDOC)
+		{
+			name = handle_name(true);
+			fd = open(name, O_RDONLY);
+			free(name);
+		}
+		if (parser->token[j] == INPUT_REDIRECT)
+		{
+			fd = open(parser->type[j], O_RDONLY);
+		}
+		if (parser->nbr_of_commands > 0)
+			dup2(fd, STDIN);
 		if (redir->nbr_of_outfile > 0)
-			do_outfile(parser, redir, env);
-		close(redir->infile[j]);
+			do_outfile(parser, redir);
+		close(fd);
 		j++;
 	}
 }
 
-void	do_exec(t_parser *parser, t_redir *redir, char ***env)
+void	do_exec(t_parser *parser, t_redir *redir)
 {
-	printf("%d\n%d\n", redir->nbr_of_infile, redir->nbr_of_outfile);
-	if (redir->nbr_of_infile > 0)
-		do_infile(parser, redir, env);
-	else if (redir->nbr_of_outfile > 0)
-		do_outfile(parser, redir, env);
+	if (parser->nbr_of_redirs > 0)
+	{
+		count_redirs(parser, redir);
+		if (redir->nbr_of_infile > 0)
+		{
+			do_infile(parser, redir);
+		}
+		else if (redir->nbr_of_outfile > 0)
+			do_outfile(parser, redir);
+	}
 }
 
 void	handle_signal_child(int sig)
 {
 	if (sig == SIGINT)
 	{
+		rl_replace_line("", 0);
 		write(STDOUT, "\n", 1);
-		exit(0);
+		rl_redisplay();
 	}
+}
+
+void	handle_signal_child_kill(int sig)
+{
+	(void)sig;
+	rl_replace_line("", 0);
+	write(STDOUT, "Quit (core dumped)\n", 19);
+	rl_redisplay();
 }
 
 void	init_pipes(t_parser *parser, unsigned int groups)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	while (i < groups - 1)
@@ -125,9 +192,10 @@ void	init_pipes(t_parser *parser, unsigned int groups)
 	}
 }
 
-void	close_unused_pipes(t_parser *parser, unsigned int groups, unsigned int i)
+void	close_unused_pipes(t_parser *parser, unsigned int groups,
+		unsigned int i)
 {
-	unsigned int j;
+	unsigned int	j;
 
 	j = 0;
 	while (j < groups - 1)
@@ -143,7 +211,6 @@ void	close_unused_pipes(t_parser *parser, unsigned int groups, unsigned int i)
 		}
 		j++;
 	}
-
 }
 
 void	pipes(t_parser *parser, unsigned int groups, unsigned int i)
@@ -168,60 +235,83 @@ void	pipes(t_parser *parser, unsigned int groups, unsigned int i)
 	}
 }
 
+
+bool	do_heredoc(t_parser *parser, t_redir *redir, unsigned int groups)
+{
+	unsigned int	j;
+	unsigned int	i;
+	unsigned int	count;
+	bool			leave;
+
+	j = 0;
+	i = 0;
+	leave = true;
+	count = 1;
+	while (i < groups)
+	{
+		count_redirs(&parser[i], redir);
+		while (j < redir->nbr_of_infile)
+		{
+			if (parser[i].token[j] == HEREDOC)
+			{
+				signal(SIGINT, SIG_IGN);
+				heredoc(parser[i].type[j], &leave, count);
+				count++;
+				if (leave == false)
+					return (leave);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (leave);
+}
+
 void	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
 {
 	unsigned int	i;
-	pid_t			pid;
 	int				status;
 
 	i = 0;
 	redir->nbr_of_outfile = 0;
 	redir->nbr_of_infile = 0;
 	init_pipes(parser, groups);
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, handle_signal_child);
+	signal(SIGQUIT, handle_signal_child_kill);
+	if (do_heredoc(parser, redir, groups) == false)
+		return ;
 	while (i < groups)
 	{
-		if (!handle_fd(parser, i, redir))
+		parser[i].pid = fork();
+		if (parser[i].pid == 0)
 		{
-			if (redir->nbr_of_infile > 0)
-				free(redir->infile);
-			if (redir->nbr_of_outfile > 0)
-				free(redir->outfile);
-			unlinker(redir);
-			return ;
-		}
-		pid = fork();
-		if (pid == 0)
-		{
-			signal(SIGINT, handle_signal_child);
-			do_exec(&parser[i], redir, env);
 			if (groups > 1)
 			{
 				close_unused_pipes(parser, groups, i);
 				pipes(parser, groups, i);
 			}
+			do_exec(&parser[i], redir);
 			if (parser[i].nbr_of_commands > 0)
-				exec_builtin(parser[i].command, env,
-					parser[i].nbr_of_commands);
+				exec_builtin(parser[i].command, env, parser[i].nbr_of_commands);
+			exit(0);
+
 		}
 		i++;
 	}
-	if (pid > 0)
+	i = 0;
+	while (i < groups - 1)
 	{
-		i = 0;
-		while(i < groups - 1)
-		{
-			close(parser[i].fd[0]);
-			close(parser[i].fd[1]);
-			i++;
-		}
-		waitpid(pid, &status, 0);
-		signal(SIGINT, handle_signal);
-		g_exit_status = status / 256;
-		if (redir->nbr_of_infile > 0)
-			free(redir->infile);
-		if (redir->nbr_of_outfile > 0)
-			free(redir->outfile);
-		unlinker(redir);
+		close(parser[i].fd[0]);
+		close(parser[i].fd[1]);
+		i++;
 	}
+	i = 0;
+	while (i < groups - 1)
+	{
+		waitpid(parser[i].pid, &status, 0);
+		i++;
+	}
+	signal(SIGINT, handle_signal);
+	g_exit_status = status / 256;
+	unlinker(redir);
 }

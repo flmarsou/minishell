@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/23 12:37:51 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/29 13:44:47 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_parser
 	t_tokens		*token;
 	char			**type;
 	int				fd[2];
+	pid_t			pid;
 }	t_parser;
 
 //============================================================================//
@@ -162,13 +163,10 @@ void			handle_command(t_lexer *lexer, t_parser *parser,
 //     Execution                                                              //
 //============================================================================//
 
-bool			handle_fd(t_parser *parser, unsigned int groups,
-					t_redir *redir);
-
 void			exec(t_parser *parser, unsigned int groups, char ***env,
 					t_redir *redir);
 
-int				heredoc(char *limiter, bool *leave);
+void				heredoc(char *limiter, bool *leave, unsigned int count);
 
 
 void			handle_signal(int sig);

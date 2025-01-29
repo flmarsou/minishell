@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:00:15 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/23 12:25:36 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/01/29 12:57:01 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,18 @@ static void	handle_signal_h(int sig)
 	}
 }
 
-static char	*heredoc_name(void)
+static char	*heredoc_name(unsigned int count)
 {
-	static unsigned int	i = 1;
 	char				*ret;
 	char				*itoa;
 
-	itoa = ft_itoa(i++);
+	itoa = ft_itoa(count);
 	ret = ft_strjoin(".heredoc_", itoa);
 	free(itoa);
 	return (ret);
 }
 
-int	heredoc(char *limiter, bool *leave)
+void	heredoc(char *limiter, bool *leave, unsigned int count)
 {
 	int		fd;
 	char	*input;
@@ -41,7 +40,7 @@ int	heredoc(char *limiter, bool *leave)
 	pid_t	pid;
 	int		status;
 
-	file_name = heredoc_name();
+	file_name = heredoc_name(count);
 	fd = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	pid = fork();
 	if (pid == 0)
@@ -65,6 +64,7 @@ int	heredoc(char *limiter, bool *leave)
 			write(fd, "\n", 1);
 			free(input);
 		}
+		close(fd);
 		exit(0);
 	}
 	else
@@ -77,7 +77,5 @@ int	heredoc(char *limiter, bool *leave)
 			*leave = false;
 		}
 		free(file_name);
-    	return (fd);
 	}
-    return (fd);
 }

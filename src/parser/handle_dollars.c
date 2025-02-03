@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollars.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 14:13:08 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/16 13:50:11 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/03 14:55:11 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void	handle_dollars(t_lexer *lexer, char **env)
 			if (lexer->str[i] && lexer->token[i] == DOLLAR)
 				lexer->token[i] = WORD;
 		}
-		else if (lexer->token[i] == DOLLAR && lexer->token[i + 1] != WORD)
+		else if (lexer->token[i] == DOLLAR && (lexer->token[i + 1] != WORD
+				|| lexer->str[i + 1][0] == ' '))
 			lexer->token[i] = WORD;
 		else if (lexer->token[i] == DOLLAR && lexer->token[i + 1] == WORD
 			&& lexer->str[i + 1][0] == '?')

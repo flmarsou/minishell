@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/01/29 13:45:35 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:33:05 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 	else if (ft_strcmp(command[0], "exit"))
 		exit(0); // TODO: ft_exit
 	else
-		// execve
 		ft_execve(command, *env);
 	return ;
 }
@@ -293,8 +292,8 @@ void	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
 			do_exec(&parser[i], redir);
 			if (parser[i].nbr_of_commands > 0)
 				exec_builtin(parser[i].command, env, parser[i].nbr_of_commands);
+			free_parser(parser, groups);
 			exit(0);
-
 		}
 		i++;
 	}
@@ -306,7 +305,7 @@ void	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
 		i++;
 	}
 	i = 0;
-	while (i < groups - 1)
+	while (i < groups)
 	{
 		waitpid(parser[i].pid, &status, 0);
 		i++;

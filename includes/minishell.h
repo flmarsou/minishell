@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/29 13:44:47 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/03 14:48:05 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ unsigned int	count_tokens(char *str);
 bool			parsing(t_lexer *lexer, t_parser **parser, char **env,
 					unsigned int *groups);
 
+
 bool			handle_quotes_error(t_lexer lexer);
 
 void			handle_quotes(t_lexer *lexer);
@@ -166,7 +167,7 @@ void			handle_command(t_lexer *lexer, t_parser *parser,
 void			exec(t_parser *parser, unsigned int groups, char ***env,
 					t_redir *redir);
 
-void				heredoc(char *limiter, bool *leave, unsigned int count);
+void			heredoc(char *limiter, bool *leave, unsigned int count);
 
 
 void			handle_signal(int sig);

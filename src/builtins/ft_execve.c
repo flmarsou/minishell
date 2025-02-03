@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:02:29 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/23 14:07:28 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:29:17 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static char	*get_path_var(char **env)
 	if (!found_var)
 	{
 		ft_strerror("$PATH not found!");
-		return (NULL);
+		exit(0);
 	}
 	return (var);
 }
@@ -92,6 +92,8 @@ void	ft_execve(char **command, char **env)
 		return ;
 	nbr_of_paths = count_paths(path_var);
 	index = 0;
+	if (access(command[0], F_OK) == 0)
+		execve(command[0], command, env);
 	while (nbr_of_paths)
 	{
 		current_path = get_var_path(path_var, &index);
@@ -103,7 +105,9 @@ void	ft_execve(char **command, char **env)
 			{
 				execve(full_path, command, env);
 			}
+			free(full_path);
 		}
 		nbr_of_paths--;
 	}
+	printf("Command \"%s\" not found!\n", command[0]);
 }

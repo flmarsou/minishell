@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/03 15:33:05 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/04 10:10:10 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,32 @@ static void	unlinker(t_redir *redir)
 	}
 }
 
+/**
+ * - "ft_cd": Changes the current working directory.
+ *   Exit values:
+ *   - 0: Success
+ *   - 1: Failure (directory not found)
+ *
+ * - "ft_echo": Prints arguments to the standard output.
+ *   Exit values:
+ *   - 0: Success
+ *
+ * - "ft_pwd": Prints the current working directory.
+ *   Exit values:
+ *   - 0: Success
+ *   - 1: Failure (if getcwd fails)
+ *
+ * - "ft_exit": Exits the program.
+ *   Exit values:
+ *   - 0: Success
+ *   - 2: Invalid input
+ *   - 1-255: Valid input
+ *
+ * - "ft_execve": Non built-in command.
+ *   Exit values:
+ *   - 0: Success
+ *   - 127: Command not found or not executable
+ */
 void	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 {
 	unsigned int	i;
@@ -78,7 +104,7 @@ void	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 	else if (ft_strcmp(command[0], "env"))
 		ft_env(*env);
 	else if (ft_strcmp(command[0], "exit"))
-		exit(0); // TODO: ft_exit
+		ft_exit(command, nbr_of_cmd);
 	else
 		ft_execve(command, *env);
 	return ;

@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2025/02/04 09:46:13 by flmarsou         ###   ########.fr        #
+#    Updated: 2025/02/04 10:12:26 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRC_EXEC	:=	exec.c \
 SRC_CMD		:=	ft_echo.c \
 				ft_env.c \
 				ft_execve.c \
+				ft_exit.c \
 				ft_export.c \
 				ft_export_utils.c \
 				ft_pwd.c \

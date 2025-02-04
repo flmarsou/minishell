@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/04 09:46:18 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:14:20 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,6 @@ void			heredoc(char *limiter, bool *leave, unsigned int count);
 
 void			handle_signal(int sig);
 
-void			ft_execve(char **command, char **env);
 
 //============================================================================//
 //     Builtins                                                               //
@@ -178,9 +177,13 @@ void			ft_execve(char **command, char **env);
 
 // bool			ft_cd(char *next_path);
 
-void			ft_echo(char **command, unsigned int argc);
+void			ft_echo(char **command, unsigned int nbr_of_cmd);
 
 void			ft_env(char **env);
+
+void			ft_execve(char **command, char **env);
+
+void			ft_exit(char **command, unsigned int nbr_of_cmd);
 
 void			ft_export(char ***env, char **input, unsigned int nbr_of_cmd);
 void			bubble_sort(char **env);
@@ -189,8 +192,9 @@ void			export_print(char *str);
 bool			check_input(char *str);
 char			**export_copy_arr(char **env);
 
-bool			ft_pwd(void);
+void			ft_pwd(void);
 
 void			ft_unset(char ***env, char **input, unsigned int nbr_of_cmd);
+
 
 #endif

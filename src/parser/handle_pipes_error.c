@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 09:56:41 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/23 14:41:04 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/04 09:47:06 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	handle_pipes_error(t_lexer lexer)
 		if (lexer.token[i] == PIPE)
 		{
 			if (found_pipe)
-				return (ft_strerror("Syntax error, unexpected `|`"), false);
+				return (printf(ERR"Syntax error, unexpected `|`"), false);
 			found_pipe = true;
 		}
 		else if (lexer.token[i] == WORD)
@@ -32,6 +32,6 @@ bool	handle_pipes_error(t_lexer lexer)
 		i++;
 	}
 	if (found_pipe)
-		return (ft_strerror("Syntax error, unexpected `|`"), false);
+		return (printf(ERR"Syntax error, unexpected `|`"), false);
 	return (true);
 }

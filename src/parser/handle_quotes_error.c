@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:55:45 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/12/09 09:50:14 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/04 09:46:56 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ bool	handle_quotes_error(t_lexer lexer)
 		i++;
 	}
 	if (quote == SINGLE_QUOTE)
-		return (ft_strerror("Syntax error, unexpected `'`"), false);
+		return (printf(ERR"Syntax error, unexpected `'`"), false);
 	else if (quote == DOUBLE_QUOTE)
-		return (ft_strerror("Syntax error, unexpected `\"`"), false);
+		return (printf(ERR"Syntax error, unexpected `\"`"), false);
 	return (true);
 }

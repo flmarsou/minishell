@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/04 09:01:32 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/04 09:46:18 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define STDIN			0
 # define STDOUT			1
 # define PATH_MAX		4096
+# define ERR			"\e[1;31m[x] - Error: \e[1;97m"
 
 extern unsigned int		g_exit_status;
 
@@ -104,7 +105,6 @@ void			print_parser(t_parser *parser, unsigned int groups);
 //============================================================================//
 
 void			ft_perror(const unsigned int error);
-void			ft_strerror(const char *str);
 void			ft_putstr(char *str);
 
 char			*ft_strcpy(char *dest, char *src);

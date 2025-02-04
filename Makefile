@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2025/02/04 10:12:26 by flmarsou         ###   ########.fr        #
+#    Updated: 2025/02/04 11:39:21 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,8 @@ SRC_PARSER	:=	parsing.c \
 SRC_EXEC	:=	exec.c \
 				heredoc.c \
 
-SRC_CMD		:=	ft_echo.c \
+SRC_CMD		:=	ft_cd.c \
+				ft_echo.c \
 				ft_env.c \
 				ft_execve.c \
 				ft_exit.c \

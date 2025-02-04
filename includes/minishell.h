@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/04 10:14:20 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/04 11:39:09 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define STDOUT			1
 # define PATH_MAX		4096
 # define ERR			"\e[1;31m[x] - Error: \e[1;97m"
+# define SERR			"\e[1;31m[x] - Syntax Error: \e[1;97m"
 
 extern unsigned int		g_exit_status;
 
@@ -170,12 +171,11 @@ void			heredoc(char *limiter, bool *leave, unsigned int count);
 
 void			handle_signal(int sig);
 
-
 //============================================================================//
 //     Builtins                                                               //
 //============================================================================//
 
-// bool			ft_cd(char *next_path);
+void			ft_cd(char **command, unsigned int nbr_of_cmd);
 
 void			ft_echo(char **command, unsigned int nbr_of_cmd);
 
@@ -186,11 +186,10 @@ void			ft_execve(char **command, char **env);
 void			ft_exit(char **command, unsigned int nbr_of_cmd);
 
 void			ft_export(char ***env, char **input, unsigned int nbr_of_cmd);
-void			bubble_sort(char **env);
-void			export_swap_vars(char **str1, char **str2);
-void			export_print(char *str);
-bool			check_input(char *str);
-char			**export_copy_arr(char **env);
+char			**export_copy_arr(char **env);				// Copy
+void			bubble_sort(char **env);					// Sort
+void			export_swap_vars(char **str1, char **str2);	// Swap (for Sort)
+void			export_print(char *str);					// Print
 
 void			ft_pwd(void);
 

@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:02:29 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/04 09:03:28 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:54:54 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static char	*get_path_var(char **env)
 	}
 	if (!found_var)
 	{
-		ft_strerror("$PATH not found!");
+		printf(ERR"$PATH not found!");
 		exit(0);
 	}
 	return (var);
@@ -89,7 +89,11 @@ void	ft_execve(char **command, char **env)
 
 	path_var = get_path_var(env);
 	if (!path_var)
-		return ;
+	{
+		printf(ERR"No PATH found, cannot execute commands!\n");
+		exit(127);
+	}
+
 	nbr_of_paths = count_paths(path_var);
 	index = 0;
 	if (access(command[0], F_OK) == 0)
@@ -109,5 +113,6 @@ void	ft_execve(char **command, char **env)
 		}
 		nbr_of_paths--;
 	}
-	printf("Command \"%s\" not found!\n", command[0]);
+	printf(ERR"Command \"%s\" not found!\n", command[0]);
+	exit(127);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:46:15 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/06 14:58:29 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/04 10:59:07 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	alloc_commands(t_lexer *lexer, t_parser *parser,
 	{
 		parser[i].nbr_of_commands = count_commands(*lexer, false);
 		parser[i].command = malloc(sizeof(char *)
-				* (parser[i].nbr_of_commands));
+				* (parser[i].nbr_of_commands + 1));
 		i++;
 	}
 	count_commands(*lexer, true);
@@ -67,6 +67,8 @@ static void	found_command(t_lexer *lexer, t_parser *parser, unsigned int *i,
 		(*i)++;
 	parser->command[index] = ft_strdup(lexer->str[*i]);
 	index++;
+	if (index == parser->nbr_of_commands)
+		parser->command[index] = NULL;
 }
 
 void	handle_command(t_lexer *lexer, t_parser *parser, unsigned int groups)

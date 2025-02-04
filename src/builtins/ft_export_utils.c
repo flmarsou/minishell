@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:08:48 by anvacca           #+#    #+#             */
-/*   Updated: 2025/01/17 12:26:01 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/04 11:09:08 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,6 @@ void	bubble_sort(char **env)
 	while (sorted_tab[i])
 		export_print(sorted_tab[i++]);
 	free(sorted_tab);
-}
-
-bool	check_input(char *str)
-{
-	unsigned int	i;
-
-	if (!(ft_isalpha(str[0]) || str[0] == '_'))
-	{
-		printf("Syntax error, unexpected '%c' in \"%s\"\n", str[0], str);
-		return (false);
-	}
-	i = 0;
-	while (str[i] && str[i] != '=')
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-		{
-			printf("Syntax error, unexpected '%c' in \"%s\"\n", str[i], str);
-			return (false);
-		}
-		i++;
-	}
-	return (true);
 }
 
 void	export_print(char *str)

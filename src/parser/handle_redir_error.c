@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:26:14 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/04 09:48:46 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/04 11:08:18 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ bool	handle_redir_error(t_lexer lexer)
 		i++;
 	}
 	if (quote)
-		return (printf(ERR"Syntax error, unexpected redirection\n"), false);
+		return (printf(SERR"Unexpected redirection\n"), false);
 	return (true);
 }

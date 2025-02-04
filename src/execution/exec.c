@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/04 10:10:10 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/04 11:40:03 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,24 @@ static void	unlinker(t_redir *redir)
 }
 
 /**
+ * Parent Commands:
+ *
+ * - "ft_env": Prints all the environment variables.
+ *   Exit status:
+ *   - 0: Success
+ *
+ * - "ft_export": Adds an environment variable, or prints them in ASCII order.
+ *   Exit status:
+ *   - 0: Success
+ *   - 1: Syntax error
+ *
+ * - "ft_unset": Removes an environment variable.
+ *   Exit status:
+ *   - 0: Success
+ *
+ *
+ * Chilren Commands:
+ *
  * - "ft_cd": Changes the current working directory.
  *   Exit values:
  *   - 0: Success
@@ -91,9 +109,9 @@ void	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 	i = 1;
 	if (nbr_of_cmd < 1)
 		return ;
-	// if (ft_strcmp(command[0], "cd"))
-	// 	ft_cd(command[i]);
-	if (ft_strcmp(command[0], "echo"))
+	if (ft_strcmp(command[0], "cd"))
+		ft_cd(command, nbr_of_cmd);
+	else if (ft_strcmp(command[0], "echo"))
 		ft_echo(command, nbr_of_cmd);
 	else if (ft_strcmp(command[0], "pwd"))
 		ft_pwd();
@@ -163,6 +181,11 @@ static void	do_infile(t_parser *parser, t_redir *redir)
 		if (parser->token[j] == INPUT_REDIRECT)
 		{
 			fd = open(parser->type[j], O_RDONLY);
+			if (fd == -1)
+			{
+				printf(ERR"No such file or directory \"%s\"\n", parser->type[j]);
+				exit(1);
+			}
 		}
 		if (parser->nbr_of_commands > 0)
 			dup2(fd, STDIN);

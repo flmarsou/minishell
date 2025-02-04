@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:10:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/17 14:57:21 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/04 11:17:13 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,30 @@ static void	edit_env(char ***env, char *str)
 		i++;
 	}
 	add_var(env, str);
+}
+
+static bool	check_input(char *str)
+{
+	unsigned int	i;
+
+	if (!(ft_isalpha(str[0]) || str[0] == '_'))
+	{
+		printf(SERR"Unexpected '%c' in \"%s\"\n", str[0], str);
+		g_exit_status = 1;
+		return (false);
+	}
+	i = 0;
+	while (str[i] && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+		{
+			printf(SERR"Unexpected '%c' in \"%s\"\n", str[i], str);
+			g_exit_status = 1;
+			return (false);
+		}
+		i++;
+	}
+	return (true);
 }
 
 void	ft_export(char ***env, char **input, unsigned int nbr_of_cmd)

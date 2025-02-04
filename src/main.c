@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/29 13:30:35 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/04 09:02:45 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 unsigned int	g_exit_status = 0;
 
-#define _RESET "\001\e[0m\002"
-#define _COLOR "\001\e[1m\e[38;2;255;165;0m\002"
+#define _RESET	"\001\e[0m\002"
+#define _COLOR	"\001\e[1m\e[38;2;255;165;0m\002"
 
-static char **alloc_envp(char **envp)
+static char	**alloc_envp(char **envp)
 {
 	unsigned int	i;
 	char			**env;
@@ -53,7 +53,6 @@ static void	main_loop(t_lexer *lexer, t_parser *parser, char ***env,
 {
 	char			*buffer;
 	unsigned int	groups;
-	(void)redir;
 
 	while (true)
 	{
@@ -84,9 +83,9 @@ int	main(int argc, char **argv, char **envp)
 	t_parser	parser;
 	t_redir		redir;
 	char		**env;
+
 	(void)argc;
 	(void)argv;
-
 	env = alloc_envp(envp);
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);

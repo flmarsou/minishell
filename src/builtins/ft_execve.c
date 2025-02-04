@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:02:29 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/03 15:29:17 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/04 09:03:28 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_execve(char **command, char **env)
 	unsigned int	nbr_of_paths;
 	char			*current_path;
 	unsigned int	index;
-	char 			*full_path;
+	char			*full_path;
 
 	path_var = get_path_var(env);
 	if (!path_var)

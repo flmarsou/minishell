@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:55:53 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/16 09:48:14 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/04 09:00:35 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	count_quoted_words(t_lexer lexer, unsigned int i,
 	unsigned int *length, unsigned int *nbr_of_token)
 {
 	while (lexer.str[i] && (lexer.token[i] == WORD
-		|| lexer.token[i] == NA_VALUE))
+			|| lexer.token[i] == NA_VALUE))
 	{
 		*length += ft_strlen(lexer.str[i]);
 		(*nbr_of_token)++;

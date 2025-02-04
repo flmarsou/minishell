@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:00:15 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/29 12:57:01 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/04 09:31:56 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	heredoc(char *limiter, bool *leave, unsigned int count)
 	{
 		waitpid(pid, &status, 0);
 		signal(SIGINT, handle_signal);
-		if(status / 256 == 130)
+		if (status / 256 == 130)
 		{
 			unlink(file_name);
 			*leave = false;

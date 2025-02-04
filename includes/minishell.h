@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/03 14:48:05 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/04 09:01:32 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,6 @@ unsigned int	count_tokens(char *str);
 bool			parsing(t_lexer *lexer, t_parser **parser, char **env,
 					unsigned int *groups);
 
-
 bool			handle_quotes_error(t_lexer lexer);
 
 void			handle_quotes(t_lexer *lexer);
@@ -169,7 +168,6 @@ void			exec(t_parser *parser, unsigned int groups, char ***env,
 
 void			heredoc(char *limiter, bool *leave, unsigned int count);
 
-
 void			handle_signal(int sig);
 
 void			ft_execve(char **command, char **env);
@@ -191,7 +189,7 @@ void			export_print(char *str);
 bool			check_input(char *str);
 char			**export_copy_arr(char **env);
 
-bool			ft_pwd();
+bool			ft_pwd(void);
 
 void			ft_unset(char ***env, char **input, unsigned int nbr_of_cmd);
 

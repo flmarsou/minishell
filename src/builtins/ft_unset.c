@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:13:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/01/17 15:06:07 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/05 14:55:43 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	ft_unset(char ***env, char **input, unsigned int nbr_of_cmd)
 {
 	unsigned int	i;
 	unsigned int	j;
+	unsigned int	len_str;
+	unsigned int	len;
 
 	j = 1;
 	while (j < nbr_of_cmd)
@@ -56,7 +58,13 @@ void	ft_unset(char ***env, char **input, unsigned int nbr_of_cmd)
 		i = 0;
 		while ((*env)[i])
 		{
-			if (ft_strncmp((*env)[i], input[j], ft_strlen(input[j])))
+			len_str = 0;
+			len = 0;
+			while (input[j][len_str] && input[j][len_str] != '=')
+					len_str++;
+			while ((*env)[i][len] && (*env)[i][len] != '=')
+					len++;
+			if (ft_strncmp((*env)[i], input[j], len) && len == len_str)
 			{
 				remove_var(env, i);
 				break ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/05 11:17:14 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/05 12:56:11 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ void				pipes(t_parser *parser, unsigned int groups,
 //     Builtins                                                               //
 //============================================================================//
 
-void				ft_cd(char **command, unsigned int nbr_of_cmd);
+void				ft_cd(char **command, unsigned int nbr_of_cmd, char **env);
 
 void				ft_echo(char **command, unsigned int nbr_of_cmd);
 
@@ -203,10 +203,10 @@ void				ft_exit(char **command, unsigned int nbr_of_cmd);
 
 void				ft_export(char ***env, char **input,
 						unsigned int nbr_of_cmd);
-char	**export_copy_arr(char **env);              // Copy
-void	bubble_sort(char **env);                    // Sort
-void	export_swap_vars(char **str1, char **str2); // Swap (for Sort)
-void	export_print(char *str);                    // Print
+char				**export_copy_arr(char **env);              // Copy
+void				bubble_sort(char **env);                    // Sort
+void				export_swap_vars(char **str1, char **str2); // Swap (for Sort)
+void				export_print(char *str);                    // Print
 
 void				ft_pwd(void);
 

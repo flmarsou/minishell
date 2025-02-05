@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
+#    By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2025/02/04 11:39:21 by flmarsou         ###   ########.fr        #
+#    Updated: 2025/02/05 11:15:18 by anvacca          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,10 @@ SRC_PARSER	:=	parsing.c \
 				handle_command.c \
 
 SRC_EXEC	:=	exec.c \
+				handle_child_signals.c \
+				handle_heredoc.c \
+				handle_pipes.c \
+				handle_redirs.c \
 				heredoc.c \
 
 SRC_CMD		:=	ft_cd.c \

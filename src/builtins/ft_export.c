@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:10:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/04 11:17:13 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:35:06 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,18 @@ static void	edit_env(char ***env, char *str)
 {
 	unsigned int	len;
 	unsigned int	i;
+	unsigned int	len_str;
 
-	len = 0;
 	i = 0;
-	while (str[i] && str[i] != '=')
-	{
-		len++;
-		i++;
-	}
-	i = 0;
+	len_str = 0;
+	while (str[len_str] && str[len_str] != '=')
+			len_str++;
 	while ((*env)[i])
 	{
-		if (ft_strncmp((*env)[i], str, len))
+		len = 0;
+		while ((*env)[i][len] && (*env)[i][len] != '=')
+			len++;
+		if (ft_strncmp((*env)[i], str, len) && len == len_str)
 		{
 			free((*env)[i]);
 			(*env)[i] = ft_strdup(str);

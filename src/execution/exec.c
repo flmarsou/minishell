@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/05 11:13:35 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/05 13:56:16 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 	if (nbr_of_cmd < 1)
 		return ;
 	if (ft_strcmp(command[0], "cd"))
-		ft_cd(command, nbr_of_cmd);
+		ft_cd(command, nbr_of_cmd, *env);
 	else if (ft_strcmp(command[0], "echo"))
 		ft_echo(command, nbr_of_cmd);
 	else if (ft_strcmp(command[0], "pwd"))
@@ -108,17 +108,16 @@ void	do_exec(t_parser *parser, unsigned int groups, char ***env,
 	}
 }
 
-void	single_command(t_parser *parser, unsigned int groups, char ***env)
+bool	single_command(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
 {
 	unsigned int	i;
 
 	i = 0;
 	if (groups == 1)
 	{
-		if (parser[i].nbr_of_commands < 1)
-			return ;
+		do_redirs(&parser[i], redir);
 		if (ft_strcmp(parser[i].command[0], "cd"))
-			ft_cd(parser[i].command, parser[i].nbr_of_commands);
+			ft_cd(parser[i].command, parser[i].nbr_of_commands, *env);
 		else if (ft_strcmp(parser[i].command[0], "unset"))
 			ft_unset(env, parser[i].command, parser[i].nbr_of_commands);
 		else if (ft_strcmp(parser[i].command[0], "export"))
@@ -127,7 +126,15 @@ void	single_command(t_parser *parser, unsigned int groups, char ***env)
 			ft_env(*env);
 		else if (ft_strcmp(parser[i].command[0], "exit"))
 			ft_exit(parser[i].command, parser[i].nbr_of_commands);
+		else
+		{
+			unlinker(redir);
+			return(false);
+		}
+		unlinker(redir);
+		return(true);
 	}
+	return(false);
 }
 
 void	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
@@ -141,9 +148,9 @@ void	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
 	init_pipes(parser, groups);
 	signal(SIGINT, handle_signal_child);
 	signal(SIGQUIT, handle_signal_child_kill);
-	if (do_heredoc(parser, redir, groups) == false)
+	if (!do_heredoc(parser, redir, groups)\
+		|| single_command(parser, groups, env, redir))
 		return ;
-	single_command(parser, groups, env);
 	do_exec(parser, groups, env, redir);
 	close_unused_pipes(parser, groups, -1);
 	while (i < groups)

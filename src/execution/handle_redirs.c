@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:57:37 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/06 18:28:07 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/06 18:38:54 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	do_in_redir(t_parser *parser, int *fd, unsigned int j)
 	*fd = open(parser->type[j], O_RDONLY);
 	if (*fd == -1)
 	{
-		ft_putstr_fd(ERR "No such file or directory\n", 1);
+		ft_putstr_fd(ERR "No such file or directory\n", 2);
 		exit(1);
 	}
 	dup2(*fd, STDIN);

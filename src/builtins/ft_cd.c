@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:26:28 by andi              #+#    #+#             */
-/*   Updated: 2025/02/06 16:35:15 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/06 18:41:42 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,7 @@ bool	ft_cd(char **command, unsigned int nbr_of_cmd, char ***env)
 	home_var = get_home_var(*env);
 	modify_oldpwd(env);
 	if (nbr_of_cmd > 2)
-	{
-		printf(ERR"Too many arguments!\n");
-		return (1);
-	}
+		return (ft_putstr_fd(ERR"Too many arguments!\n", 2), 1);
 	if (!home_var)
 		return (1);
 	if (nbr_of_cmd == 1)

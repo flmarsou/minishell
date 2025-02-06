@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:02:29 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/06 16:45:20 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/06 18:09:21 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ static char	*get_path_var(char **env)
 	}
 	if (!found_var)
 	{
-		printf(ERR"$PATH not found!\n");
-		exit(1);
+		printf(ERR"Command not found!\n");
+		exit(127);
 	}
 	return (var);
 }

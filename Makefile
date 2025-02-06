@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+         #
+#    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2025/02/05 11:15:18 by anvacca          ###   ########.fr        #
+#    Updated: 2025/02/06 09:55:35 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_UTILS	:=	ft_isalnum.c \
 				ft_perror.c \
 				ft_strchr.c \
 				ft_putstr.c \
+				ft_strcat.c \
 				ft_strcmp.c \
 				ft_strcpy.c \
 				ft_strdup.c \

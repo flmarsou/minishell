@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/05 12:56:11 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:54:01 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@
 # endif
 
 // Shortcuts
-# define STDIN 0
-# define STDOUT 1
-# define PATH_MAX 4096
-# define ERR "\e[1;31m[x] - Error: \e[1;97m"
-# define SERR "\e[1;31m[x] - Syntax Error: \e[1;97m"
+# define STDIN	0
+# define STDOUT	1
+# define ERR	"\e[1;31m[x] - Error: \e[0m"
+# define SERR	"\e[1;31m[x] - Syntax Error: \e[0m"
+# define WARN	"\e[1;35m[!] - Warning: \e[0m"
 
 extern unsigned int	g_exit_status;
 
@@ -109,11 +109,12 @@ void				ft_perror(const unsigned int error);
 void				ft_putstr(char *str);
 
 char				*ft_strcpy(char *dest, char *src);
+char				*ft_strcat(char *dest, char *src);
 char				*ft_strncpy(char *dest, char *src, unsigned int size);
 char				*ft_strchr(char *str, char c);
 char				*ft_strdup(char *str);
-char				*ft_itoa(int nbr);
 char				*ft_strjoin(char *str1, char *str2);
+char				*ft_itoa(int nbr);
 
 bool				ft_isalnum(char c);
 bool				ft_isalpha(char c);
@@ -191,7 +192,7 @@ void				pipes(t_parser *parser, unsigned int groups,
 //     Builtins                                                               //
 //============================================================================//
 
-void				ft_cd(char **command, unsigned int nbr_of_cmd, char **env);
+void				ft_cd(char **command, unsigned int nbr_of_cmd, char ***env);
 
 void				ft_echo(char **command, unsigned int nbr_of_cmd);
 

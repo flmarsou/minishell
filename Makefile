@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
+#    By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2025/02/06 15:43:51 by flmarsou         ###   ########.fr        #
+#    Updated: 2025/02/06 16:29:43 by anvacca          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 
 # Variables
 CC			:=	cc
-CFLAGS		:=  -Iincludes -O2 -Wall -Wextra -fsanitize=address -g3
+CFLAGS		:=  -Iincludes -O2 -Wall -Wextra #-fsanitize=address -g3
 
 # Makefile
 all:		${EXE}

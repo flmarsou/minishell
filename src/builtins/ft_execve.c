@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:02:29 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/06 13:55:54 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:45:20 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void	ft_execve(char **command, char **env)
 {
 	char			*path_var;
 
+	if (access(command[0], F_OK) == 0)
+		execve(command[0], command, env);
 	path_var = get_path_var(env);
 	if (!path_var)
 	{

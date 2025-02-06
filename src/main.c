@@ -6,13 +6,11 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:45:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/04 09:02:45 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:54:36 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-unsigned int	g_exit_status = 0;
 
 #define _RESET	"\001\e[0m\002"
 #define _COLOR	"\001\e[1m\e[38;2;255;165;0m\002"
@@ -70,7 +68,7 @@ static void	main_loop(t_lexer *lexer, t_parser *parser, char ***env,
 		free(buffer);
 		if (parsing(lexer, &parser, *env, &groups))
 		{
-			exec(parser, groups, env, redir);
+			lexer->exit_status = exec(parser, groups, env, redir);
 			free_parser(parser, groups);
 		}
 		free_lexer(lexer);
@@ -86,6 +84,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	lexer.exit_status = 0;
 	env = alloc_envp(envp);
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
@@ -93,5 +92,5 @@ int	main(int argc, char **argv, char **envp)
 	rl_clear_history();
 	write(STDOUT, "Exiting...\n", 11);
 	free_env(&env);
-	return (0);
+	return (lexer.exit_status);
 }

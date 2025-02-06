@@ -6,13 +6,13 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:10:17 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/06 10:52:55 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:21:49 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool check_arg(char *str)
+static bool	check_arg(char *str)
 {
 	unsigned int	i;
 	unsigned int	len;

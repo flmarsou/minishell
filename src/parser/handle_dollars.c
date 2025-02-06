@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollars.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 14:13:08 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/03 14:55:11 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/06 13:09:10 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	handle_dollar_exit(t_lexer *lexer, unsigned int *i)
 
 	lexer->token[*i] = NA_VALUE;
 	(*i)++;
-	exit_status = ft_itoa(g_exit_status);
+	exit_status = ft_itoa(lexer->exit_status);
 	buffer = ft_strdup(lexer->str[*i]);
 	free(lexer->str[*i]);
 	lexer->str[*i] = ft_strjoin(exit_status, buffer + 1);

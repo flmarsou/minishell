@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:10:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/05 14:35:06 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:21:02 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	edit_env(char ***env, char *str)
 	i = 0;
 	len_str = 0;
 	while (str[len_str] && str[len_str] != '=')
-			len_str++;
+		len_str++;
 	while ((*env)[i])
 	{
 		len = 0;
@@ -69,7 +69,6 @@ static bool	check_input(char *str)
 	if (!(ft_isalpha(str[0]) || str[0] == '_'))
 	{
 		printf(SERR"Unexpected '%c' in \"%s\"\n", str[0], str);
-		g_exit_status = 1;
 		return (false);
 	}
 	i = 0;
@@ -78,7 +77,6 @@ static bool	check_input(char *str)
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
 			printf(SERR"Unexpected '%c' in \"%s\"\n", str[i], str);
-			g_exit_status = 1;
 			return (false);
 		}
 		i++;
@@ -86,22 +84,29 @@ static bool	check_input(char *str)
 	return (true);
 }
 
-void	ft_export(char ***env, char **input, unsigned int nbr_of_cmd)
+bool	ft_export(char ***env, char **input,
+			unsigned int nbr_of_cmd)
 {
 	unsigned int	i;
+	bool			ret;
 
 	i = 1;
+	ret = 0;
 	if (nbr_of_cmd == 1)
 	{
 		bubble_sort(*env);
-		return ;
+		return (0);
 	}
 	while (i < nbr_of_cmd)
 	{
 		if (!check_input(input[i]))
+		{
+			ret = 1;
 			i++;
+		}
 		else
 			edit_env(env, input[i]);
 		i++;
 	}
+	return (ret);
 }

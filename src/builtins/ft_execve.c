@@ -6,13 +6,13 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:02:29 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/06 11:37:29 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:55:54 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*get_var_path(char *str, unsigned int *i)
+static char	*get_next_path(char *str, unsigned int *i)
 {
 	unsigned int		j;
 	char				*current_path;
@@ -79,13 +79,33 @@ static char	*get_path_var(char **env)
 	return (var);
 }
 
+static void	find_exec(char *path_var, char **command, char **env)
+{
+	unsigned int	nbr_of_paths;
+	char			*current_path;
+	char			*full_path;
+	unsigned int	index;
+
+	index = 0;
+	nbr_of_paths = count_paths(path_var);
+	while (nbr_of_paths)
+	{
+		current_path = get_next_path(path_var, &index);
+		if (current_path)
+		{
+			full_path = ft_strjoin(current_path, command[0]);
+			free(current_path);
+			if (access(full_path, F_OK) == 0)
+				execve(full_path, command, env);
+			free(full_path);
+		}
+		nbr_of_paths--;
+	}
+}
+
 void	ft_execve(char **command, char **env)
 {
 	char			*path_var;
-	unsigned int	nbr_of_paths;
-	char			*current_path;
-	unsigned int	index;
-	char			*full_path;
 
 	path_var = get_path_var(env);
 	if (!path_var)
@@ -93,26 +113,9 @@ void	ft_execve(char **command, char **env)
 		printf(ERR"No PATH found, cannot execute commands!\n");
 		exit(127);
 	}
-
-	nbr_of_paths = count_paths(path_var);
-	index = 0;
 	if (access(command[0], F_OK) == 0)
 		execve(command[0], command, env);
-	while (nbr_of_paths)
-	{
-		current_path = get_var_path(path_var, &index);
-		if (current_path)
-		{
-			full_path = ft_strjoin(current_path, command[0]);
-			free(current_path);
-			if (access(full_path, F_OK) == 0)
-			{
-				execve(full_path, command, env);
-			}
-			free(full_path);
-		}
-		nbr_of_paths--;
-	}
+	find_exec(path_var, command, env);
 	printf(ERR"Command \"%s\" not found!\n", command[0]);
 	exit(127);
 }

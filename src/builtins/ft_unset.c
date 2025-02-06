@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:13:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/05 14:55:43 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:48:37 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,25 @@ static void	remove_var(char ***env, unsigned int index)
 	*env = new_env;
 }
 
+static bool	length_setter(char **env, char **input, unsigned int i,
+				unsigned int j)
+{
+	unsigned int	len_str;
+	unsigned int	len;
+
+	len_str = 0;
+	len = 0;
+	while (input[j][len_str] && input[j][len_str] != '=')
+		len_str++;
+	while (env[i][len] && env[i][len] != '=')
+		len++;
+	return (ft_strncmp(env[i], input[j], len) && len == len_str);
+}
+
 void	ft_unset(char ***env, char **input, unsigned int nbr_of_cmd)
 {
 	unsigned int	i;
 	unsigned int	j;
-	unsigned int	len_str;
-	unsigned int	len;
 
 	j = 1;
 	while (j < nbr_of_cmd)
@@ -58,13 +71,7 @@ void	ft_unset(char ***env, char **input, unsigned int nbr_of_cmd)
 		i = 0;
 		while ((*env)[i])
 		{
-			len_str = 0;
-			len = 0;
-			while (input[j][len_str] && input[j][len_str] != '=')
-					len_str++;
-			while ((*env)[i][len] && (*env)[i][len] != '=')
-					len++;
-			if (ft_strncmp((*env)[i], input[j], len) && len == len_str)
+			if (length_setter(*env, input, i, j))
 			{
 				remove_var(env, i);
 				break ;

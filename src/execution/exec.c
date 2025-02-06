@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/06 09:19:57 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:25:35 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,38 +56,38 @@
  *   - 0: Success
  *   - 127: Command not found or not executable
  */
-void	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
+static int	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 {
-	unsigned int	i;
+	int				ret;
 
-	i = 1;
-	if (nbr_of_cmd < 1)
-		return ;
+	ret = 0;
 	if (ft_strcmp(command[0], "cd"))
-		ft_cd(command, nbr_of_cmd, env);
+		ret = ft_cd(command, nbr_of_cmd, env);
 	else if (ft_strcmp(command[0], "echo"))
 		ft_echo(command, nbr_of_cmd);
 	else if (ft_strcmp(command[0], "pwd"))
-		ft_pwd();
+		ret = ft_pwd();
 	else if (ft_strcmp(command[0], "unset"))
 		ft_unset(env, command, nbr_of_cmd);
 	else if (ft_strcmp(command[0], "export"))
-		ft_export(env, command, nbr_of_cmd);
+		ret = ft_export(env, command, nbr_of_cmd);
 	else if (ft_strcmp(command[0], "env"))
 		ft_env(*env);
 	else if (ft_strcmp(command[0], "exit"))
 		ft_exit(command, nbr_of_cmd);
 	else
 		ft_execve(command, *env);
-	return ;
+	return (ret);
 }
 
 void	do_exec(t_parser *parser, unsigned int groups, char ***env,
 		t_redir *redir)
 {
 	unsigned int	i;
+	int				ret;
 
 	i = 0;
+	ret = 0;
 	while (i < groups)
 	{
 		parser[i].pid = fork();
@@ -100,44 +100,53 @@ void	do_exec(t_parser *parser, unsigned int groups, char ***env,
 			}
 			do_redirs(&parser[i], redir);
 			if (parser[i].nbr_of_commands > 0)
-				exec_builtin(parser[i].command, env, parser[i].nbr_of_commands);
+				ret = exec_builtin(parser[i].command,
+						env, parser[i].nbr_of_commands);
 			free_parser(parser, groups);
-			exit(0);
+			exit(ret);
 		}
 		i++;
 	}
 }
 
-bool	single_command(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
+void	is_single_builtin(t_parser *parser, t_redir *redir)
 {
-	unsigned int	i;
-
-	i = 0;
-	if (groups == 1)
-	{
-		do_redirs(&parser[i], redir);
-		if (ft_strcmp(parser[i].command[0], "cd"))
-			ft_cd(parser[i].command, parser[i].nbr_of_commands, env);
-		else if (ft_strcmp(parser[i].command[0], "unset"))
-			ft_unset(env, parser[i].command, parser[i].nbr_of_commands);
-		else if (ft_strcmp(parser[i].command[0], "export"))
-			ft_export(env, parser[i].command, parser[i].nbr_of_commands);
-		else if (ft_strcmp(parser[i].command[0], "env"))
-			ft_env(*env);
-		else if (ft_strcmp(parser[i].command[0], "exit"))
-			ft_exit(parser[i].command, parser[i].nbr_of_commands);
-		else
-		{
-			unlinker(redir);
-			return(false);
-		}
-		unlinker(redir);
-		return(true);
-	}
-	return(false);
+	if (ft_strcmp(parser[0].command[0], "cd")
+		|| ft_strcmp(parser[0].command[0], "unset")
+		|| ft_strcmp(parser[0].command[0], "export")
+		|| ft_strcmp(parser[0].command[0], "env")
+		|| ft_strcmp(parser[0].command[0], "exit"))
+		do_redirs(&parser[0], redir);
 }
 
-void	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
+static int	single_command(t_parser *parser, char ***env, t_redir *redir)
+{
+	int	ret;
+	int	fd_in;
+	int	fd_out;
+
+	ret = 0;
+	fd_in = dup(STDIN);
+	fd_out = dup(STDOUT);
+	is_single_builtin(parser, redir);
+	if (ft_strcmp(parser[0].command[0], "cd"))
+		ret = ft_cd(parser[0].command, parser[0].nbr_of_commands, env);
+	else if (ft_strcmp(parser[0].command[0], "unset"))
+		ft_unset(env, parser[0].command, parser[0].nbr_of_commands);
+	else if (ft_strcmp(parser[0].command[0], "export"))
+		ret = ft_export(env, parser[0].command, parser[0].nbr_of_commands);
+	else if (ft_strcmp(parser[0].command[0], "env"))
+		ft_env(*env);
+	else if (ft_strcmp(parser[0].command[0], "exit"))
+		ft_exit(parser[0].command, parser[0].nbr_of_commands);
+	else
+		return (false);
+	dup2(fd_in, STDIN);
+	dup2(fd_out, STDOUT);
+	return (unlinker(redir), true);
+}
+
+int	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
 {
 	unsigned int	i;
 	int				status;
@@ -148,9 +157,10 @@ void	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
 	init_pipes(parser, groups);
 	signal(SIGINT, handle_signal_child);
 	signal(SIGQUIT, handle_signal_child_kill);
-	if (!do_heredoc(parser, redir, groups)\
-		|| single_command(parser, groups, env, redir))
-		return ;
+	if (!do_heredoc(parser, redir, groups, *env))
+		return (130);
+	if (groups == 1 && single_command(parser, env, redir))
+		return (0);
 	do_exec(parser, groups, env, redir);
 	close_unused_pipes(parser, groups, -1);
 	while (i < groups)
@@ -159,6 +169,6 @@ void	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
 		i++;
 	}
 	signal(SIGINT, handle_signal);
-	g_exit_status = status / 256;
 	unlinker(redir);
+	return (status / 256);
 }

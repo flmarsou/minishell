@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/06 10:46:42 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:43:37 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,28 +45,27 @@
 # define SERR	"\e[1;31m[x] - Syntax Error: \e[0m"
 # define WARN	"\e[1;35m[!] - Warning: \e[0m"
 
-extern unsigned int	g_exit_status;
-
 typedef enum e_tokens
 {
-	SEPARATOR,       // Whitespace
-	WORD,            // Others
-	SINGLE_QUOTE,    // '
-	DOUBLE_QUOTE,    // "
-	PIPE,            // |
-	INPUT_REDIRECT,  // <
-	OUTPUT_REDIRECT, // >
-	HEREDOC,         // <<
-	APPEND_REDIRECT, // >>
-	DOLLAR,          // $
-	NA_VALUE,        // Equivalent to NULL
-	END,
+	SEPARATOR,			// Whitespace
+	WORD,				// Others
+	SINGLE_QUOTE,		// '
+	DOUBLE_QUOTE,		// "
+	PIPE,				// |
+	INPUT_REDIRECT,		// <
+	OUTPUT_REDIRECT,	// >
+	HEREDOC,			// <<
+	APPEND_REDIRECT,	// >>
+	DOLLAR,				// $
+	NA_VALUE,			// Equivalent to NULL
+	END
 }					t_tokens;
 
 typedef struct s_lexer
 {
 	char			**str;
 	t_tokens		*token;
+	int				exit_status;
 }					t_lexer;
 
 typedef struct s_redir
@@ -107,6 +106,7 @@ void				print_parser(t_parser *parser, unsigned int groups);
 
 void				ft_perror(const unsigned int error);
 void				ft_putstr(char *str);
+void				ft_putstr_fd(char *str, int fd);
 
 char				*ft_strcpy(char *dest, char *src);
 char				*ft_strcat(char *dest, char *src);
@@ -168,10 +168,11 @@ void				handle_command(t_lexer *lexer, t_parser *parser,
 //     Execution                                                              //
 //============================================================================//
 
-void				exec(t_parser *parser, unsigned int groups, char ***env,
+int					exec(t_parser *parser, unsigned int groups, char ***env,
 						t_redir *redir);
 
-void				heredoc(char *limiter, bool *leave, unsigned int count);
+void				heredoc(char *limiter, bool *leave, unsigned int count,
+						char **env);
 
 void				do_redirs(t_parser *parser, t_redir *redir);
 void				count_redir(t_parser *parser, t_redir *redir);
@@ -181,7 +182,8 @@ void				handle_signal_child(int sig);
 void				handle_signal_child_kill(int sig);
 
 bool				do_heredoc(t_parser *parser, t_redir *redir,
-						unsigned int groups);
+						unsigned int groups, char **env);
+void				handle_signal_h(int sig);
 void				unlinker(t_redir *redir);
 
 void				init_pipes(t_parser *parser, unsigned int groups);
@@ -194,7 +196,7 @@ void				pipes(t_parser *parser, unsigned int groups,
 //     Builtins                                                               //
 //============================================================================//
 
-void				ft_cd(char **command, unsigned int nbr_of_cmd, char ***env);
+bool				ft_cd(char **command, unsigned int nbr_of_cmd, char ***env);
 
 void				ft_echo(char **command, unsigned int nbr_of_cmd);
 
@@ -204,14 +206,14 @@ void				ft_execve(char **command, char **env);
 
 void				ft_exit(char **command, unsigned int nbr_of_cmd);
 
-void				ft_export(char ***env, char **input,
+bool				ft_export(char ***env, char **input,
 						unsigned int nbr_of_cmd);
-char				**export_copy_arr(char **env);              // Copy
-void				bubble_sort(char **env);                    // Sort
-void				export_swap_vars(char **str1, char **str2); // Swap (for Sort)
-void				export_print(char *str);                    // Print
+char				**export_copy_arr(char **env);				// Copy
+void				bubble_sort(char **env);					// Sort
+void				export_swap_vars(char **str1, char **str2);	// Swap
+void				export_print(char *str);					// Print
 
-void				ft_pwd(void);
+bool				ft_pwd(void);
 
 void				ft_unset(char ***env, char **input,
 						unsigned int nbr_of_cmd);

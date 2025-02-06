@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/06 16:51:20 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/06 18:29:22 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,13 +154,13 @@ int	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
 	redir->nbr_of_outfile = 0;
 	redir->nbr_of_infile = 0;
 	init_pipes(parser, groups);
+	signal(SIGQUIT, handle_signal_child_kill);
 	if (!do_heredoc(parser, redir, groups, *env))
 		return (130);
 	if (groups == 1 && parser[0].nbr_of_commands > 0 && single_command(parser,
 			env, redir))
 		return (0);
 	signal(SIGINT, handle_signal_child);
-	signal(SIGQUIT, handle_signal_child_kill);
 	do_exec(parser, groups, env, redir);
 	close_unused_pipes(parser, groups, -1);
 	while (i < groups)

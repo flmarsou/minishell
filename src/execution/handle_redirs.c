@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:57:37 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/05 11:25:30 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/06 18:28:07 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,18 @@ static char	*handle_name(bool reset)
 	return (ret);
 }
 
-void	do_outfile(t_parser *parser, t_redir *redir)
+void	do_outfile(t_parser *parser, unsigned int i)
 {
-	unsigned int	i;
 	int				fd;
 
-	i = 0;
-	while (i < redir->nbr_of_outfile)
+	if (parser->token[i] == OUTPUT_REDIRECT)
 	{
-		if (parser->token[i] == OUTPUT_REDIRECT)
-			fd = open(parser->type[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (parser->token[i] == APPEND_REDIRECT)
-			fd = open(parser->type[i], O_WRONLY | O_CREAT | O_APPEND, 0644);
-		dup2(fd, STDOUT);
-		close(fd);
-		i++;
+		fd = open(parser->type[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	}
+	if (parser->token[i] == APPEND_REDIRECT)
+		fd = open(parser->type[i], O_WRONLY | O_CREAT | O_APPEND, 0644);
+	dup2(fd, STDOUT);
+	close(fd);
 }
 
 void	do_in_redir(t_parser *parser, int *fd, unsigned int j)
@@ -52,47 +48,39 @@ void	do_in_redir(t_parser *parser, int *fd, unsigned int j)
 	*fd = open(parser->type[j], O_RDONLY);
 	if (*fd == -1)
 	{
-		printf(ERR "No such file or directory \"%s\"\n", parser->type[j]);
+		ft_putstr_fd(ERR "No such file or directory\n", 1);
 		exit(1);
 	}
+	dup2(*fd, STDIN);
+	close(*fd);
 }
 
-static void	do_infile(t_parser *parser, t_redir *redir)
+void	do_redirs(t_parser *parser, t_redir *redir)
 {
 	unsigned int	j;
 	int				fd;
 	char			*name;
 
 	j = 0;
-	while (j < redir->nbr_of_infile)
-	{
-		if (parser->token[j] == HEREDOC)
-		{
-			name = handle_name(true);
-			fd = open(name, O_RDONLY);
-			free(name);
-		}
-		if (parser->token[j] == INPUT_REDIRECT)
-			do_in_redir(parser, &fd, j);
-		if (parser->nbr_of_commands > 0)
-			dup2(fd, STDIN);
-		if (redir->nbr_of_outfile > 0)
-			do_outfile(parser, redir);
-		close(fd);
-		j++;
-	}
-}
-
-void	do_redirs(t_parser *parser, t_redir *redir)
-{
 	if (parser->nbr_of_redirs > 0)
 	{
 		count_redir(parser, redir);
-		if (redir->nbr_of_infile > 0)
+		while (j < parser->nbr_of_redirs)
 		{
-			do_infile(parser, redir);
+			if (parser->token[j] == HEREDOC)
+			{
+				name = handle_name(true);
+				fd = open(name, O_RDONLY);
+				free(name);
+				dup2(fd, STDIN);
+				close(fd);
+			}
+			if (parser->token[j] == INPUT_REDIRECT)
+				do_in_redir(parser, &fd, j);
+			if (redir->nbr_of_outfile > 0)
+				do_outfile(parser, j);
+			j++;
 		}
-		else if (redir->nbr_of_outfile > 0)
-			do_outfile(parser, redir);
 	}
+	
 }

@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2025/02/06 09:55:35 by flmarsou         ###   ########.fr        #
+#    Updated: 2025/02/06 10:46:52 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRC			:=	main.c \
 				free.c \
 				debug.c \
 
-SRC_UTILS	:=	ft_isalnum.c \
+SRC_UTILS	:=	ft_atol.c \
+				ft_isalnum.c \
 				ft_isalpha.c \
 				ft_isdigit.c \
 				ft_ismeta.c \

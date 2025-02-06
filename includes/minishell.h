@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/06 09:54:01 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/06 10:46:42 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ bool				ft_strcmp(char *str1, char *str2);
 bool				ft_strncmp(char *str1, char *str2, unsigned int size);
 
 unsigned int		ft_strlen(char *str);
+
+long				ft_atol(char *str);
 
 //============================================================================//
 //     Lexer                                                                  //

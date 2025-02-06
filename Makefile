@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2025/02/06 10:46:52 by flmarsou         ###   ########.fr        #
+#    Updated: 2025/02/06 15:43:51 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,9 @@ SRC_UTILS	:=	ft_atol.c \
 				ft_isspace.c \
 				ft_itoa.c \
 				ft_perror.c \
-				ft_strchr.c \
+				ft_putstr_fd.c \
 				ft_putstr.c \
+				ft_strchr.c \
 				ft_strcat.c \
 				ft_strcmp.c \
 				ft_strcpy.c \
@@ -65,6 +66,7 @@ SRC_EXEC	:=	exec.c \
 				handle_pipes.c \
 				handle_redirs.c \
 				heredoc.c \
+				heredoc_signal.c \
 
 SRC_CMD		:=	ft_cd.c \
 				ft_echo.c \

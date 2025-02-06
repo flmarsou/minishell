@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/05 13:56:16 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:19:57 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 	if (nbr_of_cmd < 1)
 		return ;
 	if (ft_strcmp(command[0], "cd"))
-		ft_cd(command, nbr_of_cmd, *env);
+		ft_cd(command, nbr_of_cmd, env);
 	else if (ft_strcmp(command[0], "echo"))
 		ft_echo(command, nbr_of_cmd);
 	else if (ft_strcmp(command[0], "pwd"))
@@ -117,7 +117,7 @@ bool	single_command(t_parser *parser, unsigned int groups, char ***env, t_redir 
 	{
 		do_redirs(&parser[i], redir);
 		if (ft_strcmp(parser[i].command[0], "cd"))
-			ft_cd(parser[i].command, parser[i].nbr_of_commands, *env);
+			ft_cd(parser[i].command, parser[i].nbr_of_commands, env);
 		else if (ft_strcmp(parser[i].command[0], "unset"))
 			ft_unset(env, parser[i].command, parser[i].nbr_of_commands);
 		else if (ft_strcmp(parser[i].command[0], "export"))

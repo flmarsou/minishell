@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:02:29 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/05 12:29:22 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:37:29 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static char	*get_path_var(char **env)
 	}
 	if (!found_var)
 	{
-		printf(ERR"$PATH not found!");
+		printf(ERR"$PATH not found!\n");
 		exit(1);
 	}
 	return (var);

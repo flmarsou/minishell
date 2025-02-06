@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:00:36 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/06 15:38:57 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:05:10 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ bool	do_heredoc(t_parser *parser, t_redir *redir, unsigned int groups,
 	unsigned int	count;
 	bool			leave;
 
-	j = -1;
 	i = -1;
 	leave = true;
 	count = 1;
 	while (++i < groups)
 	{
 		count_redir(&parser[i], redir);
+		j = -1;
 		while (++j < redir->nbr_of_infile)
 		{
 			if (parser[i].token[j] == HEREDOC)

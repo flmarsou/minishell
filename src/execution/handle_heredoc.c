@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:00:36 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/05 11:18:51 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/06 15:38:57 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	unlinker(t_redir *redir)
 	}
 }
 
-bool	do_heredoc(t_parser *parser, t_redir *redir, unsigned int groups)
+bool	do_heredoc(t_parser *parser, t_redir *redir, unsigned int groups,
+			char **env)
 {
 	unsigned int	j;
 	unsigned int	i;
@@ -77,7 +78,7 @@ bool	do_heredoc(t_parser *parser, t_redir *redir, unsigned int groups)
 			if (parser[i].token[j] == HEREDOC)
 			{
 				signal(SIGINT, SIG_IGN);
-				heredoc(parser[i].type[j], &leave, count);
+				heredoc(parser[i].type[j], &leave, count, env);
 				count++;
 				if (leave == false)
 					return (leave);

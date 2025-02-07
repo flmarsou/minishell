@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir_error.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:26:14 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/04 11:08:18 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:00:46 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ bool	handle_redir_error(t_lexer lexer)
 		i++;
 	}
 	if (quote)
-		return (printf(SERR"Unexpected redirection\n"), false);
+		return (ft_putstr_fd(SERR"Unexpected redirection\n", 2), false);
 	return (true);
 }

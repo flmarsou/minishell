@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:10:17 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/06 13:21:49 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/07 09:53:42 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	ft_exit(char **command, unsigned int nbr_of_cmd)
 	valid_arg = check_arg(command[1]);
 	if (!valid_arg)
 	{
-		printf(SERR"Numeric argument required!\n");
+		ft_putstr_fd(SERR"Numeric argument required!\n", 2);
 		exit(2);
 	}
 	else if (valid_arg && nbr_of_cmd == 2)
 		exit(ft_atol(command[1]) % 256);
-	printf(WARN"Too many arguments!\n");
+	ft_putstr_fd(WARN"Too many arguments!\n", 2);
 }

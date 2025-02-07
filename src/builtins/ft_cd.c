@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:26:28 by andi              #+#    #+#             */
-/*   Updated: 2025/02/06 18:41:42 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/07 09:53:20 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*get_home_var(char **env)
 	}
 	if (!found_var)
 	{
-		printf(ERR"$HOME not found!\n");
+		ft_putstr_fd(ERR"$HOME not found!\n", 2);
 		return (NULL);
 	}
 	return (var);
@@ -44,7 +44,7 @@ static char	*get_cwd(void)
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
-		printf(ERR"Failed to get current working directory!\n");
+		ft_putstr_fd(ERR"Failed to get current working directory!\n", 2);
 		return (NULL);
 	}
 	return (cwd);
@@ -74,7 +74,7 @@ static void	modify_pwd(char ***env)
 		}
 		i++;
 	}
-	printf(WARN"$PWD not found!\n");
+	ft_putstr_fd(WARN"$PWD not found!\n", 2);
 	free(cwd);
 }
 
@@ -102,7 +102,7 @@ static void	modify_oldpwd(char ***env)
 		}
 		i++;
 	}
-	printf(WARN"$OLDPWD not found!\n");
+	ft_putstr_fd(WARN"$OLDPWD not found!\n", 2);
 	free(cwd);
 }
 
@@ -125,7 +125,7 @@ bool	ft_cd(char **command, unsigned int nbr_of_cmd, char ***env)
 	{
 		if (chdir(command[1]) == -1)
 		{
-			printf(ERR"Not a directory!\n");
+			ft_putstr_fd(ERR"Not a directory!\n", 2);
 			return (1);
 		}
 		else

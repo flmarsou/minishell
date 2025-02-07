@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quotes_error.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:55:45 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/04 11:06:56 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:00:38 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ bool	handle_quotes_error(t_lexer lexer)
 		i++;
 	}
 	if (quote == SINGLE_QUOTE)
-		return (printf(SERR"Unexpected `'`\n"), false);
+		return (ft_putstr_fd(SERR"Unexpected `'`\n", 2), false);
 	else if (quote == DOUBLE_QUOTE)
-		return (printf(SERR"Unexpected `\"`\n"), false);
+		return (ft_putstr_fd(SERR"Unexpected `\"`\n", 2), false);
 	return (true);
 }

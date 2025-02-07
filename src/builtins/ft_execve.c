@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:02:29 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/06 18:09:21 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/07 09:52:05 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static char	*get_path_var(char **env)
 	}
 	if (!found_var)
 	{
-		printf(ERR"Command not found!\n");
+		ft_putstr_fd(ERR"Command not found!\n", 2);
 		exit(127);
 	}
 	return (var);
@@ -112,12 +112,14 @@ void	ft_execve(char **command, char **env)
 	path_var = get_path_var(env);
 	if (!path_var)
 	{
-		printf(ERR"No PATH found, cannot execute commands!\n");
+		ft_putstr_fd(ERR"No PATH found, cannot execute commands!\n", 2);
 		exit(127);
 	}
 	if (access(command[0], F_OK) == 0)
 		execve(command[0], command, env);
 	find_exec(path_var, command, env);
-	printf(ERR"Command \"%s\" not found!\n", command[0]);
+	ft_putstr_fd(ERR"Command \"", 2);
+	ft_putstr_fd(command[0], 2);
+	ft_putstr_fd("\"not found!", 2);
 	exit(127);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_pipes_error.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 09:56:41 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/04 11:07:05 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:00:27 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	handle_pipes_error(t_lexer lexer)
 		if (lexer.token[i] == PIPE)
 		{
 			if (found_pipe)
-				return (printf(SERR"Unexpected `|`\n"), false);
+				return (ft_putstr_fd(SERR"Unexpected `|`\n", 2), false);
 			found_pipe = true;
 		}
 		else if (lexer.token[i] == WORD)
@@ -32,6 +32,6 @@ bool	handle_pipes_error(t_lexer lexer)
 		i++;
 	}
 	if (found_pipe)
-		return (printf(SERR"Unexpected `|`\n"), false);
+		return (ft_putstr_fd(SERR"Unexpected `|`\n", 2), false);
 	return (true);
 }

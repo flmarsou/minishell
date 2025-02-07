@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:10:02 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/06 13:21:02 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/07 09:58:11 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,22 @@ static bool	check_input(char *str)
 
 	if (!(ft_isalpha(str[0]) || str[0] == '_'))
 	{
-		printf(SERR"Unexpected '%c' in \"%s\"\n", str[0], str);
-		return (false);
+		ft_putstr_fd(SERR"Unexpected '", 2);
+		write(2, &str[0], 1);
+		ft_putstr_fd("' in \"", 2);
+		ft_putstr_fd(str, 2);
+		return (ft_putstr_fd("\"\n", 2), false);
 	}
 	i = 0;
 	while (str[i] && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
-			printf(SERR"Unexpected '%c' in \"%s\"\n", str[i], str);
-			return (false);
+			ft_putstr_fd(SERR"Unexpected '", 2);
+			write(2, &str[i], 1);
+			ft_putstr_fd("' in \"", 2);
+			ft_putstr_fd(str, 2);
+			return (ft_putstr_fd("\"\n", 2), false);
 		}
 		i++;
 	}

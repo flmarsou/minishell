@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/07 10:33:09 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/07 12:12:52 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	do_exec(t_parser *parser, unsigned int groups, char ***env,
 				close_unused_pipes(parser, groups, i);
 				pipes(parser, groups, i);
 			}
-			do_redirs(&parser[i], redir);
+			do_redirs(&parser[i], redir, i + 1);
 			if (parser[i].nbr_of_commands > 0)
 				ret = exec_builtin(parser[i].command, env,
 						parser[i].nbr_of_commands);
@@ -115,7 +115,7 @@ void	is_single_builtin(t_parser *parser, t_redir *redir)
 			"unset") || ft_strcmp(parser[0].command[0], "export")
 		|| ft_strcmp(parser[0].command[0], "env")
 		|| ft_strcmp(parser[0].command[0], "exit"))
-		do_redirs(&parser[0], redir);
+		do_redirs(&parser[0], redir, 1);
 }
 
 static int	single_command(t_parser *parser, char ***env, t_redir *redir, int *status)
@@ -137,7 +137,7 @@ static int	single_command(t_parser *parser, char ***env, t_redir *redir, int *st
 	else if (ft_strcmp(parser[0].command[0], "exit"))
 		*status = ft_exit(parser[0].command, parser[0].nbr_of_commands);
 	else
-		return (*status);
+		return (666);
 	dup2(fd_in, STDIN);
 	dup2(fd_out, STDOUT);
 	return (unlinker(redir), *status);
@@ -157,7 +157,7 @@ int	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
 	if (!do_heredoc(parser, redir, groups, *env))
 		return (130);
 	if (groups == 1 && parser[0].nbr_of_commands > 0 && single_command(parser,
-			env, redir, &status))
+			env, redir, &status) != 666)
 		return (status);
 	signal(SIGINT, handle_signal_child);
 	do_exec(parser, groups, env, redir);

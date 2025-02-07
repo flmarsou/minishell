@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/07 10:23:52 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/07 12:10:03 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ int					exec(t_parser *parser, unsigned int groups, char ***env,
 void				heredoc(char *limiter, bool *leave, unsigned int count,
 						char **env);
 
-void				do_redirs(t_parser *parser, t_redir *redir);
+void				do_redirs(t_parser *parser, t_redir *redir, unsigned int i);
 void				count_redir(t_parser *parser, t_redir *redir);
 
 void				handle_signal(int sig);

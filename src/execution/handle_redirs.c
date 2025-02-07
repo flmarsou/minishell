@@ -6,24 +6,18 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:57:37 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/07 10:20:02 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/07 12:17:45 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*handle_name(bool reset)
+static char	*handle_name(unsigned int group)
 {
-	static unsigned int	i = 1;
 	char				*ret;
 	char				*itoa;
 
-	if (reset == false)
-	{
-		i = 1;
-		return (NULL);
-	}
-	itoa = ft_itoa(i++);
+	itoa = ft_itoa(group);
 	ret = ft_strjoin(".heredoc_", itoa);
 	free(itoa);
 	return (ret);
@@ -67,7 +61,7 @@ void	do_in_redir(t_parser *parser, int *fd, unsigned int j)
 	close(*fd);
 }
 
-void	do_redirs(t_parser *parser, t_redir *redir)
+void	do_redirs(t_parser *parser, t_redir *redir, unsigned int group)
 {
 	unsigned int	j;
 	int				fd;
@@ -81,7 +75,7 @@ void	do_redirs(t_parser *parser, t_redir *redir)
 		{
 			if (parser->token[j] == HEREDOC)
 			{
-				name = handle_name(true);
+				name = handle_name(group);
 				fd = open(name, O_RDONLY);
 				free(name);
 				dup2(fd, STDIN);

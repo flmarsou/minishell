@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:02:29 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/07 10:11:11 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/07 11:44:52 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ static void	find_exec(char *path_var, char **command, char **env)
 void	ft_execve(char **command, char **env)
 {
 	char			*path_var;
+	int fd;
 
 	if (access(command[0], F_OK) == 0)
 		execve(command[0], command, env);
@@ -118,8 +119,14 @@ void	ft_execve(char **command, char **env)
 	if (access(command[0], F_OK) == 0)
 		execve(command[0], command, env);
 	find_exec(path_var, command, env);
-	ft_putstr_fd(ERR"Command \"", 2);
-	ft_putstr_fd(command[0], 2);
-	ft_putstr_fd("\" not found!", 2);
-	exit(127);
+	fd = open(command[0], __O_DIRECTORY);
+	if (fd == -1)
+	{
+		ft_putstr_fd(ERR"Command \"", 2);
+		ft_putstr_fd(command[0], 2);
+		ft_putstr_fd("\" not found!\n", 2);
+		exit(127);
+	}
+	ft_putstr_fd(ERR"Is a directory!\n", 2);
+	exit(126);
 }

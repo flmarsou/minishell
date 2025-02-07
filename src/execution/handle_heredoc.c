@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:00:36 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/06 18:05:10 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/07 12:15:54 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ bool	do_heredoc(t_parser *parser, t_redir *redir, unsigned int groups,
 			{
 				signal(SIGINT, SIG_IGN);
 				heredoc(parser[i].type[j], &leave, count, env);
-				count++;
 				if (leave == false)
 					return (leave);
 			}

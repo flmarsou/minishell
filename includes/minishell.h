@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/06 15:43:37 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:23:52 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ void				ft_env(char **env);
 
 void				ft_execve(char **command, char **env);
 
-void				ft_exit(char **command, unsigned int nbr_of_cmd);
+bool				ft_exit(char **command, unsigned int nbr_of_cmd);
 
 bool				ft_export(char ***env, char **input,
 						unsigned int nbr_of_cmd);

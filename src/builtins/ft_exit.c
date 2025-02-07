@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:10:17 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/07 09:53:42 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/07 10:28:19 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static bool	check_arg(char *str)
 	return (false);
 }
 
-void	ft_exit(char **command, unsigned int nbr_of_cmd)
+bool	ft_exit(char **command, unsigned int nbr_of_cmd)
 {
 	bool	valid_arg;
 
@@ -53,4 +53,5 @@ void	ft_exit(char **command, unsigned int nbr_of_cmd)
 	else if (valid_arg && nbr_of_cmd == 2)
 		exit(ft_atol(command[1]) % 256);
 	ft_putstr_fd(WARN"Too many arguments!\n", 2);
+	return (1);
 }

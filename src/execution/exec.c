@@ -6,7 +6,7 @@
 /*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/06 18:29:22 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/07 10:33:09 by anvacca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,31 +118,29 @@ void	is_single_builtin(t_parser *parser, t_redir *redir)
 		do_redirs(&parser[0], redir);
 }
 
-static int	single_command(t_parser *parser, char ***env, t_redir *redir)
+static int	single_command(t_parser *parser, char ***env, t_redir *redir, int *status)
 {
-	int	ret;
 	int	fd_in;
 	int	fd_out;
 
-	ret = 0;
 	fd_in = dup(STDIN);
 	fd_out = dup(STDOUT);
 	is_single_builtin(parser, redir);
 	if (ft_strcmp(parser[0].command[0], "cd"))
-		ret = ft_cd(parser[0].command, parser[0].nbr_of_commands, env);
+		*status = ft_cd(parser[0].command, parser[0].nbr_of_commands, env);
 	else if (ft_strcmp(parser[0].command[0], "unset"))
 		ft_unset(env, parser[0].command, parser[0].nbr_of_commands);
 	else if (ft_strcmp(parser[0].command[0], "export"))
-		ret = ft_export(env, parser[0].command, parser[0].nbr_of_commands);
+		*status = ft_export(env, parser[0].command, parser[0].nbr_of_commands);
 	else if (ft_strcmp(parser[0].command[0], "env"))
 		ft_env(*env);
 	else if (ft_strcmp(parser[0].command[0], "exit"))
-		ft_exit(parser[0].command, parser[0].nbr_of_commands);
+		*status = ft_exit(parser[0].command, parser[0].nbr_of_commands);
 	else
-		return (false);
+		return (*status);
 	dup2(fd_in, STDIN);
 	dup2(fd_out, STDOUT);
-	return (unlinker(redir), true);
+	return (unlinker(redir), *status);
 }
 
 int	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
@@ -151,6 +149,7 @@ int	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
 	int				status;
 
 	i = 0;
+	status = 0;
 	redir->nbr_of_outfile = 0;
 	redir->nbr_of_infile = 0;
 	init_pipes(parser, groups);
@@ -158,8 +157,8 @@ int	exec(t_parser *parser, unsigned int groups, char ***env, t_redir *redir)
 	if (!do_heredoc(parser, redir, groups, *env))
 		return (130);
 	if (groups == 1 && parser[0].nbr_of_commands > 0 && single_command(parser,
-			env, redir))
-		return (0);
+			env, redir, &status))
+		return (status);
 	signal(SIGINT, handle_signal_child);
 	do_exec(parser, groups, env, redir);
 	close_unused_pipes(parser, groups, -1);

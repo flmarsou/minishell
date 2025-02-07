@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:57:37 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/06 18:38:54 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/07 09:04:53 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,4 @@ void	do_redirs(t_parser *parser, t_redir *redir)
 			j++;
 		}
 	}
-	
 }

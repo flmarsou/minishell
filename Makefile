@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+         #
+#    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 12:17:59 by flmarsou          #+#    #+#              #
-#    Updated: 2025/02/06 16:29:43 by anvacca          ###   ########.fr        #
+#    Updated: 2025/02/10 08:59:33 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,12 +50,12 @@ SRC_LEXER	:=	tokenizer.c \
 				count_tokens.c \
 
 SRC_PARSER	:=	parsing.c \
+				parser_utils.c \
 				handle_quotes_error.c \
 				handle_quotes.c \
 				handle_pipes_error.c \
 				handle_dollars.c \
 				handle_redir_error.c \
-				_realloc_token.c \
 				handle_words.c \
 				handle_redir.c \
 				handle_command.c \
@@ -84,7 +84,7 @@ OBJECTS		:=	${SOURCES:%.c=${OBJ_DIR}/%.o}
 
 # Variables
 CC			:=	cc
-CFLAGS		:=  -Iincludes -O2 -Wall -Wextra #-fsanitize=address -g3
+CFLAGS		:=  -Iincludes -O2 -Wall -Wextra -fsanitize=address -g3
 
 # Makefile
 all:		${EXE}

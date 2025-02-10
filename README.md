@@ -6,10 +6,19 @@
 ### Overview:
 - **Lexer:** Tokenizes the input string and stores the tokens in the lexer structure
   > [`tokenizer`](https://github.com/flmarsou/minishell/blob/main/src/parser/tokenizer.c) Processes the given input string character by character, identifying different types of enum tokens and stores them in the provided lexer structure for further processing.
-  - > **SEPARATOR** `Whitespace`, **WORD** `Others`, **SINGLE_QUOTE** `'`, **DOUBLE_QUOTE** `"`, **PIPE** `|`, **INPUT_REDIRECT** `<`, **OUTPUT_REDIRECT** `>`, **HEREDOC** `<<`, **APPEND_REDIRECT** `>>`, **DOLLAR** `$`, **NA_VALUE** `Nullified token`
+  - > **SEPARATOR** `Whitespace`
+  - > **WORD** `Others`
+  - > **SINGLE_QUOTE** `'`
+  - > **DOUBLE_QUOTE** `"`
+  - > **PIPE** `|`
+  - > **INPUT_REDIRECT** `<`
+  - > **OUTPUT_REDIRECT** `>`
+  - > **HEREDOC** `<<`
+  - > **APPEND_REDIRECT** `>>`
+  - > **DOLLAR** `-`
+  - > **NA_VALUE**-`Nullified token--
 
-  > [`count_tokens`](https://github.com/flmarsou/minishell/blob/main/src/parser/count_tokens.c) Counts the number of tokens in a given string for allocation.
-
+  > [`count_token`](https://githubcom/flmarsou/minishell/blob/main/src/parser/count_tokens.c) Counts the number of tokens in a given string for allocation.
 
 - **Parser:** Parses the tokens from the lexer and builds the parser structure in the order below
   > [`handle_quotes_error`](https://github.com/flmarsou/minishell/blob/main/src/parser/handle_quotes_error.c) Checks if every opening quote has a matching closing quote.

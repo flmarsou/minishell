@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/07 12:10:03 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/10 09:44:15 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,6 @@ typedef struct s_lexer
 	int				exit_status;
 }					t_lexer;
 
-typedef struct s_redir
-{
-	int				*outfile;
-	int				*infile;
-	unsigned int	nbr_of_outfile;
-	unsigned int	nbr_of_infile;
-}					t_redir;
-
 typedef struct s_parser
 {
 	char			**command;
@@ -86,6 +78,14 @@ typedef struct s_parser
 	int				fd[2];
 	pid_t			pid;
 }					t_parser;
+
+typedef struct s_redir
+{
+	int				*outfile;
+	int				*infile;
+	unsigned int	nbr_of_outfile;
+	unsigned int	nbr_of_infile;
+}					t_redir;
 
 //============================================================================//
 //     Source                                                                 //
@@ -138,29 +138,102 @@ void				tokenizer(char *input, t_lexer *lexer);
 unsigned int		count_tokens(char *str);
 
 //============================================================================//
-//     Parser                                                                 //
+//     Parser Functions                                                       //
 //============================================================================//
 
+/**
+ * @brief Parses the tokens from the lexer and builds the parser structure.
+ * 
+ * @param lexer Lexer structure containing the tokenized input.
+ * @param parser Parser structures (array) to be populated with parsed data.
+ * @param env Environment variables to be used for variable expansion.
+ * @param groups Sets the number of groups for handling pipe-related commands.
+ * 
+ * @return True if parsing was successful, false otherwise.
+ */
 bool				parsing(t_lexer *lexer, t_parser **parser, char **env,
 						unsigned int *groups);
 
+/**
+ * Searches for a variable in the environment.
+ * 
+ * @return Value of the variable if found, NULL otherwise.
+ */
+char				*find_in_env(char *var, char **env);
+
+/**
+ * Swaps current token for `src`, and turns it to a WORD token.
+ */
+void				realloc_token(t_lexer *lexer, unsigned int y, char **src);
+
+/**
+ * Checks if every opening quote has a matching closing quote.
+ */
 bool				handle_quotes_error(t_lexer lexer);
 
+/**
+ * Processes tokens within quotes, converting them into WORD tokens,
+ * except for DOLLAR tokens inside SINGLE_QUOTE quotes which are handled later.
+ */
 void				handle_quotes(t_lexer *lexer);
 
+/**
+ * Checks if every PIPE tokens have a WORD token before and after themselves.
+ */
 bool				handle_pipes_error(t_lexer lexer);
 
+/**
+ * @brief Expands dollar-prefixed variables with the following rules:
+ * 
+ * - Dollar after a HEREDOC:
+ * 		No expansion is performed.
+ * 
+ * - Dollar followed by a WORD beginning with a digit:
+ * 		No expansion occurs, and the digit is removed.
+ * 
+ * - Dollar followed by a SEPARATOR:
+ * 		The DOLLAR token is turned into a WORD token.
+ * 
+ * - Dollar followed by a WORD beginning with '?':
+ * 		The question mark is expanded to the exit status.
+ * 
+ * - Dollar followed by a WORD:
+ * 		Attempts to expand the variable.
+ * 		If no match is found, the token is nullified.
+ */
 void				handle_dollars(t_lexer *lexer, char **env);
 
+/**
+ * Checks if redirection symbols (e.g., >, <) are followed by a WORD token.
+ */
 bool				handle_redir_error(t_lexer lexer);
 
-void				realloc_token(t_lexer *lexer, unsigned int y,
-						char **buffer);
-
+/**
+ * @brief Merges WORD tokens within quotes and across token boundaries.
+ * 
+ * - Merges multiple consecutive WORD tokens inside quotes into one token.
+ * 
+ * - Merges adjacent WORD tokens that are not separated by
+ *   SEPARATOR or redirections.
+ */
 void				handle_words(t_lexer *lexer);
 
+/**
+ * @brief Processes redirection tokens and organizes them within the parser.
+ *
+ * Redirection tokens (e.g., >, <) are stored in the parser structure,
+ * grouping them according to their respective pipe group,
+ * nullifying the tokens once processed.
+ */
 void				handle_redir(t_lexer *lexer, t_parser *parser,
 						unsigned int groups);
+
+/**
+ * @brief Processes command tokens and organizes them within the parser.
+ *
+ * WORD tokens are stored in the parser structure,
+ * grouping them according to their respective pipe group.
+ */
 void				handle_command(t_lexer *lexer, t_parser *parser,
 						unsigned int groups);
 

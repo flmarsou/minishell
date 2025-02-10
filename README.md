@@ -15,8 +15,9 @@
   - > **OUTPUT_REDIRECT** `>`
   - > **HEREDOC** `<<`
   - > **APPEND_REDIRECT** `>>`
-  - > **DOLLAR** `-`
+  - > **DOLLAR** `$`
   - > **NA_VALUE** `Nullified token`
+  - > **END** `Terminator`
 
   > [`count_token`](https://githubcom/flmarsou/minishell/blob/main/src/parser/count_tokens.c) Counts the number of tokens in a given string for allocation.
 

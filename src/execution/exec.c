@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:39:22 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/07 12:12:52 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/10 09:41:00 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	exec_builtin(char **command, char ***env, unsigned int nbr_of_cmd)
 	return (ret);
 }
 
-void	do_exec(t_parser *parser, unsigned int groups, char ***env,
+static void	do_exec(t_parser *parser, unsigned int groups, char ***env,
 		t_redir *redir)
 {
 	unsigned int	i;
@@ -109,7 +109,7 @@ void	do_exec(t_parser *parser, unsigned int groups, char ***env,
 	}
 }
 
-void	is_single_builtin(t_parser *parser, t_redir *redir)
+static void	is_single_builtin(t_parser *parser, t_redir *redir)
 {
 	if (ft_strcmp(parser[0].command[0], "cd") || ft_strcmp(parser[0].command[0],
 			"unset") || ft_strcmp(parser[0].command[0], "export")
@@ -118,7 +118,8 @@ void	is_single_builtin(t_parser *parser, t_redir *redir)
 		do_redirs(&parser[0], redir, 1);
 }
 
-static int	single_command(t_parser *parser, char ***env, t_redir *redir, int *status)
+static int	single_command(t_parser *parser, char ***env, t_redir *redir,
+				int *status)
 {
 	int	fd_in;
 	int	fd_out;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:57:37 by anvacca           #+#    #+#             */
-/*   Updated: 2025/02/07 12:17:45 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/10 09:41:25 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	do_outfile(t_parser *parser, unsigned int i)
 	if (parser->token[i] == OUTPUT_REDIRECT)
 	{
 		fd = open(parser->type[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd == - 1)
+		if (fd == -1)
 		{
 			ft_putstr_fd(ERR "Permission denied!\n", 2);
 			exit(1);
@@ -39,7 +39,7 @@ void	do_outfile(t_parser *parser, unsigned int i)
 	if (parser->token[i] == APPEND_REDIRECT)
 	{
 		fd = open(parser->type[i], O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (fd == - 1)
+		if (fd == -1)
 		{
 			ft_putstr_fd(ERR "Permission denied!\n", 2);
 			exit(1);

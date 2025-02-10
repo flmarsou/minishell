@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvacca <anvacca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:02:29 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/07 11:44:52 by anvacca          ###   ########.fr       */
+/*   Updated: 2025/02/10 09:40:31 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ static void	find_exec(char *path_var, char **command, char **env)
 
 void	ft_execve(char **command, char **env)
 {
-	char			*path_var;
-	int fd;
+	char	*path_var;
+	int		fd;
 
 	if (access(command[0], F_OK) == 0)
 		execve(command[0], command, env);

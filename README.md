@@ -31,7 +31,7 @@
   > [`handle_dollars`](https://github.com/flmarsou/minishell/blob/main/src/parser/handle_dollars.c) Expands dollar-prefixed variables with the following rules:
   - > **Dollar after a HEREDOC:** *No expansion is performed*
   - > **Dollar followed by a WORD beginning with a digit:** *No expansion occurs, and the digit is removed*
-  - > **Dollar followed by a WORD beginning with a digit:** *The DOLLAR token is turned into a WORD token*
+  - > **Dollar followed by a SEPARATOR:** *The DOLLAR token is turned into a WORD token*
   - > **Dollar followed by a WORD beginning with '?':** *The question mark is expanded to the exit status*
   - > **Dollar followed by a WORD:** *Attempts to expand the variable*
 

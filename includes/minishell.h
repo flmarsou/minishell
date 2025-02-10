@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:17:11 by flmarsou          #+#    #+#             */
-/*   Updated: 2025/02/10 09:44:15 by flmarsou         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:40:40 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,22 @@ long				ft_atol(char *str);
 //     Lexer                                                                  //
 //============================================================================//
 
+/**
+ * @brief Tokenizes the input string and stores the tokens in the lexer.
+ * 
+ * Processes the given input string character by character,
+ * identifying different types of tokens (e.g., separators,
+ * quotes, pipes, redirections, ...) and stores them in the provided
+ * lexer structure for further processing.
+ * 
+ * @param input Input string to be tokenized.
+ * @param lexer Lexer structure where the tokens will be stored.
+ */
 void				tokenizer(char *input, t_lexer *lexer);
 
+/**
+ * Counts the number of tokens in a given string for allocation.
+ */
 unsigned int		count_tokens(char *str);
 
 //============================================================================//
